@@ -218,4 +218,6 @@ pip-log.txt
 #VM
 *.vmdk
 
-
+#Mongo DB
+*.0
+*.ns
