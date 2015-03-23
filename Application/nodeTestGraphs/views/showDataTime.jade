@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1.
+        Time List
+    ul
+        each entry, i in timeList
+            li
+                a(href="#{entry._id}")= entry._time
