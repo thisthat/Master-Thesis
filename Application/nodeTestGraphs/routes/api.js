@@ -27,10 +27,32 @@ router.get('/switch/:time', function( req, res ){
 });
 
 router.get('/switch/:time/:dpid/flow', function( req, res ){
-	var db = req.db;
+    var db = req.db;
     var time = parseInt(req.params.time);
-	var ID = req.params.dpid;
+    var ID = req.params.dpid;
     db.collection('SwitchFlowData').find({_time : time, DPID : ID}).toArray(function (err, items) {
+        res.json(items);
+    });
+});
+
+router.get('/switch/:dpid/ports/', function( req, res ){
+    var db = req.db;
+    var ID = req.params.dpid;
+    var ports = [];
+    var r = db.collection('SwitchPortData').group(["portNumber"],{"DPID" : "00:00:00:00:00:00:00:01"}, {}, 'function(curr,result){}', true, function(err, results) {
+        res.json(results);
+    });
+    
+
+});
+
+
+router.get('/switch/:dpid/port/:p', function( req, res ){
+    var db = req.db;
+    var port = req.params.p;
+    var ID = req.params.dpid;
+    var lim = 10;
+    db.collection('SwitchPortData').find({portNumber : port, DPID : ID}).sort({_time: -1}).limit( lim ).toArray(function (err, items) {
         res.json(items);
     });
 });

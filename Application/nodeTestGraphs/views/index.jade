@@ -1,16 +1,17 @@
 extends layout
 
 block content
-  h1= title
-    p Welcome to our test
-
-    // Wrapper
-    #wrapper
-
-        // USER LIST
-        h2 User List
-        #graphdiv
-
-
-    // /WRAPPER
-
+	h1= title
+	#wrapper
+		// Switch Usage 
+		#graphDiv
+			#loading_graph_switchByte
+				.jquery-modal.blocker
+				p#load.load Loading Graph..
+				.bubblingG
+					span#bubblingG_1
+					span#bubblingG_2
+					span#bubblingG_3
+		//Flow per Switch
+		#graphDivSwitchFlow
+		script(src='/javascripts/index.js')

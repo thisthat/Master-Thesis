@@ -9,8 +9,13 @@ var bodyParser = require('body-parser');
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/FloodLight", {native_parser:true});
 
+//routers
+// Routers -> Interface
+// API -> get data from the network
+// Graph -> render the Graphs 
 var routes = require('./routes/index');
-var users = require('./routes/api');
+var api = require('./routes/api');
+var graph = require('./routes/graph');
 
 var app = express();
 
@@ -34,7 +39,8 @@ app.use(function(req,res,next){
 });
 
 app.use('/', routes);
-app.use('/api', users);
+app.use('/api', api);
+app.use('/graph', graph);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

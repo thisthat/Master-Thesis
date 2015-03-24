@@ -154,10 +154,5 @@ function transformData(){
         }
         chart.addSeries({name : address, data: serie, pointStart: lastTime[lastTime.length - 1] * 1000});
 
-    }
-   
-    //series[0].setData(serie);
-    console.log(lastTime[lastTime.length - 1]);
-    //console.log(chart.series);
-    
+    }    
 }
