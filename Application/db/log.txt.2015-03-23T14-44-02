@@ -354,3 +354,20 @@
 2015-03-24T13:12:26.608+0100 I NETWORK  [conn167] end connection 127.0.0.1:5833 (5 connections now open)
 2015-03-24T13:12:26.608+0100 I NETWORK  [conn170] end connection 127.0.0.1:5836 (5 connections now open)
 2015-03-24T13:12:26.610+0100 I NETWORK  [conn20] end connection 127.0.0.1:4591 (0 connections now open)
+2015-03-24T15:00:36.953+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6492 #171 (1 connection now open)
+2015-03-24T15:00:43.865+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6515 #172 (2 connections now open)
+2015-03-24T15:00:43.877+0100 I NETWORK  [conn172] end connection 127.0.0.1:6515 (1 connection now open)
+2015-03-24T15:00:43.880+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6516 #173 (2 connections now open)
+2015-03-24T15:00:43.882+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6517 #174 (3 connections now open)
+2015-03-24T15:00:43.882+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6518 #175 (4 connections now open)
+2015-03-24T15:00:43.883+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6519 #176 (5 connections now open)
+2015-03-24T15:00:43.884+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:6520 #177 (6 connections now open)
+2015-03-24T16:04:55.065+0100 I NETWORK  [conn177] end connection 127.0.0.1:6520 (5 connections now open)
+2015-03-24T16:04:55.065+0100 I NETWORK  [conn175] end connection 127.0.0.1:6518 (4 connections now open)
+2015-03-24T16:04:55.066+0100 I NETWORK  [conn174] end connection 127.0.0.1:6517 (4 connections now open)
+2015-03-24T16:04:55.066+0100 I NETWORK  [conn173] end connection 127.0.0.1:6516 (3 connections now open)
+2015-03-24T16:04:55.066+0100 I NETWORK  [conn176] end connection 127.0.0.1:6519 (2 connections now open)
+2015-03-24T16:04:56.949+0100 I NETWORK  [conn171] end connection 127.0.0.1:6492 (0 connections now open)
+2015-03-25T01:13:08.324+0100 I STORAGE  [DataFileSync] flushing mmaps took 30765ms  for 4 files
+2015-03-25T02:36:47.520+0100 I STORAGE  [DataFileSync] flushing mmaps took 30070ms  for 4 files
+2015-03-25T03:50:57.137+0100 I STORAGE  [DataFileSync] flushing mmaps took 30073ms  for 4 files
