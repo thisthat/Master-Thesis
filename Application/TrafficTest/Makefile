@@ -13,8 +13,8 @@ all: compile run
 compile: main.o
 	$(CC) $(CCFLAGS) $(CPPFLAGS) $< -o $(NAME) $(QLIBC_EXT) $(QLIBC) 
 
-main.o: main.c 
-	$(CC) $(CCFLAGS) $(CPPFLAGS) -c $< 
+main.o: main.c main.h
+	$(CC) $(CCFLAGS) $(CPPFLAGS) -c $<
 
 
 clean:

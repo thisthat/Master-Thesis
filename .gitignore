@@ -221,4 +221,6 @@ pip-log.txt
 #Mongo DB
 *.0
 *.ns
-mongod.lock
+*mongod*
+*.lock
+Application/db/mongod.lock
