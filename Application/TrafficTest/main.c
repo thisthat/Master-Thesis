@@ -87,6 +87,11 @@ int main(int argc, char ** argv) {
 		server.sin_family = AF_INET;
 		server.sin_addr.s_addr = htonl(INADDR_ANY);
 		server.sin_port = htons(SERVER_PORT);
+		int yes = 1;
+		if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
+	        perror("Error set socket options");
+	        exit(2);
+	    }
 		if (bind(sock, (struct sockaddr *)&server, sizeof server) == -1) {
 			perror("Error to listening for client");
 			exit(2);
@@ -188,7 +193,7 @@ void wait_client(){
 	fprintf(stderr,"Client connected!\n");
 	while(true){
 		s = recv(s_client, &buffer, _size, 0);
-		fprintf(stderr,"Recv data %d!\n", s);
+		//fprintf(stderr,"Recv data %d!\n", s);
 		if(buffer[0]==-1) {
 			fprintf(stderr,"Close Signal\nGoodby :)\n");
 			exit(0);
@@ -199,18 +204,29 @@ void wait_client(){
 void send_data(){
 	char buffer[_size];
 	buffer[0] = 0;
-	qtokenbucket_t bucket;
-	qtokenbucket_init(&bucket, 500, 2*_size, 2*_size);
-	while (1) {
-		if (qtokenbucket_consume(&bucket, _size) == false) {
-			// Bucket is empty. Let's wait
-			usleep(qtokenbucket_waittime(&bucket, _size) * 1000);
-			continue;
+	int current = 0;
+	int init = 0;
+	int bucketSize;
+	for(int i = 0; i < bandwidth_length; i++){
+		//Set up the current step
+		bucketSize = atoi(bandwidth[i]) * 131072; //1024*1024/8
+		qtokenbucket_t bucket;
+		qtokenbucket_init(&bucket, _size, bucketSize, bucketSize);
+		current = init = (int)time(NULL);
+		fprintf(stderr,"[%d] Bandwidth: %sMb\n", i, bandwidth[i]);
+		while ( (current-init) < _time) {
+			if (qtokenbucket_consume(&bucket, _size) == false) {
+				// Bucket is empty. Let's wait
+				usleep(qtokenbucket_waittime(&bucket, _size) * 1000);
+				continue;
+			}
+			// Got a token. 
+			send(sock, &buffer, _size , 0);
+			current = (int)time(NULL);
 		}
-		// Got a token. Let's do something here.
-		//do_something();
-		send(sock, &buffer, _size , 0);
 	}
+	buffer[0] = -1;
+	send(sock, &buffer, _size , 0);
 }
 
 void catchExit(int nSign){
@@ -222,7 +238,7 @@ void catchExit(int nSign){
 			buffer[0] = -1;
 			send(sock, &buffer, sizeof(buffer) , 0);
 		}
-		shutdown(s_client,SHUT_RD);
+		shutdown(s_client,SHUT_RDWR);
 		shutdown(sock,SHUT_RDWR);
 		fprintf(stderr,"\n[DONE] Closing the connection\n");
 	}
