@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace API_Data_Collector
 {
+
     class Program
     {
         static string script_name = "grab_network_data.py";
@@ -15,13 +17,27 @@ namespace API_Data_Collector
         static string path = "";
         static void Main(string[] args)
         {
+            
+
             path = System.Reflection.Assembly.GetExecutingAssembly().Location;
             path = path.Substring(0, path.LastIndexOf("\\"));
+
+            var content = new StringBuilder(1024);
+            GetPrivateProfileString("CONFIG", "time", "60", content, 1024, path + "\\config.ini");
+
+            wait_time = Int32.Parse(content.ToString()) * 1000;
+            
             Thread t = new Thread(collectData);
             t.Start();
         }
 
-
+        //INI File
+        [DllImport("KERNEL32.DLL", EntryPoint = "GetPrivateProfileStringW",
+  SetLastError = true,
+  CharSet = CharSet.Unicode, ExactSpelling = true,
+  CallingConvention = CallingConvention.StdCall)]
+        private static extern int GetPrivateProfileString(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnString, int nSize, string lpFilename);
+        
         static void collectData()
         {
             while (true)

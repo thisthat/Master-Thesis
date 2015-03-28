@@ -1,3 +1,16 @@
-2015-03-24T15:00:36.902+0100 W -        [initandlisten] Detected unclean shutdown - C:\Users\this\Documents\Thesis\Application\db\mongod.lock is not empty.
-2015-03-24T15:00:36.905+0100 I STORAGE  [initandlisten] exception in initAndListen: 98 Unable to create/open lock file: C:\Users\this\Documents\Thesis\Application\db\mongod.lock errno:32 Impossibile accedere al file. Il file è utilizzato da un altro processo.. Is a mongod instance already running?, terminating
-2015-03-24T15:00:36.906+0100 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-03-27T21:42:42.068+0100 I CONTROL  Trying to start Windows service 'MongoDB'
+2015-03-27T21:42:42.069+0100 I STORAGE  Service running
+2015-03-27T21:42:42.084+0100 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-03-27T21:42:42.085+0100 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-03-27T21:42:42.125+0100 I JOURNAL  [durability] Durability thread started
+2015-03-27T21:42:42.134+0100 I JOURNAL  [journal writer] Journal writer thread started
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] MongoDB starting : pid=1656 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] db version v3.0.1
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] allocator: system
+2015-03-27T21:42:42.135+0100 I CONTROL  [initandlisten] options: { net: { http: { enabled: true } }, service: true, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-03-27T21:42:42.227+0100 I NETWORK  [websvr] admin web console waiting for connections on port 28017
+2015-03-27T21:42:42.232+0100 I NETWORK  [initandlisten] waiting for connections on port 27017
