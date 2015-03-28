@@ -11,7 +11,7 @@ $(document).ready(function() {
     loadGraph();
     perSwitchGraph();
     //reDrawGraphSwitch("00:00:00:00:00:00:00:02");
-    test();
+    //test();
 });
 
 
@@ -163,8 +163,13 @@ function transformData(){
                     byte += parseInt(this.byteCount);
                 });
                 //Skip the first             
-                if(i != lastTime.length - 1)
-                    serie.push({y: Math.max(byte-prev,0), x: lastTime[i] * 1000});
+                if(i != lastTime.length - 1){
+                    var val = (byte-prev);
+
+                    var time = Math.max(lastTime[i] - lastTime[i+1], 1) / 8;
+                    val = val / time;
+                    serie.push({y: Math.max(val,0), x: lastTime[i] * 1000});
+                }
 
                 prev = byte;
             });

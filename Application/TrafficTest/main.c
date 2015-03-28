@@ -184,6 +184,13 @@ void wait_client(){
 		s = recv(s_client, &buffer, _size, 0);
 		if(buffer[0]==-1) {
 			fprintf(stderr,"Close Signal\nGoodby :)\n");
+			//Print Exit Time for Debug Reason
+			time_t timer;
+			char buffer[30];
+			struct tm* tm_info;
+			time(&timer);
+			tm_info = gmtime(&timer);
+			strftime(buffer,30, "%a %d/%b/%g %H:%M:%S", tm_info);
 			exit(0);
 		}
 	}
