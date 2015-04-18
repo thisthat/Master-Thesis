@@ -10,6 +10,7 @@ from pymongo import MongoClient
 ip_vm = "192.168.56.1"
 port_vm = "8080"
 time = int(time.time())
+test = "_1"
 
 #Vars
 switches = []
@@ -42,6 +43,9 @@ def getDataFlow(api, DPID):
 		for ndx, member in enumerate(j):
 			j[ndx]['_time'] = time
 			j[ndx]['DPID'] = DPID
+			if test != "":
+				j[ndx]['test'] = test
+				
 	return j
 
 

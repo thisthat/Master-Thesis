@@ -39,7 +39,7 @@ router.get('/switch/:dpid/ports/', function( req, res ){
     var db = req.db;
     var ID = req.params.dpid;
     var ports = [];
-    var r = db.collection('SwitchPortData').group(["portNumber"],{"DPID" : "00:00:00:00:00:00:00:01"}, {}, 'function(curr,result){}', true, function(err, results) {
+    var r = db.collection('SwitchPortData').group(["portNumber"],{"DPID" : ID}, {}, 'function(curr,result){}', true, function(err, results) {
         res.json(results);
     });
     

@@ -4,7 +4,7 @@ var switchAddress = [];
 var lastTime = [];
 var chart;
 var chart_switch;
-var limit = 30;
+var limit = 400;
 
 // DOM Ready =============================================================
 $(document).ready(function() {
@@ -165,7 +165,6 @@ function transformData(){
                 //Skip the first             
                 if(i != lastTime.length - 1){
                     var val = (byte-prev);
-
                     var time = Math.max(lastTime[i] - lastTime[i+1], 1) / 8;
                     val = val / time;
                     serie.push({y: Math.max(val,0), x: lastTime[i] * 1000});

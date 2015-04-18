@@ -1,12 +1,10 @@
 #include "main.h"
 
-//Ini File
 char ** bandwidth;
 int bandwidth_length = 0;
 int _size = 0;
 int _time = 0;
 
-//Network
 int sock,s_client;
 int SERVER_PORT = 20301;
 char *SERVER_IP = "127.0.0.1";
@@ -16,8 +14,24 @@ struct sockaddr_in server,client;
 //Signal handler
 struct sigaction act;
 
-int main(int argc, char ** argv) {
+int hasRun = 1;
 
+int main(int argc, char ** argv) {
+    /* IT WORKS
+
+	qtokenbucket_t bucket;
+	qtokenbucket_init(&bucket, 500, 1000, 1000);
+	while (1) {
+		if (qtokenbucket_consume(&bucket, 1) == false) {
+			// Bucket is empty. Let's wait
+			usleep(qtokenbucket_waittime(&bucket, 1) * 1000);
+			continue;
+		}
+		// Got a token. Let's do something here.
+		//do_something();
+		fprintf(stderr,"Token used\n");
+	}
+ 	*/
 	//Check Parameters
 	int i = 1;
 	while(i < argc){
@@ -45,8 +59,9 @@ int main(int argc, char ** argv) {
 	}
 
 	//Handle ctrl+c / ctrl+d
-	act.sa_handler = catchExit; 
-	sigfillset(&(act.sa_mask)); 
+	act.sa_handler = catchExit; /* registrazione dell'handler */
+	sigfillset(&(act.sa_mask)); /* eventuali altri segnali saranno ignorati
+	durante l'esecuzione dell'handler */
 	sigaction(SIGINT, &act, NULL);
 
 	
@@ -106,12 +121,11 @@ int main(int argc, char ** argv) {
 		fprintf(stderr,"Sending data...\n");
 		send_data();
 	}
-	//Stop the sending/receiving
+	//Start the sending
 	close(sock);
 	return 0;
 }
 
-//From CSV to Array
 void parseBandwidth(char* str){
 	int pos = 0;
 	char* c = ",";
@@ -140,7 +154,6 @@ void parseBandwidth(char* str){
 	bandwidth_length = i;
 }
 
-//Count how many repetiotion of c in str
 int countChar(char* str, char c){
 	char* tmp = str;
 	int count = 0;
@@ -152,7 +165,7 @@ int countChar(char* str, char c){
 	}
 	return count;
 }
-//First position of the substring in string
+
 int strpos(char* haystack, char* needle){
 	char *c = strstr(haystack, needle);
 	if(c)
@@ -179,18 +192,18 @@ void wait_client(){
 		exit(3);
 	}
 	fprintf(stderr,"Client connected!\n");
-	//Client Connected, exit when first byte = -1
-	while(true){
+	while(hasRun > 0){
 		s = recv(s_client, &buffer, _size, 0);
+		//fprintf(stderr,"Recv data %d!\n", s);
 		if(buffer[0]==-1) {
 			fprintf(stderr,"Close Signal\nGoodby :)\n");
-			//Print Exit Time for Debug Reason
 			time_t timer;
 			char buffer[30];
 			struct tm* tm_info;
 			time(&timer);
 			tm_info = gmtime(&timer);
 			strftime(buffer,30, "%a %d/%b/%g %H:%M:%S", tm_info);
+			fprintf(stderr, "[END] %s\n", buffer);
 			exit(0);
 		}
 	}
@@ -202,20 +215,33 @@ void send_data(){
 	int current = 0;
 	int init = 0;
 	int bucketSize;
+	//Wait to new minute start
+	time_t timer;
+	char tmp[4];
+	struct tm* tm_info;
+	int sec = 1;
+	fprintf(stderr,"Wait for the new minute to start...\n");
+	while(sec != 0){
+		time(&timer);
+		tm_info = gmtime(&timer);
+		strftime(tmp,4, "%S", tm_info);
+		sec = atoi(tmp);
+		usleep(1000);
+	}
 	for(int i = 0; i < bandwidth_length; i++){
 		//Set up the current step
-		bucketSize = atoi(bandwidth[i]) * 131072; //1024*1024/8
+		bucketSize = atoi(bandwidth[i]) * 128; //1024/8 = 128
 		qtokenbucket_t bucket;
 		qtokenbucket_init(&bucket, _size, bucketSize, bucketSize);
 		current = init = (int)time(NULL);
-		fprintf(stderr,"[%d] Bandwidth: %sMb\n", i, bandwidth[i]);
-		while ( (current-init) < _time) {
+		fprintf(stderr,"[%d] Bandwidth: %sKb\n", i, bandwidth[i]);
+		while ( (current-init) < _time && hasRun > 0) {
 			if (qtokenbucket_consume(&bucket, _size) == false) {
 				// Bucket is empty. Let's wait
 				usleep(qtokenbucket_waittime(&bucket, _size) * 1000);
 				continue;
 			}
-			// Got the tokens 
+			// Got a token. 
 			send(sock, &buffer, _size , 0);
 			current = (int)time(NULL);
 		}
@@ -227,6 +253,7 @@ void send_data(){
 void catchExit(int nSign){
 	if(nSign == SIGINT){
 		fprintf(stderr,"\nClosing the connection..\n");
+		hasRun = -1;
 		if(!is_server){
 			//Send Close Message
 			char buffer[1];
