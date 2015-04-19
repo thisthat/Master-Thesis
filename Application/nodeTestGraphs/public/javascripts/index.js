@@ -4,7 +4,7 @@ var switchAddress = [];
 var lastTime = [];
 var chart;
 var chart_switch;
-var limit = 400;
+var limit = 200;
 
 // DOM Ready =============================================================
 $(document).ready(function() {

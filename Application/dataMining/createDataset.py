@@ -4,6 +4,7 @@ import time
 import urllib.request
 import json
 import math
+import sys
 from pymongo import MongoClient
 
 
@@ -12,14 +13,32 @@ ip_vm = "192.168.56.1"
 port_vm = "8080"
 size_class = 200
 max_bandwidthClass = 10000
-win_size = 6
-filename = "dataset_test_1"
 
 
 #Vars
 switch = "00:00:00:00:00:00:00:02"
 test = "_1"
-timing = 12 # How many seconds for each bandwidth class in the TrafficTester
+timing = 30 # How many seconds for each bandwidth class in the TrafficTester
+skip = 1 # How many measurement to skip
+skipend = 1
+win_size = 6
+filename = "dataset_test_1"
+
+for i in sys.argv:
+	if (i.startswith('-switch:')) :
+		switch = i[8:]
+	if (i.startswith('-test:')) :
+		test = i[6:]
+	if (i.startswith('-timing:')) :
+		timing = i[8:]
+	if (i.startswith('-skip:')) :
+		skip = int(i[6:])
+	if (i.startswith('-skip_end:')) :
+		skipend = int(i[10:])
+	if (i.startswith('-win_size:')) :
+		win_size = i[10:]
+	if (i.startswith('-file:')) :
+		filename = i[6:]
 
 #Connection
 client = MongoClient('mongodb://localhost:27017/')
@@ -40,7 +59,7 @@ def classification(bandwidth):
 # this is usefull in real envirorment
 def timeClass(seconds,start):
 	#print("{0} - {1} = {2}" . format(seconds,start, seconds - start))
-	start += 1
+	#start += 1
 	return math.floor((seconds-start) / timing)
 
 
@@ -53,7 +72,7 @@ prevByte = 0
 bandwidth = []
 tmp = []
 #collect data from DB
-for post in db.DataTime.find({},{'_id':0}).sort("_time"):
+for post in db.DataTime.find({ 'test' : test },{'_id':0}).sort("_time"):
 	time = post['_time']
 	byte = 0;
 
@@ -74,7 +93,7 @@ for post in db.DataTime.find({},{'_id':0}).sort("_time"):
 	prevTime = time
 	countTime = countTime + 1
 
-for i in range(1, len(tmp) - 1):
+for i in range(skip, len(tmp) - skipend):
 	bandwidth.append(tmp[i])
 
 #The data is collected, now we have to print in a corect manner
@@ -118,7 +137,7 @@ f.write(out)
 
 # Data creation
 f.write("@data\n")
-start = tmp[0]['sec']
+start = tmp[skip]['sec']
 for i in range(len(bandwidth)):
 	out = "'time_{0}'" . format( timeClass(bandwidth[i]['sec'],start) )
 	for j in range(win_size):

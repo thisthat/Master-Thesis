@@ -10,7 +10,7 @@ from pymongo import MongoClient
 ip_vm = "192.168.56.1"
 port_vm = "8080"
 time = int(time.time())
-test = "_1"
+test = "_2"
 
 #Vars
 switches = []
@@ -89,6 +89,6 @@ for ndx, member in enumerate(switches):
 print("Done")
 
 print("Save Internal Information")
-data = { "_time" : time}
+data = { "_time" : time, "test" : test}
 db.DataTime.insert(data)
 print("All Done")
