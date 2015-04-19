@@ -1,116 +1,54 @@
-2015-03-28T23:51:06.197+0100 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
-2015-03-28T23:51:06.198+0100 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
-2015-03-28T23:51:06.295+0100 I JOURNAL  [durability] Durability thread started
-2015-03-28T23:51:06.311+0100 I JOURNAL  [journal writer] Journal writer thread started
-2015-03-28T23:51:06.315+0100 I CONTROL  [initandlisten] MongoDB starting : pid=4240 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
-2015-03-28T23:51:06.315+0100 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
-2015-03-28T23:51:06.315+0100 I CONTROL  [initandlisten] db version v3.0.1
-2015-03-28T23:51:06.316+0100 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
-2015-03-28T23:51:06.316+0100 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
-2015-03-28T23:51:06.316+0100 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
-2015-03-28T23:51:06.316+0100 I CONTROL  [initandlisten] allocator: system
-2015-03-28T23:51:06.316+0100 I CONTROL  [initandlisten] options: { net: { http: { RESTInterfaceEnabled: true, enabled: true } }, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
-2015-03-28T23:51:06.319+0100 I INDEX    [initandlisten] allocating new ns file C:\Users\this\Documents\Thesis\Application\db\local.ns, filling with zeroes...
-2015-03-28T23:51:06.340+0100 I NETWORK  [websvr] admin web console waiting for connections on port 28017
-2015-03-28T23:51:06.432+0100 I STORAGE  [FileAllocator] allocating new datafile C:\Users\this\Documents\Thesis\Application\db\local.0, filling with zeroes...
-2015-03-28T23:51:06.432+0100 I STORAGE  [FileAllocator] creating directory C:\Users\this\Documents\Thesis\Application\db\_tmp
-2015-03-28T23:51:06.440+0100 I STORAGE  [FileAllocator] done allocating datafile C:\Users\this\Documents\Thesis\Application\db\local.0, size: 64MB,  took 0.005 secs
-2015-03-28T23:51:06.450+0100 I NETWORK  [initandlisten] waiting for connections on port 27017
-2015-03-28T23:51:06.640+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4055 #1 (1 connection now open)
-2015-03-28T23:51:06.661+0100 I INDEX    [conn1] allocating new ns file C:\Users\this\Documents\Thesis\Application\db\FloodLight.ns, filling with zeroes...
-2015-03-28T23:51:06.731+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4054 #2 (2 connections now open)
-2015-03-28T23:51:06.908+0100 I STORAGE  [FileAllocator] allocating new datafile C:\Users\this\Documents\Thesis\Application\db\FloodLight.0, filling with zeroes...
-2015-03-28T23:51:06.911+0100 I STORAGE  [FileAllocator] done allocating datafile C:\Users\this\Documents\Thesis\Application\db\FloodLight.0, size: 64MB,  took 0.002 secs
-2015-03-28T23:51:06.922+0100 I WRITE    [conn1] insert FloodLight.HostDevices query: { _id: ObjectId('5517305a9e925e0a244390bd'), ipv4: [ "0.0.0.0", "10.0.0.3" ], attachmentPoint: [ { switchDPID: "00:00:00:00:00:00:00:03", errorStatus: null, port: 1 } ], entityClass: "DefaultEntityClass", mac: [ "a2:01:4a:3e:89:7c" ], vlan: [ "0x0" ], lastSeen: 1427579167608, _time: 1427583066 } ninserted:1 keyUpdates:0 writeConflicts:0 numYields:0 locks:{ Global: { acquireCount: { w: 2 } }, MMAPV1Journal: { acquireCount: { w: 8 } }, Database: { acquireCount: { w: 1, W: 1 } }, Collection: { acquireCount: { W: 1 } }, Metadata: { acquireCount: { W: 4 } } } 260ms
-2015-03-28T23:51:06.922+0100 I COMMAND  [conn1] command FloodLight.$cmd command: insert { insert: "HostDevices", ordered: true, documents: 6 } keyUpdates:0 writeConflicts:0 numYields:0 reslen:40 locks:{} 261ms
-2015-03-28T23:51:07.005+0100 I NETWORK  [conn1] end connection 127.0.0.1:4055 (1 connection now open)
-2015-03-28T23:51:27.231+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4068 #3 (2 connections now open)
-2015-03-28T23:51:27.600+0100 I NETWORK  [conn3] end connection 127.0.0.1:4068 (1 connection now open)
-2015-03-28T23:51:47.868+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4079 #4 (2 connections now open)
-2015-03-28T23:51:48.061+0100 I NETWORK  [conn4] end connection 127.0.0.1:4079 (1 connection now open)
-2015-03-28T23:52:08.310+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4090 #5 (2 connections now open)
-2015-03-28T23:52:08.464+0100 I NETWORK  [conn5] end connection 127.0.0.1:4090 (1 connection now open)
-2015-03-28T23:52:28.770+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4102 #6 (2 connections now open)
-2015-03-28T23:52:28.899+0100 I NETWORK  [conn6] end connection 127.0.0.1:4102 (1 connection now open)
-2015-03-28T23:52:49.168+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4114 #7 (2 connections now open)
-2015-03-28T23:52:49.334+0100 I NETWORK  [conn7] end connection 127.0.0.1:4114 (1 connection now open)
-2015-03-28T23:53:09.595+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4125 #8 (2 connections now open)
-2015-03-28T23:53:09.717+0100 I NETWORK  [conn8] end connection 127.0.0.1:4125 (1 connection now open)
-2015-03-28T23:53:30.005+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4136 #9 (2 connections now open)
-2015-03-28T23:53:30.159+0100 I NETWORK  [conn9] end connection 127.0.0.1:4136 (1 connection now open)
-2015-03-28T23:53:50.409+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4147 #10 (2 connections now open)
-2015-03-28T23:53:50.569+0100 I NETWORK  [conn10] end connection 127.0.0.1:4147 (1 connection now open)
-2015-03-28T23:54:10.834+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4163 #11 (2 connections now open)
-2015-03-28T23:54:10.991+0100 I NETWORK  [conn11] end connection 127.0.0.1:4163 (1 connection now open)
-2015-03-28T23:54:31.299+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4174 #12 (2 connections now open)
-2015-03-28T23:54:31.423+0100 I NETWORK  [conn12] end connection 127.0.0.1:4174 (1 connection now open)
-2015-03-28T23:54:51.718+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4185 #13 (2 connections now open)
-2015-03-28T23:54:51.793+0100 I NETWORK  [conn13] end connection 127.0.0.1:4185 (1 connection now open)
-2015-03-28T23:55:12.073+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4196 #14 (2 connections now open)
-2015-03-28T23:55:12.194+0100 I NETWORK  [conn14] end connection 127.0.0.1:4196 (1 connection now open)
-2015-03-28T23:55:32.490+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4207 #15 (2 connections now open)
-2015-03-28T23:55:32.559+0100 I NETWORK  [conn15] end connection 127.0.0.1:4207 (1 connection now open)
-2015-03-28T23:55:52.825+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4218 #16 (2 connections now open)
-2015-03-28T23:55:52.939+0100 I NETWORK  [conn16] end connection 127.0.0.1:4218 (1 connection now open)
-2015-03-28T23:56:13.184+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4229 #17 (2 connections now open)
-2015-03-28T23:56:13.321+0100 I NETWORK  [conn17] end connection 127.0.0.1:4229 (1 connection now open)
-2015-03-28T23:56:33.552+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4240 #18 (2 connections now open)
-2015-03-28T23:56:33.713+0100 I NETWORK  [conn18] end connection 127.0.0.1:4240 (1 connection now open)
-2015-03-28T23:56:53.957+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4253 #19 (2 connections now open)
-2015-03-28T23:56:54.110+0100 I NETWORK  [conn19] end connection 127.0.0.1:4253 (1 connection now open)
-2015-03-28T23:57:14.364+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4264 #20 (2 connections now open)
-2015-03-28T23:57:14.530+0100 I NETWORK  [conn20] end connection 127.0.0.1:4264 (1 connection now open)
-2015-03-28T23:57:21.768+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4286 #21 (2 connections now open)
-2015-03-28T23:57:21.788+0100 I NETWORK  [conn21] end connection 127.0.0.1:4286 (1 connection now open)
-2015-03-28T23:57:21.794+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4287 #22 (2 connections now open)
-2015-03-28T23:57:21.797+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4288 #23 (3 connections now open)
-2015-03-28T23:57:21.802+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4289 #24 (4 connections now open)
-2015-03-28T23:57:21.806+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4290 #25 (5 connections now open)
-2015-03-28T23:57:21.807+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4291 #26 (6 connections now open)
-2015-03-28T23:57:34.807+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4294 #27 (7 connections now open)
-2015-03-28T23:57:34.934+0100 I NETWORK  [conn27] end connection 127.0.0.1:4294 (6 connections now open)
-2015-03-28T23:57:55.117+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4305 #28 (7 connections now open)
-2015-03-28T23:57:55.206+0100 I NETWORK  [conn28] end connection 127.0.0.1:4305 (6 connections now open)
-2015-03-28T23:58:15.475+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4318 #29 (7 connections now open)
-2015-03-28T23:58:15.652+0100 I NETWORK  [conn29] end connection 127.0.0.1:4318 (6 connections now open)
-2015-03-28T23:58:35.844+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4329 #30 (7 connections now open)
-2015-03-28T23:58:35.964+0100 I NETWORK  [conn30] end connection 127.0.0.1:4329 (6 connections now open)
-2015-03-28T23:58:56.133+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4342 #31 (7 connections now open)
-2015-03-28T23:58:56.271+0100 I NETWORK  [conn31] end connection 127.0.0.1:4342 (6 connections now open)
-2015-03-28T23:59:16.489+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4358 #32 (7 connections now open)
-2015-03-28T23:59:16.573+0100 I NETWORK  [conn32] end connection 127.0.0.1:4358 (6 connections now open)
-2015-03-28T23:59:36.951+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4387 #33 (7 connections now open)
-2015-03-28T23:59:37.211+0100 I NETWORK  [conn33] end connection 127.0.0.1:4387 (6 connections now open)
-2015-03-28T23:59:57.445+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4398 #34 (7 connections now open)
-2015-03-28T23:59:57.550+0100 I NETWORK  [conn34] end connection 127.0.0.1:4398 (6 connections now open)
-2015-03-29T00:00:17.942+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4412 #35 (7 connections now open)
-2015-03-29T00:00:18.116+0100 I NETWORK  [conn35] end connection 127.0.0.1:4412 (6 connections now open)
-2015-03-29T00:00:38.347+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4425 #36 (7 connections now open)
-2015-03-29T00:00:38.442+0100 I NETWORK  [conn36] end connection 127.0.0.1:4425 (6 connections now open)
-2015-03-29T00:00:58.742+0100 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:4438 #37 (7 connections now open)
-2015-03-29T00:00:58.866+0100 I NETWORK  [conn37] end connection 127.0.0.1:4438 (6 connections now open)
-2015-03-29T00:10:18.986+0100 I CONTROL  CTRL_CLOSE_EVENT signal
-2015-03-29T00:10:18.987+0100 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
-2015-03-29T00:10:18.989+0100 I NETWORK  [conn22] end connection 127.0.0.1:4287 (5 connections now open)
-2015-03-29T00:10:18.989+0100 I NETWORK  [conn24] end connection 127.0.0.1:4289 (4 connections now open)
-2015-03-29T00:10:18.990+0100 I NETWORK  [conn23] end connection 127.0.0.1:4288 (5 connections now open)
-2015-03-29T00:10:18.990+0100 I NETWORK  [conn25] end connection 127.0.0.1:4290 (2 connections now open)
-2015-03-29T00:10:18.989+0100 I NETWORK  [conn26] end connection 127.0.0.1:4291 (5 connections now open)
-2015-03-29T00:10:18.990+0100 I NETWORK  [conn2] end connection 127.0.0.1:4054 (0 connections now open)
-2015-03-29T00:10:18.990+0100 I CONTROL  [consoleTerminate] now exiting
-2015-03-29T00:10:18.990+0100 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
-2015-03-29T00:10:18.990+0100 I NETWORK  [consoleTerminate] closing listening socket: 456
-2015-03-29T00:10:18.990+0100 I NETWORK  [consoleTerminate] closing listening socket: 540
-2015-03-29T00:10:18.992+0100 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
-2015-03-29T00:10:18.992+0100 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
-2015-03-29T00:10:18.992+0100 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
-2015-03-29T00:10:18.992+0100 I STORAGE  [consoleTerminate] shutdown: final commit...
-2015-03-29T00:10:18.995+0100 I JOURNAL  [consoleTerminate] journalCleanup...
-2015-03-29T00:10:18.998+0100 I JOURNAL  [consoleTerminate] removeJournalFiles
-2015-03-29T00:10:18.999+0100 I JOURNAL  [consoleTerminate] Terminating durability thread ...
-2015-03-29T00:10:19.095+0100 I JOURNAL  [journal writer] Journal writer thread stopped
-2015-03-29T00:10:19.095+0100 I JOURNAL  [durability] Durability thread stopped
-2015-03-29T00:10:19.095+0100 I STORAGE  [consoleTerminate] shutdown: closing all files...
-2015-03-29T00:10:19.104+0100 I STORAGE  [consoleTerminate] closeAllFiles() finished
-2015-03-29T00:10:19.104+0100 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
-2015-03-29T00:10:19.104+0100 I CONTROL  [consoleTerminate] dbexit:  rc: 12
+2015-04-19T20:33:22.800+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-04-19T20:33:22.801+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-04-19T20:33:22.833+0200 I JOURNAL  [durability] Durability thread started
+2015-04-19T20:33:22.833+0200 I JOURNAL  [journal writer] Journal writer thread started
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] MongoDB starting : pid=7172 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] db version v3.0.1
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] allocator: system
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] options: { net: { http: { RESTInterfaceEnabled: true, enabled: true } }, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-04-19T20:33:22.867+0200 E NETWORK  [websvr] listen(): bind() failed errno:10048 Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). for socket: 0.0.0.0:28017
+2015-04-19T20:33:22.870+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-04-19T20:33:23.354+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48838 #1 (1 connection now open)
+2015-04-19T20:33:23.476+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48839 #2 (2 connections now open)
+2015-04-19T20:33:23.480+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48840 #3 (3 connections now open)
+2015-04-19T20:33:23.482+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48841 #4 (4 connections now open)
+2015-04-19T20:33:23.483+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48842 #5 (5 connections now open)
+2015-04-19T20:34:56.759+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48888 #6 (6 connections now open)
+2015-04-19T20:34:56.775+0200 I NETWORK  [conn6] end connection 127.0.0.1:48888 (5 connections now open)
+2015-04-19T20:34:56.781+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48889 #7 (6 connections now open)
+2015-04-19T20:34:56.783+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48890 #8 (7 connections now open)
+2015-04-19T20:34:56.786+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48891 #9 (8 connections now open)
+2015-04-19T20:34:56.787+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48892 #10 (9 connections now open)
+2015-04-19T20:34:56.788+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48893 #11 (10 connections now open)
+2015-04-19T20:36:06.690+0200 I CONTROL  CTRL_CLOSE_EVENT signal
+2015-04-19T20:36:06.691+0200 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
+2015-04-19T20:36:06.691+0200 I CONTROL  [consoleTerminate] now exiting
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] closing listening socket: 460
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2015-04-19T20:36:06.691+0200 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
+2015-04-19T20:36:06.691+0200 I STORAGE  [consoleTerminate] shutdown: final commit...
+2015-04-19T20:36:06.692+0200 I NETWORK  [conn11] end connection 127.0.0.1:48893 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn9] end connection 127.0.0.1:48891 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn8] end connection 127.0.0.1:48890 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn10] end connection 127.0.0.1:48892 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn7] end connection 127.0.0.1:48889 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn3] end connection 127.0.0.1:48840 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn4] end connection 127.0.0.1:48841 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn2] end connection 127.0.0.1:48839 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn1] end connection 127.0.0.1:48838 (8 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn5] end connection 127.0.0.1:48842 (8 connections now open)
+2015-04-19T20:36:06.698+0200 I JOURNAL  [consoleTerminate] journalCleanup...
+2015-04-19T20:36:06.703+0200 I JOURNAL  [consoleTerminate] removeJournalFiles
+2015-04-19T20:36:06.704+0200 I JOURNAL  [consoleTerminate] Terminating durability thread ...
+2015-04-19T20:36:06.794+0200 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-04-19T20:36:06.794+0200 I JOURNAL  [durability] Durability thread stopped
+2015-04-19T20:36:06.794+0200 I STORAGE  [consoleTerminate] shutdown: closing all files...
+2015-04-19T20:36:06.806+0200 I STORAGE  [consoleTerminate] closeAllFiles() finished
+2015-04-19T20:36:06.806+0200 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2015-04-19T20:36:06.807+0200 I CONTROL  [consoleTerminate] dbexit:  rc: 12

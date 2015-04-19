@@ -10,7 +10,7 @@ from pymongo import MongoClient
 ip_vm = "192.168.56.1"
 port_vm = "8080"
 time = int(time.time())
-test = "_2"
+test = "_3"
 
 #Vars
 switches = []
