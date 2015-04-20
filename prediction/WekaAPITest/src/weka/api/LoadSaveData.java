@@ -21,12 +21,12 @@ public class LoadSaveData {
 		
 		//CREATE
 		
-		//NaiveBayes tree = new NaiveBayes();
-		//tree.buildClassifier(dataset);
+		NaiveBayes tree = new NaiveBayes();
+		tree.buildClassifier(dataset);
 		//
 
 		//READ 
-		NaiveBayes tree = (NaiveBayes) SerializationHelper.read("test_model.model");
+		//NaiveBayes tree = (NaiveBayes) SerializationHelper.read("test_model.model");
 		
 		
 		path = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export\\dataset_test_3.arff";
@@ -42,7 +42,7 @@ public class LoadSaveData {
 		System.out.println(eval.toSummaryString());
 		
 		//PREDICTION
-		/*int num = 0;
+		int num = 0;
 		for(int i = 0; i < dataset2.numInstances(); i++){
 			double actualClass = dataset2.instance(i).classValue();
 			String actual = dataset2.classAttribute().value((int) actualClass);
@@ -53,9 +53,9 @@ public class LoadSaveData {
 			System.out.println(actual + " :: " + predict);
 			if(actual.equals(predict)){ num++ ; }
 		}
-		System.out.println(num + "/" + dataset2.numInstances() + "=" + ((double)num/(double)dataset2.numInstances()*100) + "%");*/
+		System.out.println(num + "/" + dataset2.numInstances() + "=" + ((double)num/(double)dataset2.numInstances()*100) + "%");
 		
-		SerializationHelper.write("test_model.model", tree);
+		//SerializationHelper.write("test_model.model", tree);
 		
 	}
 }

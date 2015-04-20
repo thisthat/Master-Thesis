@@ -137,11 +137,11 @@ f.write(out)
 
 # Data creation
 f.write("@data\n")
-start = tmp[skip]['sec']
-for i in range(len(bandwidth)):
-	out = "'time_{0}'" . format( timeClass(bandwidth[i]['sec'],start) )
+start = tmp[skip]['sec'] -  5
+for i in range(win_size-1,len(bandwidth) + win_size - 1):
+	out = "'time_{0}'" . format( timeClass(bandwidth[i-win_size+1]['sec'],start) )
 	for j in range(win_size):
-		index = (i+j) % len(bandwidth)
+		index = (i - win_size + j) % len(bandwidth)
 		value = 0
 		if j == win_size-1:
 			value = "'byte_{0}'" . format(classification(bandwidth[index]['bandwidth']))
