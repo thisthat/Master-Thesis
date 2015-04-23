@@ -7,6 +7,7 @@ import weka.classifiers.bayes.BayesNet;
 import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.functions.supportVector.RegSMO;
+import weka.classifiers.pmml.consumer.NeuralNetwork;
 import weka.classifiers.trees.J48;
 import weka.core.*;
 import weka.core.converters.ConverterUtils.DataSource;
@@ -20,7 +21,8 @@ public class LoadSaveData {
 		dataset.setClassIndex(dataset.numAttributes() - 1);
 		
 		//CREATE
-		
+		//weka.classifiers.
+		//NeuralNetwork tree = new NeuralNetwork();
 		NaiveBayes tree = new NaiveBayes();
 		tree.buildClassifier(dataset);
 		//
@@ -43,6 +45,7 @@ public class LoadSaveData {
 		
 		//PREDICTION
 		int num = 0;
+		int totErr = 0;
 		for(int i = 0; i < dataset2.numInstances(); i++){
 			double actualClass = dataset2.instance(i).classValue();
 			String actual = dataset2.classAttribute().value((int) actualClass);
@@ -50,10 +53,14 @@ public class LoadSaveData {
 			Instance newInst = dataset2.instance(i);
 			double predictClass = tree.classifyInstance(newInst);
 			String predict = dataset2.classAttribute().value((int) predictClass);
-			System.out.println(actual + " :: " + predict);
+			int indexError = (int)predictClass - (int) actualClass;
+			indexError = Math.abs(indexError);
+			totErr += indexError;
+			System.out.println(actual + " :: " + predict + " :: Error " + indexError);
 			if(actual.equals(predict)){ num++ ; }
 		}
 		System.out.println(num + "/" + dataset2.numInstances() + "=" + ((double)num/(double)dataset2.numInstances()*100) + "%");
+		System.out.println((double)totErr / (double)dataset2.numInstances());
 		
 		//SerializationHelper.write("test_model.model", tree);
 		
