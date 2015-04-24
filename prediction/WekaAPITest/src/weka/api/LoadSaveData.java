@@ -59,6 +59,7 @@ public class LoadSaveData {
 			System.out.println(actual + " :: " + predict + " :: Error " + indexError);
 			if(actual.equals(predict)){ num++ ; }
 		}
+		
 		System.out.println(num + "/" + dataset2.numInstances() + "=" + ((double)num/(double)dataset2.numInstances()*100) + "%");
 		System.out.println((double)totErr / (double)dataset2.numInstances());
 		
