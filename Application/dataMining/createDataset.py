@@ -23,6 +23,7 @@ skip = 1 # How many measurement to skip
 skipend = 1
 win_size = 6
 filename = "dataset_test_1"
+derivate = False
 
 for i in sys.argv:
 	if (i.startswith('-switch:')) :
@@ -39,6 +40,10 @@ for i in sys.argv:
 		win_size = i[10:]
 	if (i.startswith('-file:')) :
 		filename = i[6:]
+	if (i.startswith('-class_size:')) :
+		size_class = int(i[12:])
+	if (i.startswith('-derivate')) :
+		derivate = True
 
 #Connection
 client = MongoClient('mongodb://localhost:27017/')
@@ -48,7 +53,6 @@ print("Connection to DB Enstablished")
 
 def classification(bandwidth):
 	n = 0
-	size_class = 200
 	while (n*size_class < bandwidth) :
 		n += 1
 	ret = n*size_class
@@ -124,6 +128,9 @@ f.write(out)
 for i in range(win_size-1):
 	out = "@attribute bandwidth_{0} numeric\n" . format(i)
 	f.write(out)
+	if(derivate and i < win_size-2):
+		out = "@attribute d_bandwidth_{0} numeric\n" . format(i)
+		f.write(out)
 
 out = "@attribute prediction_class {"
 last = math.ceil(max_bandwidthClass / size_class) + 1
@@ -138,6 +145,8 @@ f.write(out)
 # Data creation
 f.write("@data\n")
 start = tmp[skip]['sec'] -  5
+old_value = 0
+der = 0
 for i in range(win_size-1,len(bandwidth) + win_size - 1):
 	out = "'time_{0}'" . format( timeClass(bandwidth[i-win_size+1]['sec'],start) )
 	for j in range(win_size):
@@ -147,8 +156,11 @@ for i in range(win_size-1,len(bandwidth) + win_size - 1):
 			value = "'byte_{0}'" . format(classification(bandwidth[index]['bandwidth']))
 		else:
 			value = round(bandwidth[index]['bandwidth'])
+			if(derivate and j > 0):
+				der = value - old_value
+				old_value = value
+				out += ",{0}" . format(der)
 		out += ",{0}" . format(value)
-	#print(out)
 	f.write(out)
 	f.write("\n")
 
