@@ -30,7 +30,7 @@ import weka.core.pmml.jaxbbindings.SupportVectorMachine;
 
 public class LoadSaveData {
 	
-	static String filename="C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\test.xls" ;
+	static String filename="C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\report.xls" ;
 	
 	
 	public class Results {
@@ -97,6 +97,24 @@ public class LoadSaveData {
 			r = test(file_1, file_2,c);
 			r.name = "500k der";
 			results.addElement(r);
+			
+			//Test  w/ Derivate winsize 8
+			System.out.println("Test 500k derivate win8 :: " + name);
+			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win8\\merge.arff";
+			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win8\\dataset_3.arff";
+			r = test(file_1, file_2,c);
+			r.name = "500k der win8";
+			results.addElement(r);
+			
+			//Test  w/ Derivate winsize 10
+			System.out.println("Test 500k derivate win10 :: " + name);
+			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win10\\merge.arff";
+			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win10\\dataset_3.arff";
+			r = test(file_1, file_2,c);
+			r.name = "500k der win10";
+			results.addElement(r);
+			
+			
 			map.put(c.getClass().toString(), results);
 		}
 		writeFile();

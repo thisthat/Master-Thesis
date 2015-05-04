@@ -226,3 +226,6 @@ pip-log.txt
 mongod.lock
 Application/db/mongod.lock
 Application/db/*
+Application/db/log.txt
+*.lock
+Application/db/mongod.lock

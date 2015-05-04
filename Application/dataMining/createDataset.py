@@ -37,7 +37,7 @@ for i in sys.argv:
 	if (i.startswith('-skip_end:')) :
 		skipend = int(i[10:])
 	if (i.startswith('-win_size:')) :
-		win_size = i[10:]
+		win_size = int(i[10:])
 	if (i.startswith('-file:')) :
 		filename = i[6:]
 	if (i.startswith('-class_size:')) :
