@@ -15,31 +15,76 @@ int main () {
 
 	createGraph();
 	createTopology();
+	fprintf(stderr, "Files topology.[dot|py] created\n");
 	return 0;
 }
 
 void createTopology(){
 	FILE *f;
+	FILE *header;
+	FILE *footer;
 	f = fopen("./out/topology.py","w+");
-	fprintf(f, "from mininet.topo import Topo\n\n");
-	fprintf(f, "class MyTopo( Topo ):\n");
-	fprintf(f, "\tdef __init__( self ):\n\n");
-	fprintf(f, "\t\tTopo.__init__( self )\n\n");
-	//Nodes creationing
-	for(int i = 0; i < __sizeNodes; i++){
-		struct node n = nodes[i];
-		fprintf(f, "\t\tnode_%d = self.addSwitch( 's%d' )\n", n.id , i);
+	header = fopen("./template/header.template", "r");
+	footer = fopen("./template/footer.template", "r");
+
+	//Copy the header
+	char line[80];
+	while(fgets(line, 80, header) != NULL)
+	{
+		fprintf(f, "%s", line);
 	}
 	fprintf(f,"\n");
+	fclose(header);
+
+	//Nodes creationing
+	fprintf(f, "\tprint \"*** Creating switches\"\n");
+	for(int i = 0; i < __sizeNodes; i++){
+		struct node n = nodes[i];
+		fprintf(f, "\tnode_%d = net.addSwitch( 's%d' )\n", n.id , i);
+	}
+	fprintf(f,"\n");
+
+	//Host creationing
+	fprintf(f, "\tprint \"*** Creating hosts\"\n");
+	for(int i = 0; i < __sizeNodes; i++){
+		struct node n = nodes[i];
+		fprintf(f, "\thost_%d = net.addHost( 'h%d' )\n", n.id , i);
+	}
+	fprintf(f,"\n");
+	
 	//Edges
+	fprintf(f, "\tprint \"*** Creating Links\"\n");
 	for(int i = 0; i < __sizeEdges; i++){
 		struct edge e = edges[i];
 		struct node n1 = nodes[e.from];
 		struct node n2 = nodes[e.to];
-		fprintf(f, "\t\tself.addLink( node_%d , node_%d, bw=%f, delay='%fms', loss=%d, max_queue_size=%d, use_htb=True )\n" , n1.id, n2.id, e.bandwidth, e.delay, 1, 1000);
+		fprintf(f, "\tnet.addLink( node_%d , node_%d )\n" , n1.id, n2.id);
 	}
 	fprintf(f,"\n");
-	fprintf(f, "topos = { 'mytopo' : ( lambda: MyTopo() ) }\n");
+	fprintf(f, "\tprint \"*** Creating Hosts Links\"\n");
+	//Host link
+	for(int i = 0; i < __sizeNodes; i++){
+		struct node n = nodes[i];
+		fprintf(f, "\tnet.addLink( host_%d , node_%d )\n" , n.id, n.id);
+	}
+	fprintf(f,"\n");
+	
+	//Build the network
+    fprintf(f,"\tprint \"*** Building network\"\n");
+    fprintf(f,"\tnet.build()\n");
+    fprintf(f,"\tprint \"*** Starting network\"\n");
+	for(int i = 0; i < __sizeNodes; i++){
+		struct node n = nodes[i];
+		fprintf(f, "\tnode_%d.start( [ c1 ] )\n", n.id );
+	}
+
+	while(fgets(line, 80, footer) != NULL)
+	{
+		fprintf(f, "%s", line);
+	}
+	fclose(footer);
+
+	//fprintf(f, "topos = { 'mytopo' : ( lambda: MyTopo() ) }\n");
 	fclose(f);
 }
 

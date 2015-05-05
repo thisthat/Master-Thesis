@@ -4,7 +4,7 @@ FLEX = flex
 BISON = bison
 NAME = parse_topology
 
-all: compile clean
+all: compile 
 
 lexer.c: lexer.l
 	${FLEX} -f -o$@ $<
@@ -33,5 +33,5 @@ clean:
 	rm -f *.svg
 
 demo: compile
-	./$(NAME) < test.brite
-	 sfdp -Gsize=1 ./out/*.dot -Tsvg -o ./out/topology_graph.svg
+	./$(NAME) < '/home/this/Downloads/20nodes.brite' 
+	#sfdp -Gsize=1 ./out/*.dot -Tsvg -o ./out/topology_graph.svg
