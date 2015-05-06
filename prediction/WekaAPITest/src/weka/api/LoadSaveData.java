@@ -40,6 +40,8 @@ public class LoadSaveData {
 		public int maxError;
 		public double RMSE;
 		public double sigma;
+		public double precision;
+		public double recall;
 		public Results() {};
 	}
 	
@@ -74,6 +76,7 @@ public class LoadSaveData {
 			String name = c.getClass().toString();
 			name = name.substring(name.lastIndexOf('.') + 1);
 			Vector<Results> results = new Vector<Results>();
+			
 			//Test 200k classes
 			System.out.println("Test 200k classes :: " + name);
 			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_200\\merge.arff";
@@ -148,8 +151,7 @@ public class LoadSaveData {
 		DataSource source2 = new DataSource(file_2);
 		Instances dataset2 = source2.getDataSet();
 		dataset2.setClassIndex(dataset2.numAttributes() - 1);
-		
-		//EVALUATION
+		//EVALUATION 
 		Evaluation eval = new Evaluation(dataset);
 		eval.crossValidateModel(tree, dataset2, 10, new Random());
 		//eval.evaluateModel(tree, dataset2);
@@ -184,8 +186,11 @@ public class LoadSaveData {
 		r._n = dataset2.numInstances();
 		r.correct = ((double)num/(double)dataset2.numInstances()*100);
 		r.sigma = (double)totErr / (double)dataset2.numInstances();
-		//r.name = _class;
+		//r.name = _class; 
 		r.RMSE = eval.rootMeanSquaredError();
+		r.precision = eval.weightedPrecision();
+		r.recall = eval.weightedRecall();
+		//eval.fMeasure(0);
 		return r;
 		/*
 		System.out.println("Max error: " + maxErr);
@@ -205,11 +210,13 @@ public class LoadSaveData {
     	HSSFRow headhead = sheet.createRow((short)1);
     	int j = 0;
     	for(Results r : _firstrv){
-    		headhead.createCell(5*j + 2).setCellValue(r.name);
-    		head.createCell(5*j + 2).setCellValue("Max Error");
-    		head.createCell(5*j + 3).setCellValue("% Correct");
-    		head.createCell(5*j + 4).setCellValue("Sigma");
-    		head.createCell(5*j + 5).setCellValue("RMSE");
+    		headhead.createCell(7*j + 2).setCellValue(r.name);
+    		head.createCell(7*j + 2).setCellValue("Max Error");
+    		head.createCell(7*j + 3).setCellValue("% Correct");
+    		head.createCell(7*j + 4).setCellValue("Sigma");
+    		head.createCell(7*j + 5).setCellValue("RMSE");
+    		head.createCell(7*j + 6).setCellValue("Precision");
+    		head.createCell(7*j + 7).setCellValue("Recall");
     		j++;
     	}
     	
@@ -222,10 +229,12 @@ public class LoadSaveData {
     		row.createCell(0).setCellValue(name.substring(name.lastIndexOf('.') + 1));
         	j = 0;
         	for(Results r : rv){
-        		row.createCell(5*j + 2).setCellValue(r.maxError);
-        		row.createCell(5*j + 3).setCellValue(r.correct);
-        		row.createCell(5*j + 4).setCellValue(r.sigma);
-        		row.createCell(5*j + 5).setCellValue(r.RMSE);
+        		row.createCell(7*j + 2).setCellValue(r.maxError);
+        		row.createCell(7*j + 3).setCellValue(r.correct);
+        		row.createCell(7*j + 4).setCellValue(r.sigma);
+        		row.createCell(7*j + 5).setCellValue(r.RMSE);
+        		row.createCell(7*j + 6).setCellValue(r.precision);
+        		row.createCell(7*j + 7).setCellValue(r.recall);
         		j++;
         	}
         }
