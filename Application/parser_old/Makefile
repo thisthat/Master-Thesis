@@ -33,5 +33,5 @@ clean:
 	rm -f *.svg
 
 demo: compile
-	./$(NAME) < '/home/this/Downloads/10nodes.brite' 
+	./$(NAME) < '/home/this/Downloads/20nodes.brite' 
 	#sfdp -Gsize=1 ./out/*.dot -Tsvg -o ./out/topology_graph.svg

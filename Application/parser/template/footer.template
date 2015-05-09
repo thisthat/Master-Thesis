@@ -1,12 +1,36 @@
-	print "*** Testing network"
-	net.pingAll()
+	
+	return topology
 
-	print "*** Running CLI"
-	CLI( net )
+call("mn -c", shell=True)
+net = Mininet(controller=partial( RemoteController, ip='127.0.0.1', port=6653 ), topo=buildTopo(), link=TCLink, switch=OVSKernelSwitch)
+print "*** Build complete"
 
-	print "*** Stopping network"
-	net.stop()
+def start_proxy():
+    h1 = net.get('h1')
+    h1.cmd('java -jar proxy.jar &')
+
+def start_server():
+    h4 = net.get('h4')
+    #h4.cmd('java -jar server.jar &')
+
 
 if __name__ == '__main__':
-	setLogLevel( 'info' )  # for CLI output
-	ControllerNet()
+    
+    #print hosts
+    dim = math.ceil(len(hosts) / 2)
+    hs = random.sample(hosts, int(dim) )
+
+    net.start()
+    #test ping
+    net.pingAll()
+
+    #start_proxy()
+    #start server
+    #call("sh ./install-tools.sh", shell=True)
+
+    CLI(net)
+    #call(["killall", "Wrapper"])
+    #call("fuser -k 6633/tcp", shell=True)
+        
+    net.stop()    
+    

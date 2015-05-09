@@ -40,7 +40,7 @@ void createTopology(){
 	fprintf(f, "\tprint \"*** Creating switches\"\n");
 	for(int i = 0; i < __sizeNodes; i++){
 		struct node n = nodes[i];
-		fprintf(f, "\tnode_%d = topology.addSwitch( 's%d' )\n", n.id , i);
+		fprintf(f, "\tnode_%d = net.addSwitch( 's%d' )\n", n.id , i);
 	}
 	fprintf(f,"\n");
 
@@ -48,8 +48,7 @@ void createTopology(){
 	fprintf(f, "\tprint \"*** Creating hosts\"\n");
 	for(int i = 0; i < __sizeNodes; i++){
 		struct node n = nodes[i];
-		fprintf(f, "\thost_%d = topology.addHost( 'h%d' )\n", n.id , i);
-		fprintf(f, "\thosts.append('h%d')\n", i);
+		fprintf(f, "\thost_%d = net.addHost( 'h%d' )\n", n.id , i);
 	}
 	fprintf(f,"\n");
 	
@@ -59,19 +58,18 @@ void createTopology(){
 		struct edge e = edges[i];
 		struct node n1 = nodes[e.from];
 		struct node n2 = nodes[e.to];
-		fprintf(f, "\ttopology.addLink( node_%d , node_%d )\n" , n1.id, n2.id);
+		fprintf(f, "\tnet.addLink( node_%d , node_%d )\n" , n1.id, n2.id);
 	}
 	fprintf(f,"\n");
 	fprintf(f, "\tprint \"*** Creating Hosts Links\"\n");
 	//Host link
 	for(int i = 0; i < __sizeNodes; i++){
 		struct node n = nodes[i];
-		fprintf(f, "\ttopology.addLink( host_%d , node_%d )\n" , n.id, n.id);
+		fprintf(f, "\tnet.addLink( host_%d , node_%d )\n" , n.id, n.id);
 	}
 	fprintf(f,"\n");
 	
 	//Build the network
-    /*
     fprintf(f,"\tprint \"*** Building network\"\n");
     fprintf(f,"\tnet.build()\n");
     fprintf(f,"\tprint \"*** Starting network\"\n");
@@ -79,7 +77,6 @@ void createTopology(){
 		struct node n = nodes[i];
 		fprintf(f, "\tnode_%d.start( [ c1 ] )\n", n.id );
 	}
-	*/
 
 	while(fgets(line, 80, footer) != NULL)
 	{

@@ -5,157 +5,124 @@ This file create the network topology and play around it
 """
 
 from mininet.net import Mininet
-from mininet.node import Controller, OVSSwitch, RemoteController
+from mininet.topo import *
+from mininet.node import Controller, OVSKernelSwitch, RemoteController
+from mininet.link import TCLink
 from mininet.cli import CLI
-from mininet.log import setLogLevel
-from mininet.topo import Topo
+from subprocess import call
+from functools import partial
+import sys
+import httplib,json, time
+import random
+import math
 
-def ControllerNet():
-	"Create a network from semi-scratch with multiple controllers."
+hosts = []
 
-	net = Mininet(controller=RemoteController, switch=OVSSwitch )
-	print "*** External Controller 127.0.0.1:6653 :: FloodLight"
-	c1 = net.addController( 'c1', controller=RemoteController, ip='127.0.0.1', port=6653 )
+#build topology
+def buildTopo():
+	print '*** Init Topology'
+	topology=Topo()
 	print "*** Creating switches"
-	node_0 = net.addSwitch( 's0' )
-	node_1 = net.addSwitch( 's1' )
-	node_2 = net.addSwitch( 's2' )
-	node_3 = net.addSwitch( 's3' )
-	node_4 = net.addSwitch( 's4' )
-	node_5 = net.addSwitch( 's5' )
-	node_6 = net.addSwitch( 's6' )
-	node_7 = net.addSwitch( 's7' )
-	node_8 = net.addSwitch( 's8' )
-	node_9 = net.addSwitch( 's9' )
-	node_10 = net.addSwitch( 's10' )
-	node_11 = net.addSwitch( 's11' )
-	node_12 = net.addSwitch( 's12' )
-	node_13 = net.addSwitch( 's13' )
-	node_14 = net.addSwitch( 's14' )
-	node_15 = net.addSwitch( 's15' )
-	node_16 = net.addSwitch( 's16' )
-	node_17 = net.addSwitch( 's17' )
-	node_18 = net.addSwitch( 's18' )
-	node_19 = net.addSwitch( 's19' )
+	node_0 = topology.addSwitch( 's0' )
+	node_1 = topology.addSwitch( 's1' )
+	node_2 = topology.addSwitch( 's2' )
+	node_3 = topology.addSwitch( 's3' )
+	node_4 = topology.addSwitch( 's4' )
+	node_5 = topology.addSwitch( 's5' )
+	node_6 = topology.addSwitch( 's6' )
+	node_7 = topology.addSwitch( 's7' )
+	node_8 = topology.addSwitch( 's8' )
+	node_9 = topology.addSwitch( 's9' )
 
 	print "*** Creating hosts"
-	host_0 = net.addHost( 'h0' )
-	host_1 = net.addHost( 'h1' )
-	host_2 = net.addHost( 'h2' )
-	host_3 = net.addHost( 'h3' )
-	host_4 = net.addHost( 'h4' )
-	host_5 = net.addHost( 'h5' )
-	host_6 = net.addHost( 'h6' )
-	host_7 = net.addHost( 'h7' )
-	host_8 = net.addHost( 'h8' )
-	host_9 = net.addHost( 'h9' )
-	host_10 = net.addHost( 'h10' )
-	host_11 = net.addHost( 'h11' )
-	host_12 = net.addHost( 'h12' )
-	host_13 = net.addHost( 'h13' )
-	host_14 = net.addHost( 'h14' )
-	host_15 = net.addHost( 'h15' )
-	host_16 = net.addHost( 'h16' )
-	host_17 = net.addHost( 'h17' )
-	host_18 = net.addHost( 'h18' )
-	host_19 = net.addHost( 'h19' )
+	host_0 = topology.addHost( 'h0' )
+	hosts.append('h0')
+	host_1 = topology.addHost( 'h1' )
+	hosts.append('h1')
+	host_2 = topology.addHost( 'h2' )
+	hosts.append('h2')
+	host_3 = topology.addHost( 'h3' )
+	hosts.append('h3')
+	host_4 = topology.addHost( 'h4' )
+	hosts.append('h4')
+	host_5 = topology.addHost( 'h5' )
+	hosts.append('h5')
+	host_6 = topology.addHost( 'h6' )
+	hosts.append('h6')
+	host_7 = topology.addHost( 'h7' )
+	hosts.append('h7')
+	host_8 = topology.addHost( 'h8' )
+	hosts.append('h8')
+	host_9 = topology.addHost( 'h9' )
+	hosts.append('h9')
 
 	print "*** Creating Links"
-	net.addLink( node_2 , node_1 )
-	net.addLink( node_2 , node_0 )
-	net.addLink( node_3 , node_2 )
-	net.addLink( node_3 , node_0 )
-	net.addLink( node_4 , node_2 )
-	net.addLink( node_4 , node_1 )
-	net.addLink( node_5 , node_3 )
-	net.addLink( node_5 , node_2 )
-	net.addLink( node_6 , node_2 )
-	net.addLink( node_6 , node_3 )
-	net.addLink( node_7 , node_6 )
-	net.addLink( node_7 , node_1 )
-	net.addLink( node_8 , node_4 )
-	net.addLink( node_8 , node_5 )
-	net.addLink( node_9 , node_1 )
-	net.addLink( node_9 , node_5 )
-	net.addLink( node_10 , node_2 )
-	net.addLink( node_10 , node_0 )
-	net.addLink( node_11 , node_9 )
-	net.addLink( node_11 , node_2 )
-	net.addLink( node_12 , node_0 )
-	net.addLink( node_12 , node_11 )
-	net.addLink( node_13 , node_11 )
-	net.addLink( node_13 , node_2 )
-	net.addLink( node_14 , node_2 )
-	net.addLink( node_14 , node_3 )
-	net.addLink( node_15 , node_3 )
-	net.addLink( node_15 , node_13 )
-	net.addLink( node_17 , node_7 )
-	net.addLink( node_17 , node_15 )
-	net.addLink( node_16 , node_1 )
-	net.addLink( node_16 , node_5 )
-	net.addLink( node_19 , node_3 )
-	net.addLink( node_19 , node_11 )
-	net.addLink( node_18 , node_9 )
-	net.addLink( node_18 , node_12 )
-	net.addLink( node_0 , node_14 )
-	net.addLink( node_0 , node_6 )
-	net.addLink( node_1 , node_12 )
-	net.addLink( node_1 , node_18 )
+	topology.addLink( node_2 , node_0 )
+	topology.addLink( node_2 , node_1 )
+	topology.addLink( node_3 , node_0 )
+	topology.addLink( node_3 , node_1 )
+	topology.addLink( node_4 , node_0 )
+	topology.addLink( node_4 , node_2 )
+	topology.addLink( node_5 , node_4 )
+	topology.addLink( node_5 , node_3 )
+	topology.addLink( node_6 , node_2 )
+	topology.addLink( node_6 , node_0 )
+	topology.addLink( node_7 , node_6 )
+	topology.addLink( node_7 , node_4 )
+	topology.addLink( node_8 , node_1 )
+	topology.addLink( node_8 , node_5 )
+	topology.addLink( node_9 , node_2 )
+	topology.addLink( node_9 , node_0 )
+	topology.addLink( node_0 , node_8 )
+	topology.addLink( node_0 , node_7 )
+	topology.addLink( node_1 , node_4 )
+	topology.addLink( node_1 , node_6 )
 
 	print "*** Creating Hosts Links"
-	net.addLink( host_0 , node_0 )
-	net.addLink( host_1 , node_1 )
-	net.addLink( host_2 , node_2 )
-	net.addLink( host_3 , node_3 )
-	net.addLink( host_4 , node_4 )
-	net.addLink( host_5 , node_5 )
-	net.addLink( host_6 , node_6 )
-	net.addLink( host_7 , node_7 )
-	net.addLink( host_8 , node_8 )
-	net.addLink( host_9 , node_9 )
-	net.addLink( host_10 , node_10 )
-	net.addLink( host_11 , node_11 )
-	net.addLink( host_12 , node_12 )
-	net.addLink( host_13 , node_13 )
-	net.addLink( host_14 , node_14 )
-	net.addLink( host_15 , node_15 )
-	net.addLink( host_16 , node_16 )
-	net.addLink( host_17 , node_17 )
-	net.addLink( host_18 , node_18 )
-	net.addLink( host_19 , node_19 )
+	topology.addLink( host_0 , node_0 )
+	topology.addLink( host_1 , node_1 )
+	topology.addLink( host_2 , node_2 )
+	topology.addLink( host_3 , node_3 )
+	topology.addLink( host_4 , node_4 )
+	topology.addLink( host_5 , node_5 )
+	topology.addLink( host_6 , node_6 )
+	topology.addLink( host_7 , node_7 )
+	topology.addLink( host_8 , node_8 )
+	topology.addLink( host_9 , node_9 )
 
-	print "*** Building network"
-	net.build()
-	print "*** Starting network"
-	node_0.start( [ c1 ] )
-	node_1.start( [ c1 ] )
-	node_2.start( [ c1 ] )
-	node_3.start( [ c1 ] )
-	node_4.start( [ c1 ] )
-	node_5.start( [ c1 ] )
-	node_6.start( [ c1 ] )
-	node_7.start( [ c1 ] )
-	node_8.start( [ c1 ] )
-	node_9.start( [ c1 ] )
-	node_10.start( [ c1 ] )
-	node_11.start( [ c1 ] )
-	node_12.start( [ c1 ] )
-	node_13.start( [ c1 ] )
-	node_14.start( [ c1 ] )
-	node_15.start( [ c1 ] )
-	node_16.start( [ c1 ] )
-	node_17.start( [ c1 ] )
-	node_18.start( [ c1 ] )
-	node_19.start( [ c1 ] )
-	print "*** Testing network"
-	net.pingAll()
+	
+	return topology
 
-	print "*** Running CLI"
-	CLI( net )
+call("mn -c", shell=True)
+net = Mininet(controller=partial( RemoteController, ip='127.0.0.1', port=6653 ), topo=buildTopo(), link=TCLink, switch=OVSKernelSwitch)
+print "*** Build complete"
 
-	print "*** Stopping network"
-	net.stop()
+def start_proxy():
+    h1 = net.get('h1')
+    h1.cmd('java -jar proxy.jar &')
+
+def start_server():
+    h4 = net.get('h4')
+    #h4.cmd('java -jar server.jar &')
+
 
 if __name__ == '__main__':
-	setLogLevel( 'info' )  # for CLI output
-	ControllerNet()
+    
+    print hosts
+    dim = math.ceil(len(hosts) / 2)
+    print random.sample(hosts, int(dim) )
+
+    net.start()
+    #test ping
+    net.pingAll()
+
+    #start_proxy()
+    #start server
+    #call("sh ./install-tools.sh", shell=True)
+
+    CLI(net)
+    #call(["killall", "Wrapper"])
+    #call("fuser -k 6633/tcp", shell=True)
+        
+    net.stop()    
+    

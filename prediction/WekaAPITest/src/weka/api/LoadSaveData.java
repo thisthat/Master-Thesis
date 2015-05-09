@@ -190,6 +190,7 @@ public class LoadSaveData {
 		r.RMSE = eval.rootMeanSquaredError();
 		r.precision = eval.weightedPrecision();
 		r.recall = eval.weightedRecall();
+		eval.coverageOfTestCasesByPredictedRegions();
 		//eval.fMeasure(0);
 		return r;
 		/*
