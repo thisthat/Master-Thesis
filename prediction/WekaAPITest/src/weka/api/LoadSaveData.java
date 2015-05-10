@@ -8,9 +8,17 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.bayes.BayesNet;
@@ -42,6 +50,7 @@ public class LoadSaveData {
 		public double sigma;
 		public double precision;
 		public double recall;
+		public double coverage;
 		public Results() {};
 	}
 	
@@ -64,11 +73,11 @@ public class LoadSaveData {
 		KStar kstar = new KStar();
 		
 		classifiers.add(nb);
-		classifiers.add(smo);
+		//classifiers.add(smo);
 		classifiers.add(zeroR);
-		classifiers.add(bn);
-		classifiers.add(nn);
-		classifiers.add(j48);
+		//classifiers.add(bn);
+		//classifiers.add(nn);
+		//classifiers.add(j48);
 		classifiers.add(kstar);
 
 		Results r;
@@ -190,8 +199,7 @@ public class LoadSaveData {
 		r.RMSE = eval.rootMeanSquaredError();
 		r.precision = eval.weightedPrecision();
 		r.recall = eval.weightedRecall();
-		eval.coverageOfTestCasesByPredictedRegions();
-		//eval.fMeasure(0);
+		r.coverage = eval.coverageOfTestCasesByPredictedRegions();
 		return r;
 		/*
 		System.out.println("Max error: " + maxErr);
@@ -210,16 +218,34 @@ public class LoadSaveData {
     	HSSFRow head = sheet.createRow((short)2);
     	HSSFRow headhead = sheet.createRow((short)1);
     	int j = 0;
+    	//Num of value in Results structure
+    	int max_val = 8;
     	for(Results r : _firstrv){
-    		headhead.createCell(7*j + 2).setCellValue(r.name);
-    		head.createCell(7*j + 2).setCellValue("Max Error");
-    		head.createCell(7*j + 3).setCellValue("% Correct");
-    		head.createCell(7*j + 4).setCellValue("Sigma");
-    		head.createCell(7*j + 5).setCellValue("RMSE");
-    		head.createCell(7*j + 6).setCellValue("Precision");
-    		head.createCell(7*j + 7).setCellValue("Recall");
+    		headhead.createCell(max_val*j + 2).setCellValue(r.name);
+    		head.createCell(max_val*j + 2).setCellValue("Max Error");
+    		head.createCell(max_val*j + 3).setCellValue("% Correct");
+    		head.createCell(max_val*j + 4).setCellValue("Sigma");
+    		head.createCell(max_val*j + 5).setCellValue("RMSE");
+    		head.createCell(max_val*j + 6).setCellValue("Precision");
+    		head.createCell(max_val*j + 7).setCellValue("Recall");
+    		head.createCell(max_val*j + 8).setCellValue("Coverage (0.95)");
     		j++;
     	}
+    	int maxCol = j*max_val;
+    	
+    	HSSFFont font = workbook.createFont();
+    	font.setBoldweight(HSSFFont.COLOR_RED);
+    	font.setColor(HSSFColor.RED.index);
+    	HSSFCellStyle style = workbook.createCellStyle();
+    	style.setFont(font);
+    	style.setFillForegroundColor(HSSFColor.RED.index);
+    	
+    	HSSFFont fontMin = workbook.createFont();
+    	fontMin.setBoldweight(HSSFFont.COLOR_NORMAL);
+    	fontMin.setColor(HSSFColor.BLUE.index);
+    	HSSFCellStyle styleMin= workbook.createCellStyle();
+    	styleMin.setFont(fontMin);
+    	styleMin.setFillForegroundColor(HSSFColor.BLUE.index);
     	
     	
         int i = 0;
@@ -230,17 +256,60 @@ public class LoadSaveData {
     		row.createCell(0).setCellValue(name.substring(name.lastIndexOf('.') + 1));
         	j = 0;
         	for(Results r : rv){
-        		row.createCell(7*j + 2).setCellValue(r.maxError);
-        		row.createCell(7*j + 3).setCellValue(r.correct);
-        		row.createCell(7*j + 4).setCellValue(r.sigma);
-        		row.createCell(7*j + 5).setCellValue(r.RMSE);
-        		row.createCell(7*j + 6).setCellValue(r.precision);
-        		row.createCell(7*j + 7).setCellValue(r.recall);
+        		row.createCell(max_val*j + 2).setCellValue(r.maxError);
+        		row.createCell(max_val*j + 3).setCellValue(r.correct);
+        		row.createCell(max_val*j + 4).setCellValue(r.sigma);
+        		row.createCell(max_val*j + 5).setCellValue(r.RMSE);
+        		row.createCell(max_val*j + 6).setCellValue(r.precision);
+        		row.createCell(max_val*j + 7).setCellValue(r.recall);
+        		row.createCell(max_val*j + 8).setCellValue(r.coverage);
         		j++;
         	}
         }
+        int maxRow = i;
+        //Get the first sheet
+      
+        //HSSFCell c = sheet.getRow(4).getCell(4);
+        //c.setCellStyle(style);
         
-  
+        //HIGHLIGHT MAX/MIN VAL
+        System.out.println("Start looking through cells " + maxRow + "::" + maxCol);
+        double _maxVal = 0;
+        double _minVal = Double.MAX_VALUE;
+        int pos_x = 0,pos_y = 0;
+        int min_x = 0,min_y = 0;
+        for(int col = 2; col < maxCol; col++){
+        	_maxVal = 0;
+        	_minVal = Double.MAX_VALUE;
+        	for(int r = 3; r < 3+maxRow; r++){	
+        		try {
+	        		HSSFCell c = sheet.getRow(r).getCell(col);
+	                switch(c.getCellType()){
+	                	case Cell.CELL_TYPE_NUMERIC:
+	                		if(_maxVal < c.getNumericCellValue()){
+	                			_maxVal = c.getNumericCellValue();
+	                			pos_x = r;
+	                			pos_y = col;
+	                		}
+	                		if(_minVal > c.getNumericCellValue()){
+	                			_minVal = c.getNumericCellValue();
+	                			min_x = r;
+	                			min_y = col;
+	                		}
+	                		break;
+	                }
+        		}
+        		catch(Exception e){
+        			//Not defined cell -> not a big problem just skip
+        		}
+        	}
+        	HSSFCell c = sheet.getRow(pos_x).getCell(pos_y);
+            c.setCellStyle(style);
+            c = sheet.getRow(min_x).getCell(min_y);
+            c.setCellStyle(styleMin);
+        	//System.exit(0);
+        }
+        
         try {
         	FileOutputStream fileOut = new FileOutputStream(filename);
 			workbook.write(fileOut);
