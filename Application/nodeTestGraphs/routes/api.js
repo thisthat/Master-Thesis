@@ -1,11 +1,57 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
+var controller_url = "http://192.168.56.1:8080/";
 
 var __test = "_1";
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('API Working');
+});
+
+
+router.get('/controller/memory', function(req, res, next) {
+    request({
+        url: controller_url + 'wm/core/memory/json', 
+        timeout: 5,
+    },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+router.get('/controller/health', function(req, res, next) {
+    request({
+        url: controller_url + 'wm/core/health/json',
+        timeout: 5,
+    }, function (error, response, body) {
+        console.log(error);
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+router.get('/controller/uptime', function(req, res, next) {
+    request({
+        url: controller_url + 'wm/core/system/uptime/json', 
+        timeout: 5,
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+        else {
+            res.send("[]");
+        }
+    })
 });
 
 /*
