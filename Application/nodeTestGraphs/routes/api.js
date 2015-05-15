@@ -74,39 +74,28 @@ router.get('/controller/summary', function(req, res, next) {
 
 
 router.get('/controller/load', function(req, res, next) {
-    //Get all switches first, then foreach the stats
     var totByte = 0;
-    var totFlow = 0;
     var totPack = 0;
     request({
-        url: controller_url + 'wm/core/controller/switches/json', 
-        timeout: 1000,
+        url: controller_url + 'wm/core/switch/all/port/json', 
+        timeout: 13000, //after 12s the switch don't answer
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
+            res.setHeader('Content-Type', 'application/json');
             var switches = JSON.parse(body);
             for(i in switches){
-                sw = switches[i];
-                var _url = controller_url + 'wm/core/switch/' + sw.switchDPID +'/aggregate/json';
-                //For all switch get the data
-                request({
-                    url: _url, 
-                    timeout: 1000,
-                }, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var data = JSON.parse(body);
-                        totByte += parseInt(data.aggregate.byteCount);
-                        totPack += parseInt(data.aggregate.packetCount);
-                        totFlow += parseInt(data.aggregate.flowCount);
-                        if(i == switches.length - 1){
-                            res.end(JSON.stringify({
-                                "bytes"     : totByte,
-                                "packets"   : totPack,
-                                "flows"     : totFlow 
-                            }));
-                        }
-                    }
-                });
+                var sw = switches[i];
+                for(j in sw.port){
+                    var port = sw.port[j];
+                    //console.log(port);
+                    totByte += parseInt(port.transmitBytes);
+                    totPack += parseInt(port.transmitPackets);
+                }
             }
+            res.send({
+                "bytes"     : totByte,
+                "packets"   : totPack
+            })
         }
         else {
             res.send("[]");

@@ -1,3 +1,25 @@
+//Global variables
+var updateInterval = 3000;
+var bytes = [], packets = [], flows = [], totalPoints = 20;
+var lastData = {
+	'byte' : 0,
+	'flow' : 0,
+	'pack' : 0
+};
+var lastRealData = {
+	'byte' : 0,
+	'flow' : 0,
+	'pack' : 0
+};
+$.getJSON( "/api/controller/load", function( data ) {
+		lastData.byte = data.bytes;
+		lastData.pack = data.packets;
+
+		lastRealData.byte = data.bytes;
+		lastRealData.pack = data.packets;
+
+	});
+
 $(function(){
 	init();
 });
@@ -172,6 +194,7 @@ function formatTime(time){
 function loadChart(){
 	generalStatus();
 	realTimeGraph();
+	packetGraph();
 }
 
 function generalStatus(){
@@ -199,41 +222,16 @@ function generalStatus(){
 }
 
 function realTimeGraph(){
-	var updateInterval = 1000;
-	var bytes = [], packets = [], flows = [], totalPoints = 50;
-	var lastData = {
-		'byte' : 0,
-		'flow' : 0,
-		'pack' : 0
-	};
-	$.getJSON( "/api/controller/load", function( data ) {
-		lastData.byte = data.bytes;
-		lastData.flow = data.flows;
-		lastData.pack = data.packets;
-	});
 
-
-	function getInitData(field) {
+	function getInitData() {
 		if (bytes.length > 0){
 			bytes = bytes.slice(1);
-			packets = packets.slice(1);
-			flows = flows.slice(1);
 		}
 		while (bytes.length < totalPoints) {
 			bytes.push(0);
-			packets.push(0);
-			flows.push(0);
 		}
-		var data;
+		var data = bytes;
 		// zip the generated y values with the x values
-		switch(field){
-			case "byte": data = bytes;
-				break;
-			case "flow": data = flows;
-				break;
-			case "pack": data = packets;
-				break;
-		}
 		var res = [];
 		for (var i = 0; i < data.length; ++i)
 			res.push([i, data[i]])
@@ -255,21 +253,134 @@ function realTimeGraph(){
 		return res;
 	}
 
-	function getDataFlow() {
-		//delete one element
-		if (flows.length > 0)
-			flows = flows.slice(1);
+	var options = {
+		legend: {
+			show: true
+			//container: $("#legend")
+		},
+		series: { shadowSize: 1 },
+		lines: { fill: true, fillColor: { colors: [ { opacity: 0.3 }, { opacity: 0.1 } ] }},
+		yaxis: { min: 0, max: 100 },
+		xaxis: { show: false },
+		colors: ["#2FABE9", "#EB3C00"],
+		grid: {	
+				tickColor: "#dddddd",
+				borderWidth: 0,
+				hoverable: true
+		},
+		crosshair: {
+			mode: "x"
+		}
+	};
+	var plotMB = $.plot($("#realtimechart"), [ 
+			{ label: "bytes = 0",  data: getInitData("byte")},
+			//{ label: "packets = 0",  data: getInitData("pack")},
+			//{ label: "flows = 0",  data: getInitData("flow")}
+		], options);
 
-		var val = lastData['flow'];
-		flows.push(val);
+	//Update Legends on hover
+	var legendsMB = $("#realtimechart .legendLabel");
 
-		// zip the generated y values with the x values
-		var res = [];
-		for (var i = 0; i < flows.length; ++i)
-			res.push([i, flows[i]])
-		return res;
+	legendsMB.each(function () {
+		// fix the widths so they don't jump around
+		$(this).css('width', $(this).width() + 30);
+	});
+
+	// Legend update
+	var updateLegendTimeout = null;
+	var latestPosition = null;
+
+	function updateLegendMB() {
+
+		updateLegendTimeout = null;
+		var pos = latestPosition;
+		var axes = plotMB.getAxes();
+		//Out of graph
+		if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
+			pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) {
+			return;
+		}
+		var i, j, dataset = plotMB.getData();
+		for (i = 0; i < dataset.length; ++i) {
+			var series = dataset[i];
+			// Find the nearest points, x-wise
+			for (j = 0; j < series.data.length; ++j) {
+				if (series.data[j][0] > pos.x) {
+					break;
+				}
+			}
+			// Now Interpolate
+			var y, p1 = series.data[j];
+			y = p1[1].toFixed(10);
+			var txt = series.label.replace(/=.*/, "= " + y);
+			txt += "= " + y;
+			//Update the value in the legend
+			$(".legend").find("tr").each(function (index, val){
+				if( i == index){
+					$(this).find('.legendLabel').html(txt);
+				}
+			});
+		}
 	}
 
+	$("#realtimechart").on("plothover",  function (event, pos, item) {
+		latestPosition = pos;
+		if (!updateLegendTimeout) {
+			updateLegendTimeout = setTimeout(updateLegendMB, 50);
+		}
+	});
+
+
+	//Data Update
+	function update() {
+
+		//New values
+		$.getJSON( "/api/controller/load", function( data ) {
+			console.log(data);
+			var b = (Math.abs(lastRealData.byte - data.bytes) / 1000000) / updateInterval;
+			var p = Math.abs(lastRealData.pack - data.packets);
+			lastData.byte = b;
+			lastData.pack = p;
+
+			lastRealData.byte = data.bytes;
+			lastRealData.pack = data.packets;
+		});
+
+		//console.log(packets);
+
+		plotMB.setData([
+			{ label: "[MB/s]",  data: getDataByte() }
+		]);
+		//Redraw y-axis
+		var _max = bytes.max();
+		plotMB.getOptions().yaxes[0].max = _max;
+		plotMB.setupGrid();
+		plotMB.draw();
+		setTimeout(update, updateInterval);
+	}
+
+	update();
+
+}
+
+
+function packetGraph(){
+
+	//Init and update of data structure already done in the other graph function	
+	
+	function getInitData() {
+		if (packets.length > 0){
+			packets = packets.slice(1);
+		}
+		while (packets.length < totalPoints) {
+			packets.push(0);
+		}
+		var data = packets;
+		var res = [];
+		for (var i = 0; i < data.length; ++i)
+			res.push([i, data[i]])
+		return res;
+	}
 	function getDataPacket() {
 		//delete one element
 		if (packets.length > 0)
@@ -304,13 +415,12 @@ function realTimeGraph(){
 			mode: "x"
 		}
 	};
-	var plot = $.plot($("#realtimechart"), [ 
-			{ label: "bytes = 0",  data: getInitData("byte")},
-			{ label: "packets = 0",  data: getInitData("pack")},
-			{ label: "flows = 0",  data: getInitData("flow")}
+	var plot = $.plot($("#packetChart"), [ 
+			{ label: "packets = 0",  data: getInitData() }
 		], options);
 
-	var legends = $("#realtimechart .legendLabel");
+	//Update Legends on hover
+	var legends = $("#packetChart .legendLabel");
 
 	legends.each(function () {
 		// fix the widths so they don't jump around
@@ -326,43 +436,35 @@ function realTimeGraph(){
 		updateLegendTimeout = null;
 		var pos = latestPosition;
 		var axes = plot.getAxes();
+		//Out of graph
 		if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
 			pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) {
 			return;
 		}
-
-
-
 		var i, j, dataset = plot.getData();
 		for (i = 0; i < dataset.length; ++i) {
-
 			var series = dataset[i];
-
 			// Find the nearest points, x-wise
-
 			for (j = 0; j < series.data.length; ++j) {
 				if (series.data[j][0] > pos.x) {
 					break;
 				}
 			}
-
 			// Now Interpolate
-
 			var y, p1 = series.data[j];
 			y = p1[1].toFixed(2);
 			var txt = series.label.replace(/=.*/, "= " + y);
 			txt += "= " + y;
-			$(".legend").find("tr").each(function (index, val){
+			//Update the value in the legend
+			$("#packetChart").find(".legend").find("tr").each(function (index, val){
 				if( i == index){
 					$(this).find('.legendLabel').html(txt);
 				}
 			});
-			//console.log(elm.html());
-			//legends.eq(i).text(txt);
 		}
 	}
 
-	$("#realtimechart").on("plothover",  function (event, pos, item) {
+	$("#packetChart").on("plothover",  function (event, pos, item) {
 		latestPosition = pos;
 		if (!updateLegendTimeout) {
 			updateLegendTimeout = setTimeout(updateLegend, 50);
@@ -373,29 +475,12 @@ function realTimeGraph(){
 	//Data Update
 	function update() {
 
-		//New values
-		$.getJSON( "/api/controller/load", function( data ) {
-			var b = Math.abs(lastData.byte - data.bytes) / 1000000;
-			var f = data.flows;
-			var p = Math.abs(lastData.pack - data.packets);
-			lastData.byte = b;
-			lastData.flow = f;
-			lastData.pack = p;
-		});
-
-		//console.log(packets);
-
 		plot.setData([
-			{ label: "[MB] bytes",  data: getDataByte() },
-			{ label: "packets",  data: getDataPacket() },
-			{ label: "flows",  data: getDataFlow() } 
+			{ label: "packets",  data: getDataPacket() }
 		]);
-		// since the axes don't change, we don't need to call plot.setupGrid()
-		var _max = 0;
-		_max = Math.max(bytes.max(), packets.max(), flows.max());
-		//console.log(plot.getOptions());
+		var _max = packets.max();
+		//Resize y-axis
 		plot.getOptions().yaxes[0].max = _max;
-		//console.log(_max)
 		plot.setupGrid();
 		plot.draw();
 		setTimeout(update, updateInterval);
@@ -404,4 +489,3 @@ function realTimeGraph(){
 	update();
 
 }
-

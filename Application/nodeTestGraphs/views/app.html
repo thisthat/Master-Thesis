@@ -179,7 +179,7 @@
 		<script src="js/width-fix.js"></script>
 	<!-- end: JavaScript-->
 	<script>
-	var _timer = 60; //s after to reload the page
+	var _timer = 180; //s after to reload the page
 	var last = "";
 	var time = Math.floor(Date.now() / 1000);
 
@@ -202,10 +202,9 @@
 		}
 		setTimeout(reload, 1000);
 	}
-	reload();
+	//reload();
 
 	$(function(){
-		$("#notificationReload").hide();
 		$("#dashboard").on('click', function(){
 			last = "/dashboard";
 			time = Math.floor(Date.now() / 1000);
@@ -220,6 +219,10 @@
 			  	$( "#content" ).html( data );
 			});
 		});
+
+		//Start w/ dashboard
+		$("#dashboard").trigger("click");
+		
 	});
 	</script>
 </body>
