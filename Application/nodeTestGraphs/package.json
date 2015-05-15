@@ -16,6 +16,7 @@
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0",
     "swig": "^1.4.2",
-    "request": "*"
+    "request": "*",
+    "mongo-fast-join" : "*"
   }
 }

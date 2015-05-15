@@ -4,10 +4,18 @@ $(function(){
 
 function init(){
 
+	Array.prototype.max = function() {
+	  return Math.max.apply(null, this);
+	};
+
+	Array.prototype.min = function() {
+	  return Math.min.apply(null, this);
+	};
+
 	loadMemoryUsage();
 	loadHealth();
 	loadUptime();
-	//Autoreload
+	loadChart();
 	
 }
 
@@ -25,6 +33,10 @@ function loadUptime(){
 }
 
 function loadHealth(){
+	var p = $("#statusController").parent();
+	p.removeClass("greenDark");
+	p.addClass("red");
+	$("#statusController").html('Status: NOT Health');
 	$.getJSON( "/api/controller/health", function( data ) {
 		if(data.healthy){
 			var p = $("#statusController").parent();
@@ -156,3 +168,240 @@ function formatTime(time){
 	}
 	return g + "g " + h + "h " + m + "m " + s + "s";
 }
+
+function loadChart(){
+	generalStatus();
+	realTimeGraph();
+}
+
+function generalStatus(){
+	$.getJSON( "/api/controller/summary", function( data ) {
+		keys = Object.keys(data);
+		var d1 = [];
+		for(i = 0; i < 4; i++){
+			d1.push([ keys[i] , data[keys[i]] ]);
+		}
+		$.plot($("#stackchart"), [ d1 ], {
+			series: {
+				bars: {
+					show: true,
+					barWidth: 0.6,
+					align: "center"
+				}
+			},
+			xaxis: {
+				mode: "categories",
+				tickLength: 0
+			},
+			colors: ["#2FABE9", "#FABB3D"]
+		});
+	});
+}
+
+function realTimeGraph(){
+	var updateInterval = 1000;
+	var bytes = [], packets = [], flows = [], totalPoints = 50;
+	var lastData = {
+		'byte' : 0,
+		'flow' : 0,
+		'pack' : 0
+	};
+	$.getJSON( "/api/controller/load", function( data ) {
+		lastData.byte = data.bytes;
+		lastData.flow = data.flows;
+		lastData.pack = data.packets;
+	});
+
+
+	function getInitData(field) {
+		if (bytes.length > 0){
+			bytes = bytes.slice(1);
+			packets = packets.slice(1);
+			flows = flows.slice(1);
+		}
+		while (bytes.length < totalPoints) {
+			bytes.push(0);
+			packets.push(0);
+			flows.push(0);
+		}
+		var data;
+		// zip the generated y values with the x values
+		switch(field){
+			case "byte": data = bytes;
+				break;
+			case "flow": data = flows;
+				break;
+			case "pack": data = packets;
+				break;
+		}
+		var res = [];
+		for (var i = 0; i < data.length; ++i)
+			res.push([i, data[i]])
+		return res;
+	}
+
+	function getDataByte() {
+		//delete one element
+		if (bytes.length > 0)
+			bytes = bytes.slice(1);
+
+		var val = lastData['byte'];
+		bytes.push(val);
+
+		// zip the generated y values with the x values
+		var res = [];
+		for (var i = 0; i < bytes.length; ++i)
+			res.push([i, bytes[i]])
+		return res;
+	}
+
+	function getDataFlow() {
+		//delete one element
+		if (flows.length > 0)
+			flows = flows.slice(1);
+
+		var val = lastData['flow'];
+		flows.push(val);
+
+		// zip the generated y values with the x values
+		var res = [];
+		for (var i = 0; i < flows.length; ++i)
+			res.push([i, flows[i]])
+		return res;
+	}
+
+	function getDataPacket() {
+		//delete one element
+		if (packets.length > 0)
+			packets = packets.slice(1);
+
+		var val = lastData['pack'];
+		packets.push(val);
+
+		// zip the generated y values with the x values
+		var res = [];
+		for (var i = 0; i < packets.length; ++i)
+			res.push([i, packets[i]])
+		return res;
+	}
+
+	var options = {
+		legend: {
+			show: true
+			//container: $("#legend")
+		},
+		series: { shadowSize: 1 },
+		lines: { fill: true, fillColor: { colors: [ { opacity: 0.3 }, { opacity: 0.1 } ] }},
+		yaxis: { min: 0, max: 100 },
+		xaxis: { show: false },
+		colors: ["#F4A506" ,"#2FABE9", "#EB3C00"],
+		grid: {	
+				tickColor: "#dddddd",
+				borderWidth: 0,
+				hoverable: true
+		},
+		crosshair: {
+			mode: "x"
+		}
+	};
+	var plot = $.plot($("#realtimechart"), [ 
+			{ label: "bytes = 0",  data: getInitData("byte")},
+			{ label: "packets = 0",  data: getInitData("pack")},
+			{ label: "flows = 0",  data: getInitData("flow")}
+		], options);
+
+	var legends = $("#realtimechart .legendLabel");
+
+	legends.each(function () {
+		// fix the widths so they don't jump around
+		$(this).css('width', $(this).width() + 30);
+	});
+
+	// Legend update
+	var updateLegendTimeout = null;
+	var latestPosition = null;
+
+	function updateLegend() {
+
+		updateLegendTimeout = null;
+		var pos = latestPosition;
+		var axes = plot.getAxes();
+		if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
+			pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) {
+			return;
+		}
+
+
+
+		var i, j, dataset = plot.getData();
+		for (i = 0; i < dataset.length; ++i) {
+
+			var series = dataset[i];
+
+			// Find the nearest points, x-wise
+
+			for (j = 0; j < series.data.length; ++j) {
+				if (series.data[j][0] > pos.x) {
+					break;
+				}
+			}
+
+			// Now Interpolate
+
+			var y, p1 = series.data[j];
+			y = p1[1].toFixed(2);
+			var txt = series.label.replace(/=.*/, "= " + y);
+			txt += "= " + y;
+			$(".legend").find("tr").each(function (index, val){
+				if( i == index){
+					$(this).find('.legendLabel').html(txt);
+				}
+			});
+			//console.log(elm.html());
+			//legends.eq(i).text(txt);
+		}
+	}
+
+	$("#realtimechart").on("plothover",  function (event, pos, item) {
+		latestPosition = pos;
+		if (!updateLegendTimeout) {
+			updateLegendTimeout = setTimeout(updateLegend, 50);
+		}
+	});
+
+
+	//Data Update
+	function update() {
+
+		//New values
+		$.getJSON( "/api/controller/load", function( data ) {
+			var b = Math.abs(lastData.byte - data.bytes) / 1000000;
+			var f = data.flows;
+			var p = Math.abs(lastData.pack - data.packets);
+			lastData.byte = b;
+			lastData.flow = f;
+			lastData.pack = p;
+		});
+
+		//console.log(packets);
+
+		plot.setData([
+			{ label: "[MB] bytes",  data: getDataByte() },
+			{ label: "packets",  data: getDataPacket() },
+			{ label: "flows",  data: getDataFlow() } 
+		]);
+		// since the axes don't change, we don't need to call plot.setupGrid()
+		var _max = 0;
+		_max = Math.max(bytes.max(), packets.max(), flows.max());
+		//console.log(plot.getOptions());
+		plot.getOptions().yaxes[0].max = _max;
+		//console.log(_max)
+		plot.setupGrid();
+		plot.draw();
+		setTimeout(update, updateInterval);
+	}
+
+	update();
+
+}
+
