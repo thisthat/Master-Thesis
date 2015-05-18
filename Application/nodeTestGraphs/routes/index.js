@@ -3,16 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('app', { title: 'Overview usage' });
-});
-
-
-router.get('/dashboard', function(req, res, next) {
-  res.render('dashboard', { title: 'Overview usage' });
-});
-
-router.get('/other', function(req, res, next) {
-  res.render('themeItems', { title: 'Overview usage' });
+  res.render('index', { title: 'Overview usage' });
 });
 
 /* Test */
