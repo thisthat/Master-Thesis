@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var swig  = require('swig');
 
 //DB
 var mongo = require('mongoskin');
@@ -20,11 +21,12 @@ var graph = require('./routes/graph');
 var app = express();
 
 // view engine setup
+app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,5 +75,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
 module.exports = app;
+
+app.listen(800);
+console.log("Server start @ 127.0.0.1:800");

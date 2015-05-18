@@ -1,0 +1,24 @@
+digraph world {
+
+	graph [ranksep=3, root="0"];
+	2 -> 0 [label="", arrowhead=none];
+	2 -> 1 [label="", arrowhead=none];
+	3 -> 0 [label="", arrowhead=none];
+	3 -> 1 [label="", arrowhead=none];
+	4 -> 0 [label="", arrowhead=none];
+	4 -> 2 [label="", arrowhead=none];
+	5 -> 4 [label="", arrowhead=none];
+	5 -> 3 [label="", arrowhead=none];
+	6 -> 2 [label="", arrowhead=none];
+	6 -> 0 [label="", arrowhead=none];
+	7 -> 6 [label="", arrowhead=none];
+	7 -> 4 [label="", arrowhead=none];
+	8 -> 1 [label="", arrowhead=none];
+	8 -> 5 [label="", arrowhead=none];
+	9 -> 2 [label="", arrowhead=none];
+	9 -> 0 [label="", arrowhead=none];
+	0 -> 8 [label="", arrowhead=none];
+	0 -> 7 [label="", arrowhead=none];
+	1 -> 4 [label="", arrowhead=none];
+	1 -> 6 [label="", arrowhead=none];
+}
