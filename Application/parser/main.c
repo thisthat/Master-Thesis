@@ -54,19 +54,19 @@ void createTopology(){
 	fprintf(f,"\n");
 	
 	//Edges
-	fprintf(f, "\tprint \"*** Creating Links\"\n");
+	fprintf(f, "\tprint \"*** Creating Switch Links\"\n");
 	for(int i = 0; i < __sizeEdges; i++){
 		struct edge e = edges[i];
 		struct node n1 = nodes[e.from];
 		struct node n2 = nodes[e.to];
-		fprintf(f, "\ttopology.addLink( node_%d , node_%d )\n" , n1.id, n2.id);
+		fprintf(f, "\ttopology.addLink( node_%d , node_%d, **linkopts )\n" , n1.id, n2.id);
 	}
 	fprintf(f,"\n");
 	fprintf(f, "\tprint \"*** Creating Hosts Links\"\n");
 	//Host link
 	for(int i = 0; i < __sizeNodes; i++){
 		struct node n = nodes[i];
-		fprintf(f, "\ttopology.addLink( host_%d , node_%d )\n" , n.id, n.id);
+		fprintf(f, "\ttopology.addLink( host_%d , node_%d, **linkopts )\n" , n.id, n.id);
 	}
 	fprintf(f,"\n");
 	

@@ -3,7 +3,6 @@
 """
 This file create the network topology and play around it
 """
-
 from mininet.net import Mininet
 from mininet.topo import *
 from mininet.node import Controller, OVSKernelSwitch, RemoteController
@@ -11,14 +10,56 @@ from mininet.link import TCLink
 from mininet.cli import CLI
 from subprocess import call
 from functools import partial
-import sys
-import httplib,json, time
-import random
 import math
+import random
+import time
+import threading
+import urllib2
 
 hosts = []
 
-#build topology
+requests = [1100,800,650,300,200,100,50,120,300,400,500,600,900,950,1000,900,950,1000,600,500,600,700,800,950]
+timeSpan = 30
+filename = 'testingfile'
+
+class TokenBucket(object):
+    """An implementation of the token bucket algorithm.
+    
+    >>> bucket = TokenBucket(80, 0.5)
+    >>> print bucket.consume(10)
+    True
+    >>> print bucket.consume(90)
+    False
+    """
+    def __init__(self, initToks, tokens, fill_rate):
+        """tokens is the total tokens in the bucket. fill_rate is the
+        rate in tokens/second that the bucket will be refilled."""
+        self.capacity = float(tokens)
+        self._tokens = float(initToks)
+        self.fill_rate = float(fill_rate)
+        self.timestamp = time.time()
+
+    def consume(self, tokens):
+        """Consume tokens from the bucket. Returns True if there were
+        sufficient tokens otherwise False."""
+        if tokens <= self.tokens:
+            self._tokens -= tokens
+        else:
+            return False
+        return True
+
+    def get_tokens(self):
+        if self._tokens < self.capacity:
+            now = time.time()
+            delta = self.fill_rate * (now - self.timestamp)
+            self._tokens = min(self.capacity, self._tokens + delta)
+            self.timestamp = now
+        return self._tokens
+    tokens = property(get_tokens)
+
 def buildTopo():
-	print '*** Init Topology'
+	# Add links Mbps, ms delay, 10% loss
+	linkopts = dict(bw=100, delay='5ms', loss=2, max_queue_size=1000, use_htb=True)
+
+	print 'init topology'
 	topology=Topo()
