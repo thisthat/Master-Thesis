@@ -6,7 +6,7 @@ var MJ = require("mongo-fast-join"),
 var controller_url = "http://172.16.149.134:8080/";
 
 var debug = true;
-var __test = "full_0";
+var __test = "full_00";
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -120,7 +120,37 @@ SWITCH SECTION
 
 */
 
-//Doesn't seems like to working the join!
+//Group by par
+router.get('/switch/list/:min/:max/:group', function(req, res, next) {
+	var db = req.db;
+	var _min = parseInt(req.params.min);
+	var _max = parseInt(req.params.max);
+	var _groupby = req.params.group;
+	res.setHeader('Content-Type', 'application/json');
+	var out = {};
+	db.collection('SwitchDevices')
+	.find({
+		_time: { $gte: _min, $lte: _max }	
+	})
+	.sort({_time: -1})
+	.toArray(function (err, items) {
+		items.forEach( function(item, index){
+			var t = item[_groupby];
+			//console.log(out.t, typeof out.t);
+			if(typeof out[t] != "undefined"){
+				out[t].push(item);
+			}
+			else {
+				out[t] = [item];
+			}
+			//console.log(index, item['_time']);
+		});
+        res.json(out);
+    })
+	;
+	
+});
+//Group by MAC address
 router.get('/switch/list/:min/:max', function(req, res, next) {
 	var db = req.db;
 	var _min = parseInt(req.params.min);
@@ -134,7 +164,7 @@ router.get('/switch/list/:min/:max', function(req, res, next) {
 	.sort({_time: -1})
 	.toArray(function (err, items) {
 		items.forEach( function(item, index){
-			var t = item['_time'];
+			var t = item['switchDPID'];
 			//console.log(out.t, typeof out.t);
 			if(typeof out[t] != "undefined"){
 				out[t].push(item);

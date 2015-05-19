@@ -1,5 +1,5 @@
 $(function() {
-	var tmp = 0;
+	
 	$.getJSON( "/api/time/min", function( data ) {
 		var tmin = data['_time'];
 		tmp = tmin;
@@ -28,8 +28,31 @@ $(function() {
 		var secInDay = 60*60*24;
 		var minT = min.getTime()/1000;
 		var maxT = minT + secInDay;
+		var i = 0;
+		//Empty from previous search
+		$('#switchList').find('tbody > tr').remove();
 		$.getJSON( "/api/switch/list/" + minT + "/" + maxT, function( data ) {
-			console.log(data);
+			for(var sw in data){
+				var tr = $("<tr>");
+				var th = $("<th>");
+				var dpid = $("<td>");
+				var ip = $("<td>");
+				th.attr('row',1);
+				th.html(++i);
+				dpid.html(sw);
+				//IP from first result
+				ip.html(data[sw][0]["inetAddress"]);
+				tr.append(th);
+				tr.append(dpid);
+				tr.append(ip);
+				$("#switchList").append(tr);
+			}
 		});
+    });
+    //Show data for a switch
+    $("#switchList").on('click','tbody > tr', function(){
+    	console.log($(this));
+    	$("#breadcrumb_1").attr("href","");
+    	console.log("Attaccare evento");
     });
 });

@@ -139,7 +139,7 @@
 	<footer>
 
 		<p>
-			<span style="text-align:left;float:left">&copy; 2013 <a href="http://jiji262.github.io/Bootstrap_Metro_Dashboard/" alt="Bootstrap_Metro_Dashboard">Bootstrap Metro Dashboard</a></span>
+			<span style="text-align:left;float:left">&copy; 2015</span>
 			
 		</p>
 
@@ -205,31 +205,27 @@
 	}
 	//reload();
 
+	function loadPage(uri){
+		last = uri;
+		time = Math.floor(Date.now() / 1000);
+		$.get( uri , function( data ) {
+		  	$( "#content" ).html( data );
+		});
+	}
+
 	$(function(){
 		$("#dashboard").on('click', function(){
-			last = "/dashboard";
-			time = Math.floor(Date.now() / 1000);
-			$.get( "/dashboard", function( data ) {
-			  	$( "#content" ).html( data );
-			});
+			loadPage("/dashboard");
 		});
 		$("#network").on('click', function(){
-			last = "/network";
-			time = Math.floor(Date.now() / 1000);
-			$.get( "/network", function( data ) {
-			  	$( "#content" ).html( data );
-			});
+			loadPage("/network");
 		});
 		$("#other").on('click', function(){
-			last = "/other";
-			time = Math.floor(Date.now() / 1000);
-			$.get( "/other", function( data ) {
-			  	$( "#content" ).html( data );
-			});
+			loadPage("/other");
 		});
 
-		//Start w/ dashboard
-		$("#dashboard").trigger("click");
+		//Start w/ network
+		$("#network").trigger("click");
 		
 	});
 	</script>
