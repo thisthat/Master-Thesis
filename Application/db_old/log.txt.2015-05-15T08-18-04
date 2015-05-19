@@ -1,0 +1,49 @@
+2015-05-10T19:00:19.943+0200 I CONTROL  Trying to start Windows service 'MongoDB'
+2015-05-10T19:00:19.944+0200 I STORAGE  Service running
+2015-05-10T19:00:19.960+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-05-10T19:00:19.961+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-10T19:00:19.980+0200 I JOURNAL  [durability] Durability thread started
+2015-05-10T19:00:19.980+0200 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] MongoDB starting : pid=1688 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] db version v3.0.1
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] allocator: system
+2015-05-10T19:00:20.001+0200 I CONTROL  [initandlisten] options: { net: { http: { enabled: true } }, service: true, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-05-10T19:00:20.122+0200 I NETWORK  [websvr] admin web console waiting for connections on port 28017
+2015-05-10T19:00:20.127+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-05-12T11:36:01.065+0200 I COMMAND  [PeriodicTaskRunner] task: DBConnectionPool-cleaner took: 5ms
+2015-05-14T15:41:32.733+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28378 #1 (1 connection now open)
+2015-05-14T15:41:32.755+0200 I NETWORK  [conn1] end connection 127.0.0.1:28378 (0 connections now open)
+2015-05-14T15:41:32.755+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28379 #2 (2 connections now open)
+2015-05-14T15:41:32.757+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28380 #3 (2 connections now open)
+2015-05-14T15:41:32.758+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28381 #4 (3 connections now open)
+2015-05-14T15:41:32.759+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28382 #5 (4 connections now open)
+2015-05-14T15:41:32.760+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28383 #6 (5 connections now open)
+2015-05-14T15:44:28.450+0200 I NETWORK  [conn3] end connection 127.0.0.1:28380 (4 connections now open)
+2015-05-14T15:44:28.450+0200 I NETWORK  [conn5] end connection 127.0.0.1:28382 (4 connections now open)
+2015-05-14T15:44:28.450+0200 I NETWORK  [conn4] end connection 127.0.0.1:28381 (4 connections now open)
+2015-05-14T15:44:28.450+0200 I NETWORK  [conn2] end connection 127.0.0.1:28379 (4 connections now open)
+2015-05-14T15:44:28.451+0200 I NETWORK  [conn6] end connection 127.0.0.1:28383 (4 connections now open)
+2015-05-14T22:00:55.542+0200 I STORAGE  [DataFileSync] flushing mmaps took 30614ms  for 4 files
+2015-05-14T22:49:15.009+0200 I STORAGE  [DataFileSync] flushing mmaps took 30183ms  for 4 files
+2015-05-15T10:17:35.327+0200 I CONTROL  [serviceShutdown] got SERVICE_CONTROL_SHUTDOWN request from Windows Service Control Manager, will terminate after current cmd ends
+2015-05-15T10:17:35.330+0200 I CONTROL  [serviceShutdown] now exiting
+2015-05-15T10:17:35.330+0200 I NETWORK  [serviceShutdown] shutdown: going to close listening sockets...
+2015-05-15T10:17:35.330+0200 I NETWORK  [serviceShutdown] closing listening socket: 460
+2015-05-15T10:17:35.330+0200 I NETWORK  [serviceShutdown] closing listening socket: 576
+2015-05-15T10:17:35.331+0200 I NETWORK  [serviceShutdown] shutdown: going to flush diaglog...
+2015-05-15T10:17:35.331+0200 I NETWORK  [serviceShutdown] shutdown: going to close sockets...
+2015-05-15T10:17:35.331+0200 I STORAGE  [serviceShutdown] shutdown: waiting for fs preallocator...
+2015-05-15T10:17:35.331+0200 I STORAGE  [serviceShutdown] shutdown: final commit...
+2015-05-15T10:17:35.355+0200 I JOURNAL  [serviceShutdown] journalCleanup...
+2015-05-15T10:17:35.355+0200 I JOURNAL  [serviceShutdown] removeJournalFiles
+2015-05-15T10:17:35.361+0200 I JOURNAL  [serviceShutdown] Terminating durability thread ...
+2015-05-15T10:17:35.441+0200 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-15T10:17:35.442+0200 I JOURNAL  [durability] Durability thread stopped
+2015-05-15T10:17:35.442+0200 I STORAGE  [serviceShutdown] shutdown: closing all files...
+2015-05-15T10:17:35.449+0200 I STORAGE  [serviceShutdown] closeAllFiles() finished
+2015-05-15T10:17:35.450+0200 I STORAGE  [serviceShutdown] shutdown: removing fs lock...
+2015-05-15T10:17:35.450+0200 I CONTROL  [serviceShutdown] dbexit:  rc: 49

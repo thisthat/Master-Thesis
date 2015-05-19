@@ -1,0 +1,72 @@
+2015-04-19T14:42:22.666+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-04-19T14:42:22.666+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-04-19T14:42:22.717+0200 I JOURNAL  [durability] Durability thread started
+2015-04-19T14:42:22.718+0200 I JOURNAL  [journal writer] Journal writer thread started
+2015-04-19T14:42:22.729+0200 I CONTROL  [initandlisten] MongoDB starting : pid=5640 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-04-19T14:42:22.729+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-04-19T14:42:22.730+0200 I CONTROL  [initandlisten] db version v3.0.1
+2015-04-19T14:42:22.730+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-04-19T14:42:22.730+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-04-19T14:42:22.730+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-04-19T14:42:22.730+0200 I CONTROL  [initandlisten] allocator: system
+2015-04-19T14:42:22.730+0200 I CONTROL  [initandlisten] options: { net: { http: { RESTInterfaceEnabled: true, enabled: true } }, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-04-19T14:42:22.766+0200 E NETWORK  [websvr] listen(): bind() failed errno:10048 Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). for socket: 0.0.0.0:28017
+2015-04-19T14:42:22.772+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-04-19T14:42:23.217+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48070 #1 (1 connection now open)
+2015-04-19T14:42:23.321+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48071 #2 (2 connections now open)
+2015-04-19T14:42:23.325+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48072 #3 (3 connections now open)
+2015-04-19T14:42:23.326+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48073 #4 (4 connections now open)
+2015-04-19T14:42:23.328+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48074 #5 (5 connections now open)
+2015-04-19T14:42:24.745+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48081 #6 (6 connections now open)
+2015-04-19T14:42:24.757+0200 I NETWORK  [conn6] end connection 127.0.0.1:48081 (5 connections now open)
+2015-04-19T14:42:24.762+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48082 #7 (6 connections now open)
+2015-04-19T14:42:24.763+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48083 #8 (7 connections now open)
+2015-04-19T14:42:24.764+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48084 #9 (8 connections now open)
+2015-04-19T14:42:24.765+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48085 #10 (9 connections now open)
+2015-04-19T14:42:24.766+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48086 #11 (10 connections now open)
+2015-04-19T14:43:09.409+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48088 #12 (11 connections now open)
+2015-04-19T14:43:09.958+0200 I NETWORK  [conn12] end connection 127.0.0.1:48088 (10 connections now open)
+2015-04-19T14:43:25.002+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48089 #13 (11 connections now open)
+2015-04-19T14:43:25.559+0200 I NETWORK  [conn13] end connection 127.0.0.1:48089 (10 connections now open)
+2015-04-19T14:43:31.142+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48091 #14 (11 connections now open)
+2015-04-19T14:43:31.694+0200 I NETWORK  [conn14] end connection 127.0.0.1:48091 (10 connections now open)
+2015-04-19T14:43:40.799+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48092 #15 (11 connections now open)
+2015-04-19T14:43:41.359+0200 I NETWORK  [conn15] end connection 127.0.0.1:48092 (10 connections now open)
+2015-04-19T14:44:15.395+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48093 #16 (11 connections now open)
+2015-04-19T14:44:16.010+0200 I NETWORK  [conn16] end connection 127.0.0.1:48093 (10 connections now open)
+2015-04-19T14:44:24.054+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48094 #17 (11 connections now open)
+2015-04-19T14:44:24.678+0200 I NETWORK  [conn17] end connection 127.0.0.1:48094 (10 connections now open)
+2015-04-19T14:44:29.324+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48095 #18 (11 connections now open)
+2015-04-19T14:44:29.936+0200 I NETWORK  [conn18] end connection 127.0.0.1:48095 (10 connections now open)
+2015-04-19T14:44:34.508+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48096 #19 (11 connections now open)
+2015-04-19T14:44:35.105+0200 I NETWORK  [conn19] end connection 127.0.0.1:48096 (10 connections now open)
+2015-04-19T14:44:43.873+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48097 #20 (11 connections now open)
+2015-04-19T14:44:44.466+0200 I NETWORK  [conn20] end connection 127.0.0.1:48097 (10 connections now open)
+2015-04-19T14:45:46.625+0200 I NETWORK  [conn7] end connection 127.0.0.1:48082 (9 connections now open)
+2015-04-19T14:45:46.625+0200 I NETWORK  [conn11] end connection 127.0.0.1:48086 (8 connections now open)
+2015-04-19T14:45:46.625+0200 I NETWORK  [conn8] end connection 127.0.0.1:48083 (7 connections now open)
+2015-04-19T14:45:46.625+0200 I NETWORK  [conn9] end connection 127.0.0.1:48084 (6 connections now open)
+2015-04-19T14:45:46.627+0200 I NETWORK  [conn10] end connection 127.0.0.1:48085 (5 connections now open)
+2015-04-19T14:45:47.499+0200 I CONTROL  CTRL_CLOSE_EVENT signal
+2015-04-19T14:45:47.499+0200 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
+2015-04-19T14:45:47.499+0200 I CONTROL  [consoleTerminate] now exiting
+2015-04-19T14:45:47.499+0200 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2015-04-19T14:45:47.499+0200 I NETWORK  [consoleTerminate] closing listening socket: 456
+2015-04-19T14:45:47.499+0200 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2015-04-19T14:45:47.499+0200 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2015-04-19T14:45:47.499+0200 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
+2015-04-19T14:45:47.499+0200 I STORAGE  [consoleTerminate] shutdown: final commit...
+2015-04-19T14:45:47.500+0200 I NETWORK  [conn2] end connection 127.0.0.1:48071 (4 connections now open)
+2015-04-19T14:45:47.500+0200 I NETWORK  [conn4] end connection 127.0.0.1:48073 (4 connections now open)
+2015-04-19T14:45:47.500+0200 I NETWORK  [conn1] end connection 127.0.0.1:48070 (4 connections now open)
+2015-04-19T14:45:47.500+0200 I NETWORK  [conn5] end connection 127.0.0.1:48074 (4 connections now open)
+2015-04-19T14:45:47.500+0200 I NETWORK  [conn3] end connection 127.0.0.1:48072 (3 connections now open)
+2015-04-19T14:45:47.510+0200 I JOURNAL  [consoleTerminate] journalCleanup...
+2015-04-19T14:45:47.514+0200 I JOURNAL  [consoleTerminate] removeJournalFiles
+2015-04-19T14:45:47.515+0200 I JOURNAL  [consoleTerminate] Terminating durability thread ...
+2015-04-19T14:45:47.602+0200 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-04-19T14:45:47.602+0200 I JOURNAL  [durability] Durability thread stopped
+2015-04-19T14:45:47.602+0200 I STORAGE  [consoleTerminate] shutdown: closing all files...
+2015-04-19T14:45:47.606+0200 I STORAGE  [consoleTerminate] closeAllFiles() finished
+2015-04-19T14:45:47.606+0200 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2015-04-19T14:45:47.606+0200 I CONTROL  [consoleTerminate] dbexit:  rc: 12

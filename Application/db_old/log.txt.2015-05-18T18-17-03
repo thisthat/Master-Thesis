@@ -1,0 +1,3 @@
+2015-05-18T15:54:17.372+0200 W -        [initandlisten] Detected unclean shutdown - C:\Users\this\Documents\Thesis\Application\db\mongod.lock is not empty.
+2015-05-18T15:54:17.373+0200 I STORAGE  [initandlisten] exception in initAndListen: 98 Unable to create/open lock file: C:\Users\this\Documents\Thesis\Application\db\mongod.lock errno:32 Impossibile accedere al file. Il file è utilizzato da un altro processo.. Is a mongod instance already running?, terminating
+2015-05-18T15:54:17.373+0200 I CONTROL  [initandlisten] dbexit:  rc: 100

@@ -1,0 +1,54 @@
+2015-04-19T20:33:22.800+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-04-19T20:33:22.801+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-04-19T20:33:22.833+0200 I JOURNAL  [durability] Durability thread started
+2015-04-19T20:33:22.833+0200 I JOURNAL  [journal writer] Journal writer thread started
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] MongoDB starting : pid=7172 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] db version v3.0.1
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] allocator: system
+2015-04-19T20:33:22.844+0200 I CONTROL  [initandlisten] options: { net: { http: { RESTInterfaceEnabled: true, enabled: true } }, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-04-19T20:33:22.867+0200 E NETWORK  [websvr] listen(): bind() failed errno:10048 Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). for socket: 0.0.0.0:28017
+2015-04-19T20:33:22.870+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-04-19T20:33:23.354+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48838 #1 (1 connection now open)
+2015-04-19T20:33:23.476+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48839 #2 (2 connections now open)
+2015-04-19T20:33:23.480+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48840 #3 (3 connections now open)
+2015-04-19T20:33:23.482+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48841 #4 (4 connections now open)
+2015-04-19T20:33:23.483+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48842 #5 (5 connections now open)
+2015-04-19T20:34:56.759+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48888 #6 (6 connections now open)
+2015-04-19T20:34:56.775+0200 I NETWORK  [conn6] end connection 127.0.0.1:48888 (5 connections now open)
+2015-04-19T20:34:56.781+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48889 #7 (6 connections now open)
+2015-04-19T20:34:56.783+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48890 #8 (7 connections now open)
+2015-04-19T20:34:56.786+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48891 #9 (8 connections now open)
+2015-04-19T20:34:56.787+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48892 #10 (9 connections now open)
+2015-04-19T20:34:56.788+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48893 #11 (10 connections now open)
+2015-04-19T20:36:06.690+0200 I CONTROL  CTRL_CLOSE_EVENT signal
+2015-04-19T20:36:06.691+0200 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
+2015-04-19T20:36:06.691+0200 I CONTROL  [consoleTerminate] now exiting
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] closing listening socket: 460
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2015-04-19T20:36:06.691+0200 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2015-04-19T20:36:06.691+0200 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
+2015-04-19T20:36:06.691+0200 I STORAGE  [consoleTerminate] shutdown: final commit...
+2015-04-19T20:36:06.692+0200 I NETWORK  [conn11] end connection 127.0.0.1:48893 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn9] end connection 127.0.0.1:48891 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn8] end connection 127.0.0.1:48890 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn10] end connection 127.0.0.1:48892 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn7] end connection 127.0.0.1:48889 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn3] end connection 127.0.0.1:48840 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn4] end connection 127.0.0.1:48841 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn2] end connection 127.0.0.1:48839 (9 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn1] end connection 127.0.0.1:48838 (8 connections now open)
+2015-04-19T20:36:06.693+0200 I NETWORK  [conn5] end connection 127.0.0.1:48842 (8 connections now open)
+2015-04-19T20:36:06.698+0200 I JOURNAL  [consoleTerminate] journalCleanup...
+2015-04-19T20:36:06.703+0200 I JOURNAL  [consoleTerminate] removeJournalFiles
+2015-04-19T20:36:06.704+0200 I JOURNAL  [consoleTerminate] Terminating durability thread ...
+2015-04-19T20:36:06.794+0200 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-04-19T20:36:06.794+0200 I JOURNAL  [durability] Durability thread stopped
+2015-04-19T20:36:06.794+0200 I STORAGE  [consoleTerminate] shutdown: closing all files...
+2015-04-19T20:36:06.806+0200 I STORAGE  [consoleTerminate] closeAllFiles() finished
+2015-04-19T20:36:06.806+0200 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2015-04-19T20:36:06.807+0200 I CONTROL  [consoleTerminate] dbexit:  rc: 12

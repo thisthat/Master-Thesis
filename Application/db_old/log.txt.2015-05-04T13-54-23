@@ -1,0 +1,34 @@
+2015-05-01T20:45:43.667+0200 I CONTROL  Trying to start Windows service 'MongoDB'
+2015-05-01T20:45:43.668+0200 I STORAGE  Service running
+2015-05-01T20:45:43.679+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-05-01T20:45:43.680+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-01T20:45:43.690+0200 I JOURNAL  [durability] Durability thread started
+2015-05-01T20:45:43.692+0200 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] MongoDB starting : pid=1596 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] db version v3.0.1
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] allocator: system
+2015-05-01T20:45:43.703+0200 I CONTROL  [initandlisten] options: { net: { http: { enabled: true } }, service: true, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-05-01T20:45:43.779+0200 I NETWORK  [websvr] admin web console waiting for connections on port 28017
+2015-05-01T20:45:43.783+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-05-04T12:47:34.034+0200 I CONTROL  [serviceShutdown] got SERVICE_CONTROL_SHUTDOWN request from Windows Service Control Manager, will terminate after current cmd ends
+2015-05-04T12:47:34.037+0200 I CONTROL  [serviceShutdown] now exiting
+2015-05-04T12:47:34.037+0200 I NETWORK  [serviceShutdown] shutdown: going to close listening sockets...
+2015-05-04T12:47:34.037+0200 I NETWORK  [serviceShutdown] closing listening socket: 460
+2015-05-04T12:47:34.037+0200 I NETWORK  [serviceShutdown] closing listening socket: 568
+2015-05-04T12:47:34.038+0200 I NETWORK  [serviceShutdown] shutdown: going to flush diaglog...
+2015-05-04T12:47:34.038+0200 I NETWORK  [serviceShutdown] shutdown: going to close sockets...
+2015-05-04T12:47:34.038+0200 I STORAGE  [serviceShutdown] shutdown: waiting for fs preallocator...
+2015-05-04T12:47:34.038+0200 I STORAGE  [serviceShutdown] shutdown: final commit...
+2015-05-04T12:47:34.074+0200 I JOURNAL  [serviceShutdown] journalCleanup...
+2015-05-04T12:47:34.074+0200 I JOURNAL  [serviceShutdown] removeJournalFiles
+2015-05-04T12:47:34.075+0200 I JOURNAL  [serviceShutdown] Terminating durability thread ...
+2015-05-04T12:47:34.141+0200 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-05-04T12:47:34.141+0200 I JOURNAL  [durability] Durability thread stopped
+2015-05-04T12:47:34.141+0200 I STORAGE  [serviceShutdown] shutdown: closing all files...
+2015-05-04T12:47:34.190+0200 I STORAGE  [serviceShutdown] closeAllFiles() finished
+2015-05-04T12:47:34.214+0200 I STORAGE  [serviceShutdown] shutdown: removing fs lock...
+2015-05-04T12:47:34.224+0200 I CONTROL  [serviceShutdown] dbexit:  rc: 49
