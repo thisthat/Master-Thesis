@@ -192,13 +192,13 @@ router.get('/time/min', function(req, res, next) {
 	var db = req.db;
 	res.setHeader('Content-Type', 'application/json');
 	if(debug){
-		db.collection('DataTime').find({test: __test}).sort({_time: -1}).limit( 1 ).toArray(function (err, items) {
-	        res.json(items);
+		db.collection('DataTime').find({test: __test}).sort({_time: 1}).limit( 1 ).toArray(function (err, items) {
+	        res.json(items[0]);
 	    });
 	}
 	else {
-		db.collection('DataTime').find().sort({_time: -1}).limit( 1 ).toArray(function (err, items) {
-	        res.json(items);
+		db.collection('DataTime').find().sort({_time: 1}).limit( 1 ).toArray(function (err, items) {
+	        res.json(items[0]);
 	    });
 	}
 });
@@ -206,13 +206,13 @@ router.get('/time/max', function(req, res, next) {
 	var db = req.db;
 	res.setHeader('Content-Type', 'application/json');
 	if(debug){
-		db.collection('DataTime').find({test: __test}).sort({_time: 1}).limit( 1 ).toArray(function (err, items) {
-	        res.json(items);
+		db.collection('DataTime').find({test: __test}).sort({_time: -1}).limit( 1 ).toArray(function (err, items) {
+	        res.json(items[0]);
 	    });
 	}
 	else {
-		db.collection('DataTime').find().sort({_time: 1}).limit( 1).toArray(function (err, items) {
-	        res.json(items);
+		db.collection('DataTime').find().sort({_time: -1}).limit( 1).toArray(function (err, items) {
+	        res.json(items[0]);
 	    });
 	}
 });

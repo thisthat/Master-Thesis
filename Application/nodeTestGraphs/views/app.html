@@ -93,7 +93,7 @@
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li><a href="#" id="dashboard"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>	
-						<li><a href="#" id="switch"><i class="icon-tasks"></i><span class="hidden-tablet"> Dashboard</span></a></li>	
+						<li><a href="#" id="network"><i class="icon-tasks"></i><span class="hidden-tablet"> Network</span></a></li>	
 						<li><a href="#" id="other"><i class="icon-envelope"></i><span class="hidden-tablet"> Other</span></a></li>
 					</ul>
 				</div>
@@ -197,11 +197,11 @@
 				title: 'Page Reloaded',
 				// (string | mandatory) the text inside the notification
 				text: 'Page Reloaded @ time <u>' + time + '</u>',
-				time: 1000
+				time: 2000
 			});
 
 		}
-		setTimeout(reload, 1000);
+		setTimeout(reload, _timer);
 	}
 	//reload();
 
@@ -210,6 +210,13 @@
 			last = "/dashboard";
 			time = Math.floor(Date.now() / 1000);
 			$.get( "/dashboard", function( data ) {
+			  	$( "#content" ).html( data );
+			});
+		});
+		$("#network").on('click', function(){
+			last = "/network";
+			time = Math.floor(Date.now() / 1000);
+			$.get( "/network", function( data ) {
 			  	$( "#content" ).html( data );
 			});
 		});

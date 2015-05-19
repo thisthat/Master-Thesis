@@ -1,0 +1,69 @@
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home"></i>
+		<a href="/">Home</a> 
+		<i class="icon-angle-right"></i>
+	</li>
+	<li><a href="#">Network</a></li>
+</ul>
+
+<div class="box">
+	<div class="box-header" data-original-title="">
+		<h2><i class="halflings-icon list"></i><span class="break"></span>Switch List</h2>
+		<div class="box-icon">
+			<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+		</div>
+	</div>
+	<div class="box-content">
+		<div class="bs-example" data-example-id="simple-table">
+		    <table class="table">
+		      <caption>Select the day: <input type="text" id="datepicker"></caption>
+		      <thead>
+		        <tr>
+		          <th>#</th>
+		          <th>First Name</th>
+		          <th>Last Name</th>
+		          <th>Username</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr>
+		          <th scope="row">1</th>
+		          <td>Mark</td>
+		          <td>Otto</td>
+		          <td>@mdo</td>
+		        </tr>
+		        <tr>
+		          <th scope="row">2</th>
+		          <td>Jacob</td>
+		          <td>Thornton</td>
+		          <td>@fat</td>
+		        </tr>
+		        <tr>
+		          <th scope="row">3</th>
+		          <td>Larry</td>
+		          <td>the Bird</td>
+		          <td>@twitter</td>
+		        </tr>
+		      </tbody>
+		    </table>
+  		</div>
+	</div>
+</div>
+
+
+
+
+<script src="js/app/network.js"></script>
+<script>
+$(function() {
+	$('.btn-minimize').on('click', function(e){
+			console.log("min");
+			e.preventDefault();
+			var $target = $(this).parent().parent().next('.box-content');
+			if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
+			else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+			$target.slideToggle();
+		});
+})
+</script>

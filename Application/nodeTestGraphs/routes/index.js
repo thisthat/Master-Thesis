@@ -11,6 +11,10 @@ router.get('/dashboard', function(req, res, next) {
   res.render('dashboard', { title: 'Overview usage' });
 });
 
+router.get('/network', function(req, res, next) {
+  res.render('network_general', { title: 'Overview usage' });
+});
+
 router.get('/other', function(req, res, next) {
   res.render('themeItems', { title: 'Overview usage' });
 });
