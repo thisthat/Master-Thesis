@@ -15,6 +15,12 @@ router.get('/network', function(req, res, next) {
   res.render('network_general', { title: 'Overview usage' });
 });
 
+router.get('/network/:dpid/:time', function(req, res, next) {
+  var id = req.params.dpid;
+  var time = req.params.time;
+  res.render('network_switch', { dpid: id, day: time });
+});
+
 router.get('/other', function(req, res, next) {
   res.render('themeItems', { title: 'Overview usage' });
 });

@@ -1,0 +1,71 @@
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home"></i>
+		<a href="/">Home</a> 
+		<i class="icon-angle-right"></i>
+	</li>
+	<li>
+		<a id="breadcrumb_1" href="#">Network</a>
+		<i class="icon-angle-right"></i>
+	</li>
+	<li><a id="self" href="#">{{ dpid }} {{ day }}</a></li>
+</ul>
+
+<div class="row-fluid sortable">
+	<div class="box span6">
+		<div class="box-header">
+			<h2><i class="halflings-icon list-alt"></i><span class="break"></span>Bandwidth</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+				<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			 <div id="switchBandwidth" style="height:190px;"></div>
+		</div>
+	</div>
+	<div class="box span6">
+		<div class="box-header">
+			<h2><i class="halflings-icon list-alt"></i><span class="break"></span>Packets</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+				<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			 <div id="switchPacket" style="height:190px;"></div>
+		</div>
+	</div>
+</div><!--/row-->
+
+
+<p>Grafico Num of Flowsssss </p>
+
+
+
+
+
+<script>
+var dpid = "{{ dpid }}";
+var day = "{{ day  }}";
+
+$(function() {
+	$('.btn-minimize').on('click', function(e){
+			console.log("min");
+			e.preventDefault();
+			var $target = $(this).parent().parent().next('.box-content');
+			if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
+			else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+			$target.slideToggle();
+		});
+	$("#breadcrumb_1").on('click', function(){
+		var url = "/network";
+		loadPage(url);
+	});
+	$("#self").on('click', function(){
+		var url = "/network/{{ dpid }}/{{ day }}";
+		loadPage(url);
+	});
+})
+</script>
+<script src="js/app/network_switch.js"></script>

@@ -51,8 +51,7 @@ $(function() {
     });
     //Show data for a switch
     $("#switchList").on('click','tbody > tr', function(){
-    	console.log($(this));
-    	$("#breadcrumb_1").attr("href","");
-    	console.log("Attaccare evento");
+    	var url = "/network/" + $(this).find("td:nth-child(2)").html() + "/" + $("#datepicker").val();
+    	loadPage(url);
     });
 });
