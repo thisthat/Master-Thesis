@@ -1,4 +1,6 @@
 var data = [];
+var flowData = [];
+
 $(function(){
 	//Taken from global env
 	var regexp = /(\d{4})-(\d{2})-(\d{2})/;
@@ -18,11 +20,16 @@ $(function(){
 		graphBandwidth();
 		graphPacket();
 	});
+
+	$.getJSON( "/api/switch/flow/" + _id + "/" + minT + "/" + maxT, function( _data ) {
+		flowData = _data;	
+		graphFlow(_id);
+	});
 	
 });
 
 function graphBandwidth(){
-	console.log(data);
+	//console.log(data);
 	var s1 = [];
 	var s2 = [];
 	var times = Object.keys(data);
@@ -106,7 +113,7 @@ function graphBandwidth(){
 }
 
 function graphPacket(){
-	console.log(data);
+	//console.log(data);
 	var s1 = [];
 	var s2 = [];
 	var times = Object.keys(data);
@@ -189,4 +196,70 @@ function graphPacket(){
 	});
 }
 
+function graphFlow(_id){
+	var s1 = [];
+	for(var i in flowData){
+		var item = flowData[i][_id]['aggregate'];
+		var time = flowData[i][_id]['_time'];
+		s1.push([time, item['flowCount']]);
+	}
+	var options = {
+		series: {
+			bars: {
+		        show: true,
+		        align: "center",
+    			barWidth: 0.5
+		    },
+			shadowSize: 2
+		},
+		grid: {
+			hoverable:true,
+			clickable:true,
+			tickColor:"#dddddd",
+			borderWidth:0 
+		},
+		colors:["#FABB3D","#2FABE9"]
+	};
+	console.log(s1);
+	var plot = $.plot(
+		$("#switchFlow"),
+		[
+			{data:s1,label:"Flows"},
+		],
+		options
+	);
+	function showTooltip(x, y, contents) {
+		$('<div id="tooltipFlow">' + contents + '</div>').css( {
+			position: 'absolute',
+			display: 'block',
+			top: y + 5,
+			left: x + 5,
+			border: '1px solid #fdd',
+			padding: '2px',
+			'background-color': '#FABB3D',
+			opacity: 0.80,
+			'z-index': 100
+		}).appendTo("body").fadeIn(200);
+	}
+
+	var previousPoint = null;
+	$("#switchFlow").bind("plothover", function (event, pos, item) {
+		if (item) {
+			if (previousPoint != item.dataIndex) {
+				previousPoint = item.dataIndex;
+
+				$("#tooltipFlow").remove();
+				var x = item.datapoint[0].toFixed(2),
+					y = item.datapoint[1].toFixed(2);
+
+				showTooltip(item.pageX, item.pageY,
+							item.series.label + " @time:" + x + " = " + y);
+			}
+		}
+		else {
+			$("#tooltipFlow").remove();
+			previousPoint = null;
+		}
+	});
+}
 

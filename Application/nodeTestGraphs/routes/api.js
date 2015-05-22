@@ -3,7 +3,7 @@ var router = express.Router();
 var request = require('request');
 var MJ = require("mongo-fast-join"),
     mongoJoin = new MJ();
-var controller_url = "http://172.16.149.136:8080/";
+var controller_url = "http://192.168.56.1:8080/";
 
 var debug = true;
 var __test = "full_00";
@@ -82,7 +82,6 @@ router.get('/controller/summary', function(req, res, next) {
         }
     })
 });
-
 
 router.get('/controller/load', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');
@@ -240,20 +239,22 @@ router.get('/switch/flow/:dpid/:min/:max', function(req, res, next) {
 	var out = {};
 	if(debug){
 		var findObj = {
-			DPID: _dpid,
 			test: __test,
 			_time: { $gte: _min, $lte: _max }
 		};
 	}
 	else {
 		var findObj = {
-			DPID: _dpid,
 			_time: { $gte: _min, $lte: _max }
 		};
 	}
-	db.collection('SwitchPortData')
+	var project = {};
+	project[_dpid] = 1;
+	console.log(project);
+	db.collection('NetInfo')
 	.find(
-		findObj
+		findObj,
+		project
 	)
 	.sort({_time: -1})
 	//.limit(100)
@@ -269,11 +270,29 @@ router.get('/switch/flow/:dpid/:min/:max', function(req, res, next) {
 			}
 			//console.log(index, item['_time']);
 		});
+        //res.json(project);
         res.json(items);
     })
 	;
-	
 });
+
+router.get('/switch/:dpid/info', function(req, res, next){
+	var _dpid = req.params.dpid;
+	res.setHeader('Content-Type', 'application/json'); 
+    request.get({
+        url: controller_url + '/wm/core/switch/' + _dpid + '/desc/json', 
+        timeout: 1000,
+    },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
 
 //Doesn't seems like to working the join!
 router.get('/switch/load', function(req, res, next) {
@@ -343,8 +362,31 @@ router.get('/time/max', function(req, res, next) {
 });
 
 
+/* 
 
+Topology Section
 
+*/
+
+router.get('/topology/graph/json', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+  
+    request({
+        url: controller_url + 'wm/controller/topology', 
+        timeout: 13000, //after 12s the controller stop to wait the switches and answer
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+////////////////////////////////////////////////////////////////
+//////////////		OLD 	///////////////////////////////////
+///////////////////////////////////////////////////////////////
 
 /*
  * GET DataTime Info.

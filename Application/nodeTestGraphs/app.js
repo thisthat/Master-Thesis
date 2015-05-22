@@ -8,7 +8,7 @@ var swig  = require('swig');
 
 //DB
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://192.168.1.106:27017/FloodLight", {native_parser:true});
+var db = mongo.db("mongodb://127.0.0.1:27017/FloodLight", {native_parser:true});
 
 //routers
 // Routers -> Interface

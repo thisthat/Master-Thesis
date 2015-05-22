@@ -3,6 +3,7 @@ import pymongo
 import time
 import urllib.request
 import json
+import pprint
 from pymongo import MongoClient
 
 
@@ -10,10 +11,12 @@ from pymongo import MongoClient
 ip_vm = "192.168.56.1"
 port_vm = "8080"
 time = int(time.time())
-test = "_3"
+test = "full_00"
 
 #Vars
 switches = []
+
+pp = pprint.PrettyPrinter(indent=4)
 
 #Function to get data from the controller
 def getApiResponse(api):
@@ -25,7 +28,21 @@ def getData(api):
 	j = getApiResponse(api)
 	if(len(j) > 0):
 		for ndx, member in enumerate(j):
-		    j[ndx]['_time'] = time
+			j[ndx]['_time'] = time
+			if test != "":
+				j[ndx]['test'] = test
+	return j
+
+def getNetowrkInfo(api):
+	j = getApiResponse(api)
+	if(len(j) > 0):
+		for ndx, member in enumerate(j):
+			j[member]["_time"] = time
+			if test != "":
+				j[member]["test"] = test
+	j['_time'] = time
+	if test != "":
+		j['test'] = test
 	return j
 
 def getDataPort(api, DPID):
@@ -34,6 +51,8 @@ def getDataPort(api, DPID):
 		for ndx, member in enumerate(j['port']):
 			j['port'][ndx]['_time'] = time
 			j['port'][ndx]['DPID'] = DPID
+			if test != "":
+				j['port'][ndx]['test'] = test
 	return j['port']
 
 def getDataFlow(api, DPID):
@@ -54,11 +73,25 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.FloodLight
 print("Connection to DB Enstablished")
 
-#Host Data
-print("Fetch Host Information")
-data = getData('/wm/device/')
+#Host Data 
+#print("Fetch Host Information")
+#data = getData('/wm/device/')
+#if(len(data) > 0):
+#	db.HostDevices.insert(data)
+#print("Done")
+
+#print("Fetch Link Information")
+#data = getData('/wm/topology/links/json')
+#if(len(data) > 0):
+#	pp.pprint(data)
+	#db.HostDevices.insert(data)
+#print("Done")
+
+#Network Data
+print("Fetch Switch Information")
+data = getNetowrkInfo('/wm/core/switch/all/aggregate/json')
 if(len(data) > 0):
-	db.HostDevices.insert(data)
+	db.NetInfo.insert(data)
 print("Done")
 
 #Switch Data
@@ -89,6 +122,9 @@ for ndx, member in enumerate(switches):
 print("Done")
 
 print("Save Internal Information")
-data = { "_time" : time, "test" : test}
+if test != "":
+	data = { "_time" : time, "test" : test}
+else:
+	data = { "_time" : time, "test" : test}
 db.DataTime.insert(data)
 print("All Done")

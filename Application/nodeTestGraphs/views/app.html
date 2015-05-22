@@ -94,6 +94,7 @@
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li><a href="#" id="dashboard"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>	
 						<li><a href="#" id="network"><i class="icon-tasks"></i><span class="hidden-tablet"> Network</span></a></li>	
+						<li><a href="#" id="topology"><i class="icon-eye-open"></i><span class="hidden-tablet"> Topology</span></a></li>	
 						<li><a href="#" id="other"><i class="icon-envelope"></i><span class="hidden-tablet"> Other</span></a></li>
 					</ul>
 				</div>
@@ -178,6 +179,7 @@
 		<script src="js/counter.js"></script>	
 		<!--<script src="js/retina.js"></script>-->
 		<script src="js/width-fix.js"></script>
+		<script src="js/d3.v3.min.js"></script>
 	<!-- end: JavaScript-->
 	<script>
 	var _timer = 180; //s after to reload the page
@@ -219,6 +221,9 @@
 		});
 		$("#network").on('click', function(){
 			loadPage("/network");
+		});
+		$("#topology").on('click', function(){
+			loadPage("/topology");
 		});
 		$("#other").on('click', function(){
 			loadPage("/other");

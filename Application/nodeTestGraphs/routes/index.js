@@ -21,6 +21,10 @@ router.get('/network/:dpid/:time', function(req, res, next) {
   res.render('network_switch', { dpid: id, day: time });
 });
 
+router.get('/topology', function(req, res, next) {
+  res.render('topology', { title: 'Overview usage' });
+});
+
 router.get('/other', function(req, res, next) {
   res.render('themeItems', { title: 'Overview usage' });
 });
