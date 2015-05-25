@@ -73,11 +73,11 @@ public class LoadSaveData {
 		KStar kstar = new KStar();
 		
 		classifiers.add(nb);
-		//classifiers.add(smo);
+		classifiers.add(smo);
 		classifiers.add(zeroR);
-		//classifiers.add(bn);
-		//classifiers.add(nn);
-		//classifiers.add(j48);
+		classifiers.add(bn);
+		classifiers.add(nn);
+		classifiers.add(j48);
 		classifiers.add(kstar);
 
 		Results r;
@@ -90,7 +90,7 @@ public class LoadSaveData {
 			System.out.println("Test 200k classes :: " + name);
 			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_200\\merge.arff";
 			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_200\\dataset_3.arff";
-			r = test(file_1, file_2, c);
+			r = test(file_1, file_2, c, false);
 			r.name = "200k";
 			results.addElement(r);
 			
@@ -98,7 +98,7 @@ public class LoadSaveData {
 			System.out.println("Test 500k classes :: " + name);
 			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_500\\merge.arff";
 			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_500\\dataset_3.arff";
-			r = test(file_1, file_2,c);
+			r = test(file_1, file_2,c, false);
 			r.name = "500k";
 			results.addElement(r);
 			
@@ -106,7 +106,7 @@ public class LoadSaveData {
 			System.out.println("Test 500k classes w/ derivate :: " + name);
 			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der\\merge.arff";
 			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der\\dataset_3.arff";
-			r = test(file_1, file_2,c);
+			r = test(file_1, file_2,c, true);
 			r.name = "500k der";
 			results.addElement(r);
 			
@@ -114,7 +114,7 @@ public class LoadSaveData {
 			System.out.println("Test 500k derivate win8 :: " + name);
 			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win8\\merge.arff";
 			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win8\\dataset_3.arff";
-			r = test(file_1, file_2,c);
+			r = test(file_1, file_2,c, false);
 			r.name = "500k der win8";
 			results.addElement(r);
 			
@@ -122,7 +122,7 @@ public class LoadSaveData {
 			System.out.println("Test 500k derivate win10 :: " + name);
 			file_1 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win10\\merge.arff";
 			file_2 = "C:\\Users\\this\\Documents\\Thesis\\Application\\dataMining\\export_der_win10\\dataset_3.arff";
-			r = test(file_1, file_2,c);
+			r = test(file_1, file_2,c, false);
 			r.name = "500k der win10";
 			results.addElement(r);
 			
@@ -134,7 +134,7 @@ public class LoadSaveData {
 		
 	}
 	
-	public static Results test(String file_1, String file_2, Classifier tree) throws Exception{
+	public static Results test(String file_1, String file_2, Classifier tree, boolean save) throws Exception{
 		DataSource source = new DataSource(file_1);
 		Instances dataset = source.getDataSet();
 		//Set the index to the last column
@@ -166,6 +166,14 @@ public class LoadSaveData {
 		//eval.evaluateModel(tree, dataset2);
 		//System.out.println(eval.toMatrixString());
 		//System.out.println(eval.toSummaryString());
+		
+		//Save the model to file
+		if(save){
+			String name = tree.getClass().toString();
+			name = name.substring(name.lastIndexOf('.') + 1);
+			SerializationHelper.write(name + ".model", tree);	
+		}
+
 		
 		//PREDICTION
 		int num = 0;
