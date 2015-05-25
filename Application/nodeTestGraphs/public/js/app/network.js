@@ -1,7 +1,18 @@
 var data = [];
 
 $(function() {
+	setTimeout(function(){
+		$(".row-fluid .sortable").find('.btn-minimize').trigger('click');
+	},500);
 	
+	/*, function(e){
+		e.preventDefault();
+		var $target = $(this).parent().parent().next('.box-content');
+		if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
+		else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+		$target.slideToggle();
+	});*/
+
 	$.getJSON( "/api/time/min", function( data ) {
 		var tmin = data['_time'];
 		tmp = tmin;
@@ -68,9 +79,11 @@ $(function() {
 			console.log(minDate);
 			$.getJSON( "/api/network/load/" + minT + "/" + maxT, function( _data ) {
 				data = _data;
+				$(".row-fluid .sortable").find('.btn-minimize').trigger('click');
 				graphBandwidth();
 				graphPacket();
 				graphFlow();
+
 			});
 		});
     }

@@ -89,7 +89,6 @@ tr:hover {
 <script>
 $(function() {
 	$('.btn-minimize').on('click', function(e){
-			console.log("min");
 			e.preventDefault();
 			var $target = $(this).parent().parent().next('.box-content');
 			if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
