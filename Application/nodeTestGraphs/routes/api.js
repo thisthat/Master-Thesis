@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
   res.send('API Working');
 });
 
+
 /*
 
 CONTROLLER SECTION
@@ -118,6 +119,59 @@ router.get('/controller/load', function(req, res, next) {
 SWITCH SECTION
 
 */
+
+
+router.get('/network/load/:min/:max', function(req, res, next) {
+	var db = req.db;
+	var _min = parseInt(req.params.min);
+	var _max = parseInt(req.params.max);
+	res.setHeader('Content-Type', 'application/json');
+	var out = {};
+	var project = {};
+	project["_id"] = 0;
+	console.log(project);
+	db.collection('NetInfo')
+	.find(
+		{
+			_time: { $gte: _min, $lte: _max }
+		},
+		project
+	)
+	.sort({_time: -1})
+	.toArray(function (err, items) {
+		items.forEach( function(item, index){
+			var keys = Object.keys(item);
+			var t = item['_time'];
+			for(var i = 0; i < keys.length; i++){
+				var key = keys[i];
+				//console.log(key);
+				if(key != "test" && key != "_time"){
+					var aggr = item[key]["aggregate"];
+					//console.log(aggr);
+					if(typeof out[t] != "undefined"){
+						out[t]["packetCount"]	+= parseInt(aggr["packetCount"]);
+						out[t]["byteCount"] 	+= parseInt(aggr["byteCount"]);
+						out[t]["flowCount"] 	+= parseInt(aggr["flowCount"]);
+					}
+					else {
+						out[t] = {
+							packetCount : 0,
+							byteCount: 0,
+							flowCount: 0
+						};
+						out[t]["packetCount"]	= parseInt(aggr["packetCount"]);
+						out[t]["byteCount"] 	= parseInt(aggr["byteCount"]);
+						out[t]["flowCount"] 	= parseInt(aggr["flowCount"]);
+					}
+					
+				}
+			}
+		});
+
+        res.json(out);
+    })
+	;
+});
 
 //Group by par
 router.get('/switch/list/:min/:max/:group', function(req, res, next) {
@@ -250,7 +304,6 @@ router.get('/switch/flow/:dpid/:min/:max', function(req, res, next) {
 	}
 	var project = {};
 	project[_dpid] = 1;
-	console.log(project);
 	db.collection('NetInfo')
 	.find(
 		findObj,
@@ -369,6 +422,29 @@ Topology Section
 */
 
 router.get('/topology/graph/json', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+  
+    request({
+        url: controller_url + 'wm/controller/topology', 
+        timeout: 13000, //after 12s the controller stop to wait the switches and answer
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+
+/*
+
+Prediction Section
+
+*/
+
+router.get('/prediction/graph/json', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');
   
     request({

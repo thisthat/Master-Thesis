@@ -151,6 +151,7 @@ public class LoadSaveData {
 		//J48 tree = new J48();
 		//KStar tree = new KStar();
 		tree.buildClassifier(dataset);
+
 		
 
 		//READ 

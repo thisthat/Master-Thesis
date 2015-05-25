@@ -13,6 +13,29 @@ var svg = d3.select("#topologyGraph").append("svg")
 .attr("height", height);
 
 d3.json("/api/topology/graph/json", function(error, graph) {
+	if(graph == ""){
+		svg.append("g")
+		.attr("class", "legend")
+		.attr("x", width/2)
+		.attr("y", height / 2)
+		.attr("height", 100)
+		.attr("width", 100).append("text")
+				.attr("x", width / 2 - 100)
+				.attr("y", 25)
+				.text("The Controller is not avaiable :(");
+	}
+	else if(graph.nodes.length == 0){
+		svg.append("g")
+		.attr("class", "legend")
+		.attr("x", width/2)
+		.attr("y", height / 2)
+		.attr("height", 100)
+		.attr("width", 100).append("text")
+				.attr("x", width / 2 - 100)
+				.attr("y", 25)
+				.text("There are no switches in the network!");
+	}
+	console.log(graph);
 	force
 	.nodes(graph.nodes)
 	.links(graph.links)

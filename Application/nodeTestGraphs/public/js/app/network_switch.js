@@ -118,7 +118,7 @@ function graphPacket(){
 	var s2 = [];
 	var times = Object.keys(data);
 	var prevTime = times[0];
-	var prevSendPacket = data[prevTime].recvByte;
+	var prevSendPacket = data[prevTime].sendPacket;
 	var prevRecvPacket = data[prevTime].recvPacket;
 	for(var i = 1; i < times.length; i++){
 		var k = times[i];
@@ -128,10 +128,10 @@ function graphPacket(){
 		s1.push([k, recv]);
 		prevRecvPacket = data[k].recvPacket;
 
-		var send = Math.max(0, data[k].recvByte - prevSendPacket);
+		var send = Math.max(0, data[k].sendPacket - prevSendPacket);
 		send = send / (k - prevTime);
 		s2.push([k, send]);
-		prevSendBPacket = data[k].recvPacket;
+		prevSendBPacket = data[k].sendPacket;
 	}
 	var options = {
 		series: {
