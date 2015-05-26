@@ -1,0 +1,136 @@
+<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Admin Settings</h3>
+		</div>
+		<div class="modal-body">
+			
+
+<ul class="nav nav-tabs tabsAdmin">
+  <li role="presentation" class="active tab1"><a href="#">General</a></li>
+  <li role="presentation" class="tab2"><a href="#">Switch Information</a></li>
+  <li role="presentation" class="tab3"><a href="#">Messages</a></li>
+</ul>
+
+<!-- First Tab -->
+<div class="admin-general">
+	<div class="bs-example" data-example-id="panel-with-footer">
+	    <div class="panel panel-default">
+	      <div class="panel-body">
+	        Time in seconds to wait before rebuild the topology:
+	        <span class="time">300 [s]</span>
+	      </div>
+	    </div>
+	  </div>
+	 <div class="zero-clipboard"></div>
+	<div class="highlight">
+		<div id="secondTopologyBuild"></div>
+	</div>
+</div>
+
+<!-- Second Tab -->
+<div class="admin-switch">
+	<div class="bs-example tab2-data" data-example-id="list-group-custom-content">
+		
+	</div>
+</div>
+
+
+
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary ">Save changes</a>
+		</div>
+	</div>
+
+
+<script>
+$(function(){
+	var __time = 300;
+	init();
+
+
+	function init(){
+		$('#myModal').modal('show');
+		$(".admin-switch").hide();
+		//Trigger to change tab
+		$(".tab1").on('click', function(){
+			$(".tabsAdmin").find("li").removeClass("active");
+			$(this).addClass("active");
+			$(".admin-switch").hide();
+			$(".admin-general").show();
+		});
+		$(".tab2").on('click', function(){
+			$(".tabsAdmin").find("li").removeClass("active");
+			$(this).addClass("active");
+			$(".admin-general").hide();
+			$(".admin-switch").show();
+		});
+
+		//Load the slide for set the TimeOut
+		loadTimeOut();
+
+		//Fill the second tab with switch
+		loadSwitch();
+
+		//Handle the reload of a model
+		$(".tab2-data").on('click', 'button',function(){
+			var dpid = $(this).attr('data-sw');
+			$.getJSON( "api/prediction/" + dpid + "/reload", function( res ) { 
+				console.log(res);
+				loadSwitch();
+			});
+		});
+	}
+
+	function sendTime(){
+		var s = $( "#secondTopologyBuild" ).slider( "value" );
+		__time = s;
+		var $spanTime = $("#secondTopologyBuild").parent().parent().find(".time");
+		$spanTime.html( s + " [s]");
+	}
+
+	function loadTimeOut(){
+		$.getJSON( "api/prediction/timeout", function( time ) {
+			__time = time.timeout / 1000;
+			$( "#secondTopologyBuild" ).slider({
+		      orientation: "horizontal",
+		      range: "min",
+		      max: 600,
+		      min: 1,
+		      value: __time,
+		      slide: sendTime,
+		      change: sendTime
+		    });
+			$( "#secondTopologyBuild" ).slider( "value", __time );
+		});
+	}
+	function loadSwitch(){
+		$(".tab2-data").html("");
+		$.getJSON( "api/prediction/all/info", function( prediction ) {
+			for(var i in prediction){
+				var sw = prediction[i];
+				var time = sw.loadedAt;
+				var html = '<div class="bs-example" data-example-id="list-group-custom-content">';
+				html += '<div class="list-group">';
+				html += '<a href="#" class="list-group-item active">';
+				html += '<h4 class="list-group-item-heading" id="list-group-item-heading">' + sw.dpid;
+				html += '<a class="anchorjs-link" href="#"><span class="anchorjs-icon"></span></a></h4>'
+				html += '<p class="list-group-item-text">';
+				html += 'Classifier: ' + sw.classifier + ' <br />';
+				html += 'Model loaded @:' + time;
+				html += '<button type="button" style="margin-left: 20px;" class="btn btn-info reload" data-sw="' + sw.dpid + '">';
+				html += '<span class="halflings-icon refresh" aria-hidden="true"></span>';
+				html += '</button></p>';
+				html += '</a>';
+				html += '</div>';
+				html += '</div>';
+				$(".tab2-data").append(html);
+				// glyphicons-icon refresh
+			}
+		});
+	}
+})
+
+</script>

@@ -122,36 +122,7 @@
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
 		
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Admin Settings</h3>
-		</div>
-		<div class="modal-body">
-			
-
-<div class="bs-example" data-example-id="panel-with-footer">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        Time in seconds to wait before rebuild the topology:
-        <span class="time">300 [s]</span>
-      </div>
-    </div>
-  </div>
- <div class="zero-clipboard"></div>
-<div class="highlight">
-	<div id="secondTopologyBuild"></div>
-</div>
-
-
-
-
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
-		</div>
-	</div>
+	
 	
 	<div class="clearfix"></div>
 	
@@ -250,6 +221,16 @@
 
 		//Start w/ network
 		$("#network").trigger("click");
+
+
+		//Just to don't recompile everytime
+		$.ajax({
+		  url: "admin.html",
+		  context: document.body
+		}).done(function(b) {
+		  $( this ).append( b );
+		  $('#myModal').modal('show');
+		});
 		
 	});
 	</script>

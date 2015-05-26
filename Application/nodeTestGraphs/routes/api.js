@@ -460,6 +460,58 @@ router.get('/prediction/graph/json', function(req, res, next) {
     })
 });
 
+router.get('/prediction/:dpid/info', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+  	var _dpid = req.params.dpid;
+    request({
+        url: controller_url + 'wm/controller/prediction/' + _dpid + '/json', 
+        timeout: 2000, //after 12s the controller stop to wait the switches and answer
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+router.get('/prediction/:dpid/reload', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+  	var _dpid = req.params.dpid;
+    request({
+        url: controller_url + 'wm/controller/prediction/' + _dpid + '/reload', 
+        timeout: 2000, //after 12s the controller stop to wait the switches and answer
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+router.get('/prediction/timeout', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+  	var _dpid = req.params.dpid;
+    request({
+        url: controller_url + 'wm/controller/topology/timeout', 
+        timeout: 2000, //after 12s the controller stop to wait the switches and answer
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+
+
+
+
 ////////////////////////////////////////////////////////////////
 //////////////		OLD 	///////////////////////////////////
 ///////////////////////////////////////////////////////////////
