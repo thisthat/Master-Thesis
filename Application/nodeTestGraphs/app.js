@@ -78,4 +78,16 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 app.listen(8000);
-console.log("Server start @ 127.0.0.1:800");
+console.log("Server start @ 127.0.0.1:8000");
+callDaemon();
+function callDaemon(){
+  var python = require('child_process').spawn(
+     'python',
+     // second argument is array of parameters, e.g.:
+     ["../echo.py"]
+     );
+  var output = "";
+  python.stdout.on('data', function(data){ output += data });
+  console.log(output);
+  setTimeout(callDaemon, 500);
+}

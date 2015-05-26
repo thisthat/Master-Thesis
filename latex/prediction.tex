@@ -1,0 +1,92 @@
+% !TeX spellcheck = en_US
+\documentclass[12pt]{article}
+
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true,    % Colours links instead of ugly boxes
+	urlcolor     = blue,    % Colour for external hyperlinks
+	linkcolor    = blue,    % Colour of internal links
+	citecolor    = red      % Colour of citations
+}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+
+
+%opening
+\title{Predicting Traffic Patterns in\\ Software Defined Networks}
+
+\author{
+	Liva Giovanni - liva.giovanni@spes.uniud.it
+	\and
+	Marino Miculan - @uniud.it
+	\and
+	Hermann Hellwagner - @aau.at
+}
+
+\date{} 
+
+\begin{document}
+	
+\maketitle
+
+\begin{abstract}
+	Just the prediction part
+\end{abstract}
+
+
+\section{Introduction}
+
+We divided the work in four phases
+\begin{itemize}
+	\item Observer
+	\item Analyzing
+	\item Plan
+	\item Execute
+\end{itemize}
+A graphical representation is given in Figure xyz.\\
+The first module, \textit{Observer}, is implemented as a daemon in the cloud application. 
+Every few minute it launches a python script which queries the network controller and then stores the result inside the database.\\
+The information saved regards the network load, switches and flows.
+The second one, \textit{Analyzing}, is done looking through the information inside the database. 
+A java application collects the data from the database and converts the knowledge in the Attribute-Relation File Format (ARFF). 
+This format is an ASCII text file that describes a list of instances sharing a set of attributes.\\
+The application depends on the $weka$ (Waikato Environment for Knowledge Analysis) package, a well known suite of learning machine algorithms developed by the University of Waikato.
+The ARFF files are read by the weka package and used to produce the model that is adopted to make predictions.\\
+The third element, \textit{Plan}, is demanded to the Administrator.
+He or she can write rules to specify what to do when a particular event occurs.
+In the cloud application the administrator has the possibility to create the rules that are stored inside the FloodLight controller.
+The last phase, \textit{Execute}, is implemented by the controller. 
+It monitors the network and every few minutes it makes predictions using the previously generated model.
+When it perceives from a forecast that some rules can be applied, it fires them.\\
+Every module is uncoupled from the others. This design decision of modularity gives us the possibility to change or upgrade every module whenever there is the necessity.\\
+This feature is crucial for the prediction phase. 
+
+ 
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Net -> Mininet\\
+Observer -> Daemon
+Analyzer -> Weka -> Struttura modulare -> Cambiare algo quando si vuole
+Plan -> Operator w/ Web Interface config the FloodLight Module
+Execute -> FloodLight Module exe the rules
+\section{Weka}
+\subsection{Configuration}
+\subsection{DataSet}
+\subsection{Evaluation}
+\subsection{Result}
+\subsection{Discussion}
+Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/21 = 4.76\%$
+	
+	
+\end{document}
