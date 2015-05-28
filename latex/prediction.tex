@@ -46,58 +46,63 @@ The predictability of network traffic is the main aim of the thesis.
 Usually, there are two different category of network prediction: short and long period predictions.
 The short forecast is used to guess values in terms of seconds or minutes. 
 Instead, the long one is adopted to estimate the future workload. 
-Therefore it favors the possibility to produce better planning and decision.\\
+Therefore, it favors the possibility to produce better planning and decision.
 To be able to predict future load of a network, we have to create a model of its behaviors. 
-On the changing of a model we have different characteristic such as the correctness of the prediction and its adaptability.
+On the changing of a model we have different characteristics such as the correctness of the prediction and its adaptability.
 
 
 There are two type of models: \textbf{Supervised} and \textbf{Unsupervised}.
-\textit{Talk about these two a little bit}
+The \textit{Supervised} algorithms takes as a input a set of objects and the desired output. 
+From the input, the learning algorithm analyzes the training data and produces an inferred function that is checked with the one passed in input. The internal structure of the model is changed according to the error between the forecast and the desired result.
+Instead, the \textit{Unsupervised} learning tries  to find hidden structure in unlabeled data. 
+The difference with the \textit{Supervised} learning algorithms is that there is no error or reward signal to evaluate a potential solution.
 
-We focus over the long term prediction and supervised classifier.
-The decision of the classifier have been taken conducting an experiment in a small simulated network. 
+
+We focus over the long term prediction and only supervised classifier.
+The decision of which classifier chose has been taken conducting an experiment in a small simulated network. 
 We simulate a normal scenario of daily network usage through a network of 4 nodes. 
 We repeat the simulation thirty times collecting at each execution statistics of the links utilization in terms of network bandwidth and the load of the switches.
-From this information, we have create different dataset changing the variables (features?) used and the numbers of lags.
-
-.\\
-
-
-
-\textit{Meaning of lags}
-
-%% Parlare nella configurazione o già ora di come abbiamo fatto variare i dataset e il test su più algo differenti 
-
-
-
-
-We divided the work in four phases
+From this information, we have created different dataset changing the features used and the numbers of the last observations.
+Then, we have test the prediction precision and recall of different algorithm at the varying of the distinct datasets. 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{img/predictionGraph.png}
+	\caption[]
+	{The different phases of the prediction}
+	\label{fig:predictionConf}
+\end{figure}\\
+The division of the work is designed in four different phases
 \begin{itemize}
 	\item Observer
 	\item Analyzing
 	\item Plan
 	\item Execute
 \end{itemize}
-A graphical representation is given in Figure xyz.\\
-The first module, \textit{Observer}, is implemented as a daemon in the cloud application. 
-Every few minute it launches a python script which queries the network controller and then stores the result inside the database.\\
+A graphical representation how the four module are interconnected is given in Figure \ref{fig:predictionConf}.\\
+The first module, \textbf{Observer}, is implemented as a daemon in the cloud application. 
+Every few minute it launches a python script which queries the network controller and then stores the result inside the database.
 The information saved regards the network load, switches and flows.
-The second one, \textit{Analyzing}, is done looking through the information inside the database. 
+
+
+The second one, \textbf{Analyzing}, is done looking through the information inside the database. 
 A java application collects the data from the database and converts the knowledge in the Attribute-Relation File Format (ARFF). 
-This format is an ASCII text file that describes a list of instances sharing a set of attributes.\\
+This format is an ASCII text file that describes a list of instances sharing a set of attributes.
 The application depends on the $weka$ (Waikato Environment for Knowledge Analysis) package, a well known suite of learning machine algorithms developed by the University of Waikato.
-The ARFF files are read by the weka package and used to produce the model that is adopted to make predictions.\\
-The third element, \textit{Plan}, is demanded to the Administrator.
+The ARFF files are read by the weka package and used to produce the model that is adopted to make predictions.
+
+
+The third element, \textbf{Plan}, is demanded to the Administrator.
 He or she can write rules to specify what to do when a particular event occurs.
 In the cloud application the administrator has the possibility to create the rules that are stored inside the FloodLight controller.
-The last phase, \textit{Execute}, is implemented by the controller. 
+
+
+The last phase, \textbf{Execute}, is implemented by the controller. 
 It monitors the network and every few minutes it makes predictions using the previously generated model.
-When it perceives from a forecast that some rules can be applied, it fires them.\\
-Every module is uncoupled from the others. This design decision of modularity gives us the possibility to change or upgrade every module whenever there is the necessity.\\
+When it perceives from a forecast that some rules can be applied, it fires them.
 
 
-
-This feature is crucial for the prediction phase. We can test new classifiers or the addiction of new features in a separate and controlled network without affecting the production one. Then, we can hot swapping the model using the cloud interface.
+Every module is uncoupled from the others. This design decision of modularity gives us the possibility to change or upgrade every module whenever there is the necessity.
+This feature is crucial for the prediction phase. We can test new classifiers or the addiction of new features in a separate and controlled network without affecting the production one. Moreover, we can hot swapping the model using the cloud interface.
 We have designed the controller to work with a model for each switch. This decision brings the possibility to predict when a particular node will be overloaded with more precision and recall.\\
 
  
@@ -107,17 +112,22 @@ We have designed the controller to work with a model for each switch. This decis
 
 
 
+
+\section{Weka}
+\subsection{Configuration}
+classification learning is appropriate for any problem where deducing a classification is useful and the classification is easy to determine.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Net -> Mininet\\
 Observer -> Daemon
 Analyzer -> Weka -> Struttura modulare -> Cambiare algo quando si vuole
 Plan -> Operator w/ Web Interface config the FloodLight Module
 Execute -> FloodLight Module exe the rules
-\section{Weka}
-\subsection{Configuration}
 \subsection{DataSet}
+%come è stato costruito nel dettaglio
 \subsection{Evaluation}
+%parlare dell'errore come lo calcoliamo noi
 \subsection{Result}
+Printare i dati in excell, dare qualche valore
 \subsection{Discussion}
 Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/21 = 4.76\%$
 	
