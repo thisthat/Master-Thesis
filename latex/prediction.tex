@@ -24,12 +24,12 @@
 \author{
 	Liva Giovanni - liva.giovanni@spes.uniud.it
 	\and
-	Marino Miculan - @uniud.it
-	\and
 	Hermann Hellwagner - @aau.at
+	\and
+	Marino Miculan - @uniud.it
 }
 
-\date{} 
+\date{\today} 
 
 \begin{document}
 	
@@ -39,8 +39,37 @@
 	Just the prediction part
 \end{abstract}
 
+\newpage
 
 \section{Introduction}
+The predictability of network traffic is the main aim of the thesis. 
+Usually, there are two different category of network prediction: short and long period predictions.
+The short forecast is used to guess values in terms of seconds or minutes. 
+Instead, the long one is adopted to estimate the future workload. 
+Therefore it favors the possibility to produce better planning and decision.\\
+To be able to predict future load of a network, we have to create a model of its behaviors. 
+On the changing of a model we have different characteristic such as the correctness of the prediction and its adaptability.
+
+
+There are two type of models: \textbf{Supervised} and \textbf{Unsupervised}.
+\textit{Talk about these two a little bit}
+
+We focus over the long term prediction and supervised classifier.
+The decision of the classifier have been taken conducting an experiment in a small simulated network. 
+We simulate a normal scenario of daily network usage through a network of 4 nodes. 
+We repeat the simulation thirty times collecting at each execution statistics of the links utilization in terms of network bandwidth and the load of the switches.
+From this information, we have create different dataset changing the variables (features?) used and the numbers of lags.
+
+.\\
+
+
+
+\textit{Meaning of lags}
+
+%% Parlare nella configurazione o già ora di come abbiamo fatto variare i dataset e il test su più algo differenti 
+
+
+
 
 We divided the work in four phases
 \begin{itemize}
@@ -65,7 +94,11 @@ The last phase, \textit{Execute}, is implemented by the controller.
 It monitors the network and every few minutes it makes predictions using the previously generated model.
 When it perceives from a forecast that some rules can be applied, it fires them.\\
 Every module is uncoupled from the others. This design decision of modularity gives us the possibility to change or upgrade every module whenever there is the necessity.\\
-This feature is crucial for the prediction phase. 
+
+
+
+This feature is crucial for the prediction phase. We can test new classifiers or the addiction of new features in a separate and controlled network without affecting the production one. Then, we can hot swapping the model using the cloud interface.
+We have designed the controller to work with a model for each switch. This decision brings the possibility to predict when a particular node will be overloaded with more precision and recall.\\
 
  
 
