@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<!--<script src="http://code.highcharts.com/modules/exporting.js"></script>-->
+	
+</head>
+
+<body>
+
+<div style="width:718px;  " id="container"></div>
+
+<script>
+$(function () {
+	var values = [6000,4000,3000,1200,1000,800,1800,2000,3000,4000,4300,3100,5000,6100,5500,6900,8000,8100,6200,5250,9900,10000,10000,7000];
+    for(i in values){
+    	//console.log(i, values[i]);
+    	values[i] = values[i] * 1000;
+    	//console.log(i, values[i]);
+    }
+    //console.log(values);
+    $('#container').highcharts({
+    	title: {
+            text: '',
+            x: -20 //center
+        },
+        xAxis: {
+        	title: {
+        		text: 'Hour'
+        	}  
+        },
+        yAxis: {
+            title: {
+                text: 'Bandwidth (B/s)'
+            },
+            max: 10000000
+        },
+        tooltip: {
+            valueSuffix: 'B/s'
+        },
+        series: [{
+            name: 'Bandwidth',
+            data: values
+        }]
+    });
+});
+</script>
+
+</body>
+</html>

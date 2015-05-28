@@ -1,0 +1,17 @@
+[0] Config.pm:324> INFO - This is Biber 2.1
+[0] Config.pm:327> INFO - Logfile is 'prediction.blg'
+[53] biber-MSWIN:273> INFO - === %a %b %e, %Y, %H:%M:%S
+[54] Biber.pm:333> INFO - Reading 'prediction.bcf'
+[320] Biber.pm:645> INFO - Found 12 citekeys in bib section 0
+[342] Biber.pm:2977> INFO - Processing section 0
+[363] Biber.pm:3115> INFO - Looking for bibtex format file 'prediction.bib' for section 0
+[388] bibtex.pm:1021> INFO - Decoding LaTeX character macros into UTF-8
+[412] bibtex.pm:895> INFO - Found BibTeX data source 'prediction.bib'
+[448] Utils.pm:146> WARN - The field 'note' in entry 'MPL2' cannot be null, deleting it
+[571] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[571] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[571] Biber.pm:2854> INFO - Sorting list 'nty' of type 'entry' with scheme 'nty' and locale 'en-US'
+[571] Biber.pm:2858> INFO - No sort tailoring available for locale 'en-US'
+[594] bbl.pm:505> INFO - Writing 'prediction.bbl' with encoding 'UTF-8'
+[637] bbl.pm:596> INFO - Output to prediction.bbl
+[640] Biber.pm:106> INFO - WARNINGS: 1

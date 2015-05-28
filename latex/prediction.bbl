@@ -1,0 +1,247 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{nty}{nty}
+    \entry{MPL2}{article}{}
+      \name{author}{1}{}{%
+        {{hash=566b6ae6c3052227eb2ab2494e55c3a9}{Baum}{B\bibinitperiod}{Eric\bibnamedelima B}{E\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{566b6ae6c3052227eb2ab2494e55c3a9}
+      \strng{fullhash}{566b6ae6c3052227eb2ab2494e55c3a9}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0885-064X}
+      \field{journaltitle}{Journal of Complexity}
+      \field{number}{3}
+      \field{title}{On the capabilities of multilayer perceptrons}
+      \field{volume}{4}
+      \field{year}{1988}
+      \field{pages}{193\bibrangedash 215}
+      \range{pages}{23}
+      \verb{doi}
+      \verb http://dx.doi.org/10.1016/0885-064X(88)90020-9
+      \endverb
+      \verb{url}
+      \verb http://www.sciencedirect.com/science/article/pii/0885064X88900209
+      \endverb
+    \endentry
+    \entry{BayesNet}{book}{}
+      \name{author}{1}{}{%
+        {{hash=202ddcda77225536b86a3f442713f917}{Bouckaert}{B\bibinitperiod}{Remco\bibnamedelima R}{R\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Department of Computer Science, University of Waikato}%
+      }
+      \strng{namehash}{202ddcda77225536b86a3f442713f917}
+      \strng{fullhash}{202ddcda77225536b86a3f442713f917}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bayesian network classifiers in weka}
+      \field{year}{2004}
+    \endentry
+    \entry{kstar}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=7aba9e040fa87d74d50095e162b60afa}{Cleary}{C\bibinitperiod}{John\bibnamedelima G.}{J\bibinitperiod\bibinitdelim G\bibinitperiod}{}{}{}{}}%
+        {{hash=5c3b283c1aefee66a440d37dce7f95d8}{Trigg}{T\bibinitperiod}{Leonard\bibnamedelima E.}{L\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{6586bbc4aa7c1622014d3b6b5395bed0}
+      \strng{fullhash}{6586bbc4aa7c1622014d3b6b5395bed0}
+      \field{sortinit}{C}
+      \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{12th International Conference on Machine Learning}
+      \field{title}{K*: An Instance-based Learner Using an Entropic Distance Measure}
+      \field{year}{1995}
+      \field{pages}{108\bibrangedash 114}
+      \range{pages}{7}
+    \endentry
+    \entry{floodlight}{misc}{}
+      \field{sortinit}{F}
+      \field{sortinithash}{c6a7d9913bbd7b20ea954441c0460b78}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www.projectfloodlight.org/floodlight/}}
+      \field{note}{Accessed: 2015-05-25}
+      \field{title}{FloodLight}
+    \endentry
+    \entry{smo3}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=0cb8fe4210baa81c4b0e67913b4d2768}{Hastie}{H\bibinitperiod}{Trevor}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=88eea600247d798f8b2ce0b2dc614492}{Tibshirani}{T\bibinitperiod}{Robert}{R\bibinitperiod}{}{}{}{}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=f70df67fe1d13567b704ad143006af68}{Jordan}{J\bibinitperiod}{Michael\bibnamedelima I.}{M\bibinitperiod\bibinitdelim I\bibinitperiod}{}{}{}{}}%
+        {{hash=b2be9358cb32e9dd86c5d237b6fd8728}{Kearns}{K\bibinitperiod}{Michael\bibnamedelima J.}{M\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=1fad644c0cccd70a686ce7389c199645}{Solla}{S\bibinitperiod}{Sara\bibnamedelima A.}{S\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{5b3eb99eff6117affd95725e5df145bd}
+      \strng{fullhash}{5b3eb99eff6117affd95725e5df145bd}
+      \field{sortinit}{H}
+      \field{sortinithash}{82012198d5dfa657b8c4a168793268a6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems}
+      \field{title}{Classification by Pairwise Coupling}
+      \field{volume}{10}
+      \field{year}{1998}
+    \endentry
+    \entry{naiveBayes}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=534e169aa5f5fd5dfda7dae90360bde3}{John}{J\bibinitperiod}{George\bibnamedelima H.}{G\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{hash=cb234967d439eca7bd966830f708c7a2}{Langley}{L\bibinitperiod}{Pat}{P\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {San Mateo}%
+      }
+      \list{publisher}{1}{%
+        {Morgan Kaufmann}%
+      }
+      \strng{namehash}{7e3f6290bb51741c1c27f090198e288d}
+      \strng{fullhash}{7e3f6290bb51741c1c27f090198e288d}
+      \field{sortinit}{J}
+      \field{sortinithash}{ec3950a647c092421b9fcca6d819504a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Eleventh Conference on Uncertainty in Artificial Intelligence}
+      \field{title}{Estimating Continuous Distributions in Bayesian Classifiers}
+      \field{year}{1995}
+      \field{pages}{338\bibrangedash 345}
+      \range{pages}{8}
+    \endentry
+    \entry{smo2}{article}{}
+      \name{author}{4}{}{%
+        {{hash=6bf35fa2754fc15014cecc895e385e66}{Keerthi}{K\bibinitperiod}{S.S.}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=509aab4806dabc993652ac38b0e88574}{Shevade}{S\bibinitperiod}{S.K.}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=25e0e200dc24cae53b24d6b7835c343a}{Bhattacharyya}{B\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=b906633f284247c981b9e01deb3e282a}{Murthy}{M\bibinitperiod}{K.R.K.}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{66d7e5599f79b24613ac45312181f3f4}
+      \strng{fullhash}{5e440855cffbe74ede53bc7429978eb9}
+      \field{sortinit}{K}
+      \field{sortinithash}{a7d5b3aec5a0890aae7baf85a209abfc}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Neural Computation}
+      \field{number}{3}
+      \field{title}{Improvements to Platt's SMO Algorithm for SVM Classifier Design}
+      \field{volume}{13}
+      \field{year}{2001}
+      \field{pages}{637\bibrangedash 649}
+      \range{pages}{13}
+    \endentry
+    \entry{mininet}{misc}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://mininet.org/}}
+      \field{note}{Accessed: 2015-05-25}
+      \field{title}{{Mininet} Network Virtualization}
+    \endentry
+    \entry{openflow}{misc}{}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf}}
+      \field{note}{Accessed: 2015-05-25}
+      \field{title}{OpenFlow}
+    \endentry
+    \entry{smo1}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=09334b6dbbd103652a347fd427ba3457}{Platt}{P\bibinitperiod}{J.}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=ed70a52c07984ca5ab7b954d5fa9d314}{Schoelkopf}{S\bibinitperiod}{B.}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=3d78d979162071ce9840b27de28992ca}{Burges}{B\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=b5a0b84d5d4d46b74c9262797f434f47}{Smola}{S\bibinitperiod}{A.}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{09334b6dbbd103652a347fd427ba3457}
+      \strng{fullhash}{09334b6dbbd103652a347fd427ba3457}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Kernel Methods - Support Vector Learning}
+      \field{title}{Fast Training of Support Vector Machines using Sequential Minimal Optimization}
+      \field{year}{1998}
+      \verb{file}
+      \verb http://research.microsoft.com/j̃platt/smo-book.pdf
+      \endverb
+      \verb{url}
+      \verb http://research.microsoft.com/j%CC%83platt/smo.html
+      \endverb
+    \endentry
+    \entry{j48}{book}{}
+      \name{author}{1}{}{%
+        {{hash=777f8460c8c759c82bb1d5a9136a9002}{Quinlan}{Q\bibinitperiod}{Ross}{R\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {San Mateo, CA}%
+      }
+      \list{publisher}{1}{%
+        {Morgan Kaufmann Publishers}%
+      }
+      \strng{namehash}{777f8460c8c759c82bb1d5a9136a9002}
+      \strng{fullhash}{777f8460c8c759c82bb1d5a9136a9002}
+      \field{sortinit}{Q}
+      \field{sortinithash}{15867262911a166ca2270ec58a0e3fe9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{C4.5: Programs for Machine Learning}
+      \field{year}{1993}
+    \endentry
+    \entry{MPL1}{article}{}
+      \name{author}{5}{}{%
+        {{hash=f60f8b303fe1120e31523dc6332e11fa}{Ruck}{R\bibinitperiod}{Dennis\bibnamedelima W}{D\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{hash=6f9e4b65a84c6ac6f118bc28e850917e}{Rogers}{R\bibinitperiod}{Steven\bibnamedelima K}{S\bibinitperiod\bibinitdelim K\bibinitperiod}{}{}{}{}}%
+        {{hash=b06a41d0c73d3ca6a7e47131432e7d0b}{Kabrisky}{K\bibinitperiod}{Matthew}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=b6061c8bce8aa1d9c30984bbec71a9bf}{Oxley}{O\bibinitperiod}{Mark\bibnamedelima E}{M\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
+        {{hash=80ed6b5e2de6ea53003fd91d1e3eded8}{Suter}{S\bibinitperiod}{Bruce\bibnamedelima W}{B\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{ae53c2c0b9051f22ffb8ecabc403b723}
+      \strng{fullhash}{0058ae7f59b1ebd58c9c5fbf4e33a649}
+      \field{sortinit}{R}
+      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Neural Networks, IEEE Transactions on}
+      \field{number}{4}
+      \field{title}{The multilayer perceptron as an approximation to a Bayes optimal discriminant function}
+      \field{volume}{1}
+      \field{year}{1990}
+      \field{pages}{296\bibrangedash 298}
+      \range{pages}{3}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

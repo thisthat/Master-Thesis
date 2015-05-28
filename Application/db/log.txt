@@ -1,43 +1,16 @@
-2015-05-26T22:58:22.401+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
-2015-05-26T22:58:22.401+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
-2015-05-26T22:58:22.444+0200 I JOURNAL  [durability] Durability thread started
-2015-05-26T22:58:22.446+0200 I JOURNAL  [journal writer] Journal writer thread started
-2015-05-26T22:58:22.459+0200 I CONTROL  [initandlisten] MongoDB starting : pid=5620 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
-2015-05-26T22:58:22.459+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
-2015-05-26T22:58:22.460+0200 I CONTROL  [initandlisten] db version v3.0.1
-2015-05-26T22:58:22.460+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
-2015-05-26T22:58:22.460+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
-2015-05-26T22:58:22.460+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
-2015-05-26T22:58:22.460+0200 I CONTROL  [initandlisten] allocator: system
-2015-05-26T22:58:22.460+0200 I CONTROL  [initandlisten] options: { net: { http: { RESTInterfaceEnabled: true, enabled: true } }, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
-2015-05-26T22:58:22.484+0200 I NETWORK  [websvr] admin web console waiting for connections on port 28017
-2015-05-26T22:58:22.488+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
-2015-05-26T22:58:22.942+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28882 #1 (1 connection now open)
-2015-05-26T22:58:22.973+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28883 #2 (2 connections now open)
-2015-05-26T22:58:22.977+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28884 #3 (3 connections now open)
-2015-05-26T22:58:22.978+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28885 #4 (4 connections now open)
-2015-05-26T22:58:22.979+0200 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:28886 #5 (5 connections now open)
-2015-05-26T23:03:12.905+0200 I CONTROL  CTRL_CLOSE_EVENT signal
-2015-05-26T23:03:12.905+0200 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
-2015-05-26T23:03:12.905+0200 I CONTROL  [consoleTerminate] now exiting
-2015-05-26T23:03:12.905+0200 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
-2015-05-26T23:03:12.905+0200 I NETWORK  [consoleTerminate] closing listening socket: 464
-2015-05-26T23:03:12.905+0200 I NETWORK  [consoleTerminate] closing listening socket: 548
-2015-05-26T23:03:12.905+0200 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
-2015-05-26T23:03:12.905+0200 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
-2015-05-26T23:03:12.905+0200 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
-2015-05-26T23:03:12.905+0200 I STORAGE  [consoleTerminate] shutdown: final commit...
-2015-05-26T23:03:12.906+0200 I NETWORK  [conn1] end connection 127.0.0.1:28882 (4 connections now open)
-2015-05-26T23:03:12.906+0200 I NETWORK  [conn4] end connection 127.0.0.1:28885 (4 connections now open)
-2015-05-26T23:03:12.907+0200 I NETWORK  [conn2] end connection 127.0.0.1:28883 (4 connections now open)
-2015-05-26T23:03:12.907+0200 I NETWORK  [conn3] end connection 127.0.0.1:28884 (4 connections now open)
-2015-05-26T23:03:12.907+0200 I NETWORK  [conn5] end connection 127.0.0.1:28886 (2 connections now open)
-2015-05-26T23:03:12.910+0200 I JOURNAL  [consoleTerminate] journalCleanup...
-2015-05-26T23:03:12.916+0200 I JOURNAL  [consoleTerminate] removeJournalFiles
-2015-05-26T23:03:12.918+0200 I JOURNAL  [consoleTerminate] Terminating durability thread ...
-2015-05-26T23:03:13.008+0200 I JOURNAL  [journal writer] Journal writer thread stopped
-2015-05-26T23:03:13.008+0200 I JOURNAL  [durability] Durability thread stopped
-2015-05-26T23:03:13.008+0200 I STORAGE  [consoleTerminate] shutdown: closing all files...
-2015-05-26T23:03:13.014+0200 I STORAGE  [consoleTerminate] closeAllFiles() finished
-2015-05-26T23:03:13.014+0200 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
-2015-05-26T23:03:13.014+0200 I CONTROL  [consoleTerminate] dbexit:  rc: 12
+2015-05-28T21:14:24.195+0200 I CONTROL  Trying to start Windows service 'MongoDB'
+2015-05-28T21:14:24.196+0200 I STORAGE  Service running
+2015-05-28T21:14:24.210+0200 I JOURNAL  [initandlisten] journal dir=C:\Users\this\Documents\Thesis\Application\db\journal
+2015-05-28T21:14:24.211+0200 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-05-28T21:14:24.224+0200 I JOURNAL  [durability] Durability thread started
+2015-05-28T21:14:24.225+0200 I JOURNAL  [journal writer] Journal writer thread started
+2015-05-28T21:14:24.245+0200 I CONTROL  [initandlisten] MongoDB starting : pid=1816 port=27017 dbpath=C:\Users\this\Documents\Thesis\Application\db 64-bit host=this
+2015-05-28T21:14:24.245+0200 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-05-28T21:14:24.245+0200 I CONTROL  [initandlisten] db version v3.0.1
+2015-05-28T21:14:24.245+0200 I CONTROL  [initandlisten] git version: 534b5a3f9d10f00cd27737fbcd951032248b5952
+2015-05-28T21:14:24.245+0200 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1j-fips 15 Oct 2014
+2015-05-28T21:14:24.246+0200 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-05-28T21:14:24.246+0200 I CONTROL  [initandlisten] allocator: system
+2015-05-28T21:14:24.246+0200 I CONTROL  [initandlisten] options: { net: { http: { enabled: true } }, service: true, storage: { dbPath: "C:\Users\this\Documents\Thesis\Application\db" }, systemLog: { destination: "file", path: "C:\Users\this\Documents\Thesis\Application\db\log.txt" } }
+2015-05-28T21:14:24.432+0200 I NETWORK  [websvr] admin web console waiting for connections on port 28017
+2015-05-28T21:14:24.435+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
