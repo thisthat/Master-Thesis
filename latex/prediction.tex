@@ -9,6 +9,8 @@
 \usepackage{mathtools}
 \usepackage{hyperref}
 \usepackage{biblatex}
+\usepackage{geometry}
+
 \addbibresource{prediction.bib}
 
 \hypersetup{
@@ -87,8 +89,9 @@ The implementation of the prediction is designed in four different phases
 \end{itemize}
 A graphical representation how the four module are interconnected is given in Figure \ref{fig:predictionConf}.\\
 The first module, \textbf{Observer}, is implemented as a daemon in the cloud application. 
-Every few minute it launches a python script which queries the network controller and then stores the result inside the database.
+Every few minute it launches a python script which queries the network controller via 	\textit{REST API} and then stores the result inside a $nosql$ database.
 The information saved regards the network load, switches and flows.
+
 
 
 The second one, \textbf{Analyzing}, is done looking through the information inside the database. 
@@ -108,7 +111,7 @@ It monitors the network and every few minutes it makes predictions using the pre
 When it perceives from a forecast that some rules can be applied, it fires them.
 
 
-Every module is uncoupled from the others. 
+Further, every module is uncoupled from the others. 
 This design decision of modularity gives us the possibility to change or upgrade every module whenever there is the necessity.
 This feature is crucial for the prediction phase.
 We can test new classifiers or the addiction of new features in a separate and controlled network without affecting the production one. Moreover, we can hot swapping the model using the cloud interface.
@@ -161,25 +164,150 @@ In this network we have generate traffic from the node $H1$ directed to $H4$ for
 The creation of the network relies on the virtualization of the hardware components.
 Therefore, we have simulated it using Mininet \cite{mininet} with OpenFlow \cite{openflow} switches.
 The chosen controller is FloodLight \cite{floodlight}, an open source controller for Software Defined Network.
-Regarding the Observer we have created a python script that queries the controller saving the information bla bla bla
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-.\\
 
 
-
-Net -> Mininet\\
-Observer -> Daemon
-Analyzer -> Weka -> Struttura modulare -> Cambiare algo quando si vuole
-Plan -> Operator w/ Web Interface config the FloodLight Module
-Execute -> FloodLight Module exe the rules
 \subsection{DataSet}
-%come è stato costruito nel dettaglio
+In addiction to the independent variable of which classifier perform better, we have to find which information is most useful as a feature to the model to increase its prediction accuracy.
+Our aim is to estimate the future load of the network in terms of bandwidth required. 
+To be able to classify it correctly, we have store the raw information taken from the controller inside buckets. 
+Moreover, we have tested if the introduction of the derivative of the bandwidth helps or not the overall quality of the models.
+The last variable investigated is the number of precedent measurements passed to the prediction module.
+The results of our tests products five different datasets:
+\begin{itemize}
+	\item \textbf{200}: We use $200 KBytes$ as dimension of buckets and we use only the last 5 measurement of bandwidth.
+	
+	\item \textbf{500}: The size of the buckets are of $500 KBytes$ and the remaining features are the same as before.
+	
+	\item \textbf{500\_D}: The buckets are $500 KBytes$ large, but now in addiction to the last 5 calculation we have the derivative between the consecutive values.
+
+	\item \textbf{500\_D\_8}: The bucket are still of the same size but we increase the number of previous bandwidth to 8 and we use the derivative.
+	\item \textbf{500\_D\_10}: This configuration is the same as before, but the number of previous data is increased to 10.
+\end{itemize}
+
+
 \subsection{Evaluation}
-classification learning is appropriate for any problem where deducing a classification is useful and the classification is easy to determine.
 %parlare dell'errore come lo calcoliamo noi
-\subsection{Result}
+
 Printare i dati in excell, dare qualche valore
+
+\newpage 
+\newgeometry{top=2cm,bottom=0.1cm}
+
+\begin{table}[h!]
+	
+	\label{table_200}
+	\resizebox{\textwidth}{!}{%
+	\begin{tabular}{l|cccccccc}
+	
+& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE		& Precision	& Recall	& Coverage (0.95) \\ \hline
+NaiveBayes	& 23		& 34,33		& 3,31		& 0,1437	& 0,2756	& 0,2836	& 50,75  \\
+SMO			& 27		& 33,59		& 3,52		& 0,1371	& 0,2207	& 0,3284	& 91,80  \\
+ZeroR		& 45		& 10,45		& 23,52		& 0,1372	& 0,0109	& 0,1045	& 98,51  \\
+BayesNet	& 19		& 37,31		& 3,30		& 0,1311	& 0,2738	& 0,3657	& 67,16  \\
+MPL			& 43		& 35,82		& 3,90		& 0,1393	& 0,2626	& 0,2985	& 66,42  \\
+J48			& 43		& 33,58		& 3,87		& 0,1399	& 0,3206	& 0,3582	& 45,52  \\
+KStar		& 43		& 38,06		& 3,66		& 0,1579	& 0,2803	& 0,2985	& 40,30  \\
+			
+			
+	\end{tabular}
+	}
+	\caption{Results for \textbf{200}}
+\end{table}
+
+\begin{table}[h!]
+	
+	\label{table_500}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{l|cccccccc}
+			
+& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE		& Precision	& Recall	& Coverage (0.95) \\ \hline
+NaiveBayes	& 9			& 50,75		& 1,27		& 0,1964	& 0,4763	& 0,4627	& 70,1493  \\
+SMO			& 10		& 41,79		& 1,40		& 0,2064	& 0,3707	& 0,4478	& 97,7612  \\
+ZeroR		& 18		& 10,45		& 9,10		& 0,2103	& 0,0215	& 0,1045	& 97,7612  \\
+BayesNet	& 7			& 43,28		& 1,37		& 0,1881	& 0,4059	& 0,4776	& 82,0896  \\
+MPL			& 17		& 48,51		& 1,31		& 0,2007	& 0,4359	& 0,4552	& 71,6418  \\
+J48			& 17		& 49,25		& 1,35		& 0,2080	& 0,3914	& 0,4254	& 55,2239  \\
+KStar		& 17		& 50,75		& 1,44		& 0,2204	& 0,4608	& 0,4403	& 53,7313  \\
+
+			
+		\end{tabular}
+	}
+	\caption{Results for \textbf{500}}
+\end{table}
+
+\begin{table}[h!]
+	
+	\label{table_500D}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{l|cccccccc}
+			
+& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
+
+NaiveBayes	& 7		& 45,52		& 1,38		& 0,2105	& 0,4572	& 0,4478	& 56,7164 \\
+SMO			& 10	& 41,79		& 1,40		& 0,2063	& 0,3813	& 0,4328	& 97,7612 \\
+ZeroR		& 18	& 10,45		& 9,10		& 0,2103	& 0,0202	& 0,0896	& 97,7612 \\
+BayesNet	& 7		& 43,28		& 1,37		& 0,1823	& 0,4809	& 0,5224	& 86,5672 \\
+MPL			& 7		& 49,25		& 1,19		& 0,2035	& 0,4496	& 0,4478	& 67,9104 \\
+J48			& 17	& 52,24		& 1,40		& 0,2026	& 0,4823	& 0,4701	& 64,9254 \\
+KStar		& 9		& 41,04		& 1,54		& 0,2350	& 0,4428	& 0,4030	& 43,2836 \\
+			
+			
+			
+		\end{tabular}
+	}
+	\caption{Results for \textbf{500\_D}}
+\end{table}
+
+\begin{table}[h!]
+	
+	\label{table_500D8}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{l|cccccccc}
+			
+			& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
+			
+		NaiveBayes	& 17	& 43,28		& 1,67		& 0,2216	& 0,4480	& 0,4328	& 52,2388 \\
+		SMO			& 7		& 55,22		& 1,03		& 0,2056	& 0,6230	& 0,6493	& 99,2537 \\
+		ZeroR		& 18	& 10,45		& 9,10		& 0,2103	& 0,0224	& 0,1119	& 97,7612 \\
+		BayesNet	& 7		& 51,49		& 1,18		& 0,1794	& 0,4489	& 0,5299	& 76,8657 \\
+		MPL			& 17	& 60,45		& 1,12		& 0,1746	& 0,6070	& 0,5821	& 75,3731 \\
+		J48			& 17	& 58,96		& 1,25		& 0,1974	& 0,5071	& 0,5000	& 61,1940 \\
+		KStar		& 17	& 40,30		& 1,95		& 0,2460	& 0,3735	& 0,3582	& 36,5672 \\
+		
+			
+			
+			
+		\end{tabular}
+	}
+	\caption{Results for \textbf{500\_D\_8}}
+\end{table}
+
+\begin{table}[h!]
+	
+	\label{table_500D8}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{l|cccccccc}
+			
+			& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
+			
+NaiveBayes	& 8		& 38,81		& 1,67		& 0,2321	& 0,3503	& 0,3433	& 47,0149 \\
+SMO			& 9		& 46,27		& 1,40		& 0,2064	& 0,3780	& 0,4328	& 98,5075 \\
+ZeroR		& 18	& 10,45		& 9,10		& 0,2103	& 0,0190	& 0,0821	& 97,7612 \\
+BayesNet	& 7		& 48,51		& 1,28		& 0,1932	& 0,4203	& 0,5000	& 72,3881 \\
+MPL			& 17	& 47,01		& 1,49		& 0,2126	& 0,3819	& 0,3955	& 60,4478 \\
+J48			& 8		& 43,28		& 1,37		& 0,2045	& 0,4201	& 0,4478	& 69,4030 \\
+KStar		& 17	& 36,57		& 2,02		& 0,2601	& 0,3113	& 0,2836	& 28,3582 \\
+
+
+			
+		\end{tabular}
+	}
+	\caption{Results for \textbf{500\_D\_10}}
+\end{table}
+
+\restoregeometry
+
+
 \subsection{Discussion}
 Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/21 = 4.76\%$
 
