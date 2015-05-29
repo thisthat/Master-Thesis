@@ -10,7 +10,7 @@
 \usepackage{hyperref}
 \usepackage{biblatex}
 \usepackage{geometry}
-
+\usepackage[hypcap]{caption}
 \addbibresource{prediction.bib}
 
 \hypersetup{
@@ -87,26 +87,28 @@ The implementation of the prediction is designed in four different phases
 	\item Plan
 	\item Execute
 \end{itemize}
-A graphical representation how the four module are interconnected is given in Figure \ref{fig:predictionConf}.\\
-The first module, \textbf{Observer}, is implemented as a daemon in the cloud application. 
+A graphical representation of the interconnection between the four modules is given in Figure \ref{fig:predictionConf}.\\
+
+
+\textbf{Observer}. It is implemented as a daemon in the cloud application. 
 Every few minute it launches a python script which queries the network controller via 	\textit{REST API} and then stores the result inside a $nosql$ database.
 The information saved regards the network load, switches and flows.
 
 
 
-The second one, \textbf{Analyzing}, is done looking through the information inside the database. 
+\textbf{Analyzing}. It is done looking through the information inside the database. 
 A java application collects the data from the database and converts the knowledge in the Attribute-Relation File Format (ARFF). 
 This format is an ASCII text file that describes a list of instances sharing a set of attributes.
 The application depends on the $weka$ (Waikato Environment for Knowledge Analysis) package, a well known suite of learning machine algorithms developed by the University of Waikato.
 The ARFF files are read by the weka package and used to produce the model that is adopted to make predictions.
 
 
-The third element, \textbf{Plan}, is demanded to the Administrator.
+\textbf{Plan}. It is demanded to the Administrator.
 He or she can write rules to specify what to do when a particular event occurs.
 In the cloud application the administrator has the possibility to create the rules that are stored inside the FloodLight controller.
 
 
-The last phase, \textbf{Execute}, is implemented by the controller. 
+\textbf{Execute}. It is implemented by the controller. 
 It monitors the network and every few minutes it makes predictions using the previously generated model.
 When it perceives from a forecast that some rules can be applied, it fires them.
 
@@ -151,7 +153,7 @@ The candidates were the following:
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1\textwidth]{img/networkScenario.png}
+	\includegraphics[width=0.9\textwidth]{img/networkScenario.png}
 	\caption[]
 	{Graph of the bandwidth simulation of a daily usage of the network}
 	\label{fig:netScenarioConf}
@@ -162,44 +164,48 @@ To found the most promising classifier, we have created a network of 4 nodes sho
 In this network we have generate traffic from the node $H1$ directed to $H4$ for a day respecting to the scenario predefined. The graph bandwidth generated is shown in Figure \ref{fig:netScenarioConf}.
 
 The creation of the network relies on the virtualization of the hardware components.
-Therefore, we have simulated it using Mininet \cite{mininet} with OpenFlow \cite{openflow} switches.
+Therefore, we have simulated it using Mininet \cite{mininet} with OpenFlow \cite{openflow} switches that have links of $10MB$ capacity.
 The chosen controller is FloodLight \cite{floodlight}, an open source controller for Software Defined Network.
 
 
 \subsection{DataSet}
-In addiction to the independent variable of which classifier perform better, we have to find which information is most useful as a feature to the model to increase its prediction accuracy.
+In addiction to the decision of which classifier performs better, we have to find which information is most useful as a feature to the model to increase its prediction accuracy.
 Our aim is to estimate the future load of the network in terms of bandwidth required. 
-To be able to classify it correctly, we have store the raw information taken from the controller inside buckets. 
+To be able to classify it correctly, we have stored the raw information taken from the controller inside intervals. 
 Moreover, we have tested if the introduction of the derivative of the bandwidth helps or not the overall quality of the models.
 The last variable investigated is the number of precedent measurements passed to the prediction module.
-The results of our tests products five different datasets:
+The results of our tests product five different datasets:
 \begin{itemize}
-	\item \textbf{200}: We use $200 KBytes$ as dimension of buckets and we use only the last 5 measurement of bandwidth.
+	\item \textbf{200}: We use $200 KBytes$ as dimension of buckets and we use only the last 5 measurements of bandwidth.
 	
-	\item \textbf{500}: The size of the buckets are of $500 KBytes$ and the remaining features are the same as before.
+	\item \textbf{500}: The size of the classes are of $500 KBytes$ and the remaining features are the same as before.
 	
-	\item \textbf{500\_D}: The buckets are $500 KBytes$ large, but now in addiction to the last 5 calculation we have the derivative between the consecutive values.
+	\item \textbf{500\_D}: The intervals are $500 KBytes$ large, but now in addiction to the last 5 calculations we have the derivative between the consecutive values.
 
-	\item \textbf{500\_D\_8}: The bucket are still of the same size but we increase the number of previous bandwidth to 8 and we use the derivative.
+	\item \textbf{500\_D\_8}: The bucket are still of the same size but we increased the number of previous bandwidth to 8 values and we use the derivative.
 	\item \textbf{500\_D\_10}: This configuration is the same as before, but the number of previous data is increased to 10.
 \end{itemize}
 
 
 \subsection{Evaluation}
-%parlare dell'errore come lo calcoliamo noi
+The testing of the various datasets and classifiers is conducted using the classic ten fold cross validation.
+Usually the classifiers are evaluated using the $RMSE = \sqrt{ \frac{ \sum_{t=1}^{n} (y(t) - \hat{y}(t))^2  }{n}  }$ where $y(t)$ is the real output and $\hat{y(t)}$ is the calculated one.
+For our purpose, we have decided to take in account the maximal error in terms of distance between the class guessed and the real one.
+This is possible because we can induce an order between classes since they correspond to a numerical range of Bytes. 
+Moreover, we considered the average of this distance called $\sigma$.
+We examined also the percentage score of the models to classify correctly the instances and the coverage.
+The results of this evaluation are presented in the following tables.
 
-Printare i dati in excell, dare qualche valore
 
 \newpage 
-\newgeometry{top=2cm,bottom=0.1cm}
+\newgeometry{top=1.5cm,bottom=3cm}
 
 \begin{table}[h!]
-	
-	\label{table_200}
-	\resizebox{\textwidth}{!}{%
+	\centering
+	\resizebox{.8\textwidth}{!}{%
 	\begin{tabular}{l|cccccccc}
 	
-& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE		& Precision	& Recall	& Coverage (0.95) \\ \hline
+& Max Error	&\% Correct	& $\sigma$	& RMSE		& Precision	& Recall	& Coverage (0.95) \\ \hline
 NaiveBayes	& 23		& 34,33		& 3,31		& 0,1437	& 0,2756	& 0,2836	& 50,75  \\
 SMO			& 27		& 33,59		& 3,52		& 0,1371	& 0,2207	& 0,3284	& 91,80  \\
 ZeroR		& 45		& 10,45		& 23,52		& 0,1372	& 0,0109	& 0,1045	& 98,51  \\
@@ -212,15 +218,15 @@ KStar		& 43		& 38,06		& 3,66		& 0,1579	& 0,2803	& 0,2985	& 40,30  \\
 	\end{tabular}
 	}
 	\caption{Results for \textbf{200}}
+	\label{tab:table_200}
 \end{table}
 
 \begin{table}[h!]
-	
-	\label{table_500}
-	\resizebox{\textwidth}{!}{%
+	\centering
+	\resizebox{.8\textwidth}{!}{%
 		\begin{tabular}{l|cccccccc}
 			
-& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE		& Precision	& Recall	& Coverage (0.95) \\ \hline
+& Max Error	&\% Correct	& $\sigma$	& RMSE		& Precision	& Recall	& Coverage (0.95) \\ \hline
 NaiveBayes	& 9			& 50,75		& 1,27		& 0,1964	& 0,4763	& 0,4627	& 70,1493  \\
 SMO			& 10		& 41,79		& 1,40		& 0,2064	& 0,3707	& 0,4478	& 97,7612  \\
 ZeroR		& 18		& 10,45		& 9,10		& 0,2103	& 0,0215	& 0,1045	& 97,7612  \\
@@ -233,15 +239,15 @@ KStar		& 17		& 50,75		& 1,44		& 0,2204	& 0,4608	& 0,4403	& 53,7313  \\
 		\end{tabular}
 	}
 	\caption{Results for \textbf{500}}
+	\label{tab:table_500}
 \end{table}
 
 \begin{table}[h!]
-	
-	\label{table_500D}
-	\resizebox{\textwidth}{!}{%
+	\centering
+	\resizebox{.8\textwidth}{!}{%
 		\begin{tabular}{l|cccccccc}
 			
-& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
+& Max Error	&\% Correct	& $\sigma$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
 
 NaiveBayes	& 7		& 45,52		& 1,38		& 0,2105	& 0,4572	& 0,4478	& 56,7164 \\
 SMO			& 10	& 41,79		& 1,40		& 0,2063	& 0,3813	& 0,4328	& 97,7612 \\
@@ -256,15 +262,15 @@ KStar		& 9		& 41,04		& 1,54		& 0,2350	& 0,4428	& 0,4030	& 43,2836 \\
 		\end{tabular}
 	}
 	\caption{Results for \textbf{500\_D}}
+	\label{tab:table_500D}
 \end{table}
 
 \begin{table}[h!]
-	
-	\label{table_500D8}
-	\resizebox{\textwidth}{!}{%
+	\centering
+	\resizebox{.8\textwidth}{!}{%
 		\begin{tabular}{l|cccccccc}
 			
-			& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
+& Max Error	&\% Correct	& $\sigma$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
 			
 		NaiveBayes	& 17	& 43,28		& 1,67		& 0,2216	& 0,4480	& 0,4328	& 52,2388 \\
 		SMO			& 7		& 55,22		& 1,03		& 0,2056	& 0,6230	& 0,6493	& 99,2537 \\
@@ -280,15 +286,15 @@ KStar		& 9		& 41,04		& 1,54		& 0,2350	& 0,4428	& 0,4030	& 43,2836 \\
 		\end{tabular}
 	}
 	\caption{Results for \textbf{500\_D\_8}}
+	\label{tab:table_500D8}
 \end{table}
 
 \begin{table}[h!]
-	
-	\label{table_500D8}
-	\resizebox{\textwidth}{!}{%
+	\centering
+	\resizebox{.8\textwidth}{!}{%
 		\begin{tabular}{l|cccccccc}
 			
-			& Max Error 	& Max Error	&\% Correct	& $\Delta$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
+& Max Error	&\% Correct	& $\sigma$	& RMSE	& Precision	& Recall	& Coverage (0.95) \\ \hline
 			
 NaiveBayes	& 8		& 38,81		& 1,67		& 0,2321	& 0,3503	& 0,3433	& 47,0149 \\
 SMO			& 9		& 46,27		& 1,40		& 0,2064	& 0,3780	& 0,4328	& 98,5075 \\
@@ -303,13 +309,31 @@ KStar		& 17	& 36,57		& 2,02		& 0,2601	& 0,3113	& 0,2836	& 28,3582 \\
 		\end{tabular}
 	}
 	\caption{Results for \textbf{500\_D\_10}}
+	\label{tab:table_500D10}
 \end{table}
 
 \restoregeometry
 
 
 \subsection{Discussion}
-Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/21 = 4.76\%$
+
+
+\hspace{14pt} \textbf{Number of Classes}. 
+The number of classes in the first dataset is $ \frac{10 \text{MB} } { 0.2 \text{MB}}  = 50$. 
+In all the others the classes are $20$. 
+A crucial design feature is to choose the right size of the intervals in which the classifier has to work with.
+With wider range the model has less difficulties to correctly classify an instance and it makes better predictions. 
+Nevertheless, this gives us less information because the forecasts are more general and tell us that the future traffic will fit in a bigger interval. With this knowledge we have less capacity of reaction. 
+On the other hand, having smaller classes helps us to have more precise information in terms of future load, but these values are not trustworthy.
+This behavior is confirmed comparing Table \ref{tab:table_200} with the others.
+
+\textbf{Derivative}.
+
+The introduction of the derivative as a feature passed to the model increase 
+
+\textbf{Number of previous measurement}.
+
+Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/20 = 5\%$
 
 \printbibliography 
 
