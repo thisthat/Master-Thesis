@@ -185,7 +185,7 @@ The results of our tests product five different datasets:
 	\item \textbf{500\_D\_8}: The bucket are still of the same size but we increased the number of previous bandwidth to 8 values and we use the derivative.
 	\item \textbf{500\_D\_10}: This configuration is the same as before, but the number of previous data is increased to 10.
 \end{itemize}
-
+Each dataset for each instance has the time of the day in which the measurement of the network was done.
 
 \subsection{Evaluation}
 The testing of the various datasets and classifiers is conducted using the classic ten fold cross validation.
@@ -320,8 +320,8 @@ KStar		& 17	& 36,57		& 2,02		& 0,2601	& 0,3113	& 0,2836	& 28,3582 \\
 
 \hspace{14pt} \textbf{Number of Classes}. 
 The number of classes in the first dataset is $ \frac{10 \text{MB} } { 0.2 \text{MB}}  = 50$. 
-In all the others the classes are $20$. 
-A crucial design feature is to choose the right size of the intervals in which the classifier has to work with.
+In all the others the classes is $20$. 
+A crucial design feature is to choose the right size of the intervals with which the classifier has to work with.
 With wider range the model has less difficulties to correctly classify an instance and it makes better predictions. 
 Nevertheless, this gives us less information because the forecasts are more general and tell us that the future traffic will fit in a bigger interval. With this knowledge we have less capacity of reaction. 
 On the other hand, having smaller classes helps us to have more precise information in terms of future load, but these values are not trustworthy.
@@ -330,7 +330,7 @@ This behavior is confirmed comparing Table \ref{tab:table_200} with the others.
 
 
 \textbf{Derivative}.
-The introduction of the derivative as a feature passed to the model increase its quality.
+The introduction of the derivative as a feature in the model increase its quality.
 If we compare the results from Table \ref{tab:table_500} with the ones from Table \ref{tab:table_500D}, in which the only difference is the introduction of derivative, we can see the improvements.
 The overall score is not really enhanced, for some classifier it gains $2.98\%$ but for others it decrease of $9.70\%$.
 For some algorithms, like $SMO$ and $ZeroR$, this feature is totally indifferent and the score remain the same.
@@ -344,17 +344,29 @@ Instead, it misses in average the correct class only by $1.12$ and that determin
 In the first three datasets the number of previous measurements is $5$ elements. 
 We have tested it increasing this number to $8$ and to $10$. 
 The results are presented in Table \ref{tab:table_500D8} and Table \ref{tab:table_500D10} respectively.
-The most promising algorithms were $J48$ and $MPL$ and so we focus over these two.
+The most promising algorithms for the previous tests were $J48$ and $MPL$ and so we focus over these two.
 With $8$ previous values both of them increase their accuracy, but the maximal error augments as well to $17$ classes. 
-In other terms, the maximal error is $8.5MB$ and it is unacceptable since the maximal load of the link is $10MB$.
-As pointed out by Zhani et al. \cite{zha}, if we increase to much the number of features in a model, its quality and reliability decline.
-This trend is confirmed from the result in Table \ref{tab:table_500D10}.
+In other terms, the maximal error is $8.5MB$ and it is unacceptable since the maximal load of a link is $10MB$.
+The $BayesNet$ algorithm in the last two tests lifts itself with $8,21\%$ and $5,23\%$ more of accuracy respectively to the experiments.
+It maintains the same maximal error and the average error is pretty close with the other tests.
+Also the $MSO$ classifier makes it notices in the test with $8$ samples with an accuracy of $55.22\%$ and $\sigma$ of $1.03$.
+As pointed out by Zhani et al. \cite{zha}, if we increase to much the number of features in a model, its quality and reliability decline due to the difficulties to control high number of variables.
+This trend is confirmed by the result in Table \ref{tab:table_500D10}.
+\newpage
+It is strange that $J48$ with $10$ values and their derivative decrease the maximal error. 
+With more variables to govern we expect to have greater or equal number.
+Instead it is the lowest score in all the $5$ tests.
 
 
 \subsection{Conclusion} 
-Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/20 = 5\%$
-ZeroR stupido score sempre lo stesso come ci si aspettava
-strano che j48 dove max error 17, con 10 misure scende a 8
+The decision of which classifier performs better for our purpose, conducts us to create five different test in which we have change how the dataset are constituted.
+This helps us to have understand what are the features that help a classifier to work at its best possibilities.
+The results of our tests show that $ZeroR$ is really dumb and it does not change its behavior according to the different features of the dataset used to train it.
+Instead, we have seen that $MPL$ and $BayesNet$ work pretty well with an accuracy of $49.25\%$ and $51.49\%$ in their best performance with $\sigma$ of $1.19$ and $1.18$ respectively and maximal error for both of $7$.
+However, the best result that we have obtained is with $SMO$. 
+It scores better in the fourth test where we use $8$ samples and their derivative to train the model. 
+The only drawback is that it requires a lot of time to be trained.
+Finally, this result improves by a factor of 10 times the \textit{guess a class} method; if we chose randomly a class we have a probability of just $\frac{1}{20} = 5\%$ to get the right prediction.
 
 
 \printbibliography 
