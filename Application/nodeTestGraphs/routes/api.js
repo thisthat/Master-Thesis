@@ -567,4 +567,48 @@ router.get('/switch/:dpid/port/:p', function( req, res ){
     });
 });
 
+
+router.get('/test/:dpid/:min/:max', function(req, res, next) {
+	var db = req.db;
+	var _min = parseInt(req.params.min);
+	var _max = parseInt(req.params.max);
+	var _dpid = req.params.dpid;
+	res.setHeader('Content-Type', 'application/json');
+	var out = {};
+	var __test = "test_30gg";
+	var findObj = {
+		test: __test,
+		DPID: _dpid,
+		"match.in_port" : "2",
+		_time: { $gte: _min, $lte: _max }
+	};
+	
+	db.collection('SwitchFlowData')
+	.find(
+		findObj
+	)
+	.sort({_time: 1})
+	//.limit(100)
+	.toArray(function (err, items) {
+        
+        items.forEach( function(item, index){
+			var t = item['_time'];
+			//console.log(out.t, typeof out.t);
+			if(typeof out[t] != "undefined"){
+				var tmp = out[t];
+				tmp.sendByte += parseInt(item.byteCount);
+				out[t] = tmp;
+			}
+			else {
+				out[t] = {
+					sendByte: parseInt(item.byteCount)
+				};
+			}
+			//console.log(index, item['_time']);
+		});
+		res.json(out);
+    })
+	;
+});
+
 module.exports = router;

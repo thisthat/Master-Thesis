@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<script src="../../../js/jquery-1.9.1.min.js"></script>
+    <script src="../../../js/jquery.flot.js"></script>
+    <script src="../../../js/jquery.flot.pie.js"></script>
+    <script src="../../../js/jquery.flot.stack.js"></script>
+    <script src="../../../js/jquery.flot.categories.js"></script>
+    <script src="../../../js/jquery.flot.crosshair.js"></script>
+    <script src="../../../js/jquery.flot.resize.min.js"></script>
+	
+</head>
+
+<body>
+
+<div style="width:{{w}}px;height: 400px;  " id="switchBandwidth"></div>
+
+<script>
+var data = [];
+$(function () {
+    var _id = "00:00:00:00:00:00:00:02";
+    var minT = {{ min }};
+    var maxT = {{ max }};
+	$.getJSON( "/api/test/" + _id + "/" + minT + "/" + maxT, function( _data ) {
+        data = _data;
+        graphBandwidth();
+    });
+});
+
+
+function graphBandwidth(){
+    console.log(data);
+    var s1 = [];
+    var times = Object.keys(data);
+    var prevTime = times[0];
+    var prevSendByte = data[prevTime].sendByte;
+    //console.log(times, prevTime);
+    for(var i = 1; i < times.length; i++){
+        var k = times[i];
+
+        var send = Math.max(0, data[k].sendByte - prevSendByte);
+        send = send / (k - prevTime);
+        console.log(k, data[k].sendByte);
+        s1.push([k, send]);
+        prevSendByte = data[k].sendByte;
+        prevTime = k;
+    }
+    //console.log(s1);
+    var options = {
+        series: {
+            lines: {
+                show:true,
+                lineWidth:2,
+            },
+            points: {
+                show:true
+            },
+            shadowSize: 2
+        },
+        grid: {
+            hoverable:true,
+            clickable:true,
+            tickColor:"#dddddd",
+            borderWidth:0 
+        },
+        colors:["#FA5833","#2FABE9"]
+    };
+
+    var plot = $.plot(
+        $("#switchBandwidth"),
+        [
+            {data:s1,label:"Send [B/s]"},
+        ],
+        options
+    );
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'block',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fdd',
+            padding: '2px',
+            'background-color': '#dfeffc',
+            opacity: 0.80,
+            'z-index': 100
+        }).appendTo("body").fadeIn(200);
+    }
+
+    var previousPoint = null;
+    $("#switchBandwidth").bind("plothover", function (event, pos, item) {
+        if (item) {
+            if (previousPoint != item.dataIndex) {
+                previousPoint = item.dataIndex;
+
+                $("#tooltip").remove();
+                var x = item.datapoint[0].toFixed(2),
+                    y = item.datapoint[1].toFixed(2);
+
+                showTooltip(item.pageX, item.pageY,
+                            item.series.label + " @time:" + x + " = " + y);
+            }
+        }
+        else {
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>

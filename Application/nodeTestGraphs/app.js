@@ -79,6 +79,8 @@ module.exports = app;
 
 app.listen(8000);
 console.log("Server start @ 127.0.0.1:8000");
+
+/*
 callDaemon();
 function callDaemon(){
   var python = require('child_process').spawn(
@@ -91,3 +93,4 @@ function callDaemon(){
   console.log(output);
   setTimeout(callDaemon, 500);
 }
+*/

@@ -37,12 +37,6 @@
       \field{year}{1988}
       \field{pages}{193\bibrangedash 215}
       \range{pages}{23}
-      \verb{doi}
-      \verb http://dx.doi.org/10.1016/0885-064X(88)90020-9
-      \endverb
-      \verb{url}
-      \verb http://www.sciencedirect.com/science/article/pii/0885064X88900209
-      \endverb
     \endentry
     \entry{BayesNet}{book}{}
       \name{author}{1}{}{%
@@ -240,6 +234,26 @@
       \field{year}{1990}
       \field{pages}{296\bibrangedash 298}
       \range{pages}{3}
+    \endentry
+    \entry{zha}{article}{}
+      \name{author}{3}{}{%
+        {{hash=a5e786252c9e223138551cd53c999556}{Zhani}{Z\bibinitperiod}{Mohamed\bibnamedelima Faten}{M\bibinitperiod\bibinitdelim F\bibinitperiod}{}{}{}{}}%
+        {{hash=8852f1c7ae5dfe0344aac1a80f197ad5}{Elbiaze}{E\bibinitperiod}{Halima}{H\bibinitperiod}{}{}{}{}}%
+        {{hash=84d74511a21e5d56bc87af4c1fc575bf}{Kamoun}{K\bibinitperiod}{Farouk}{F\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{ca0a61a8a00d1dd0065442258da06225}
+      \strng{fullhash}{ca0a61a8a00d1dd0065442258da06225}
+      \field{sortinit}{Z}
+      \field{sortinithash}{fdda4caaa6b5fa63e0c081dcb159543a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of networks}
+      \field{number}{9}
+      \field{title}{Analysis and prediction of real network traffic}
+      \field{volume}{4}
+      \field{year}{2009}
+      \field{pages}{855\bibrangedash 865}
+      \range{pages}{11}
     \endentry
   \endsortlist
 \endrefsection

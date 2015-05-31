@@ -40,4 +40,11 @@ router.get('/dbtest', function(req, res) {
     });
 });
 
+router.get('/test30gg/:min/:max/:w', function(req, res, next) {
+  var _min = parseInt(req.params.min);
+  var _max = parseInt(req.params.max);
+  var _w = parseInt(req.params.w);
+  res.render('test30gg', { min: _min, max: _max, w: _w });
+});
+
 module.exports = router;

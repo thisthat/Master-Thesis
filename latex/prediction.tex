@@ -327,13 +327,35 @@ Nevertheless, this gives us less information because the forecasts are more gene
 On the other hand, having smaller classes helps us to have more precise information in terms of future load, but these values are not trustworthy.
 This behavior is confirmed comparing Table \ref{tab:table_200} with the others.
 
+
+
 \textbf{Derivative}.
+The introduction of the derivative as a feature passed to the model increase its quality.
+If we compare the results from Table \ref{tab:table_500} with the ones from Table \ref{tab:table_500D}, in which the only difference is the introduction of derivative, we can see the improvements.
+The overall score is not really enhanced, for some classifier it gains $2.98\%$ but for others it decrease of $9.70\%$.
+For some algorithms, like $SMO$ and $ZeroR$, this feature is totally indifferent and the score remain the same.
+On the other hand, the neural network approach works better with this introduction. The $MPL$ increase the correctness of $0.75\%$ and reduce the $\sigma$ of $0.22$ points. 
+Moreover, the main advantage is with the reduction of maximal error. 
+This means that the $MPL$ algorithm guesses correctly half of the instances and, for the one that misses, the maximal error is of $7$ classes that is translated in an error of $3.5MB$. 
+Instead, it misses in average the correct class only by $1.12$ and that determines an error of $560KB$.
 
-The introduction of the derivative as a feature passed to the model increase 
 
-\textbf{Number of previous measurement}.
+\textbf{Number of previous measurements}.
+In the first three datasets the number of previous measurements is $5$ elements. 
+We have tested it increasing this number to $8$ and to $10$. 
+The results are presented in Table \ref{tab:table_500D8} and Table \ref{tab:table_500D10} respectively.
+The most promising algorithms were $J48$ and $MPL$ and so we focus over these two.
+With $8$ previous values both of them increase their accuracy, but the maximal error augments as well to $17$ classes. 
+In other terms, the maximal error is $8.5MB$ and it is unacceptable since the maximal load of the link is $10MB$.
+As pointed out by Zhani et al. \cite{zha}, if we increase to much the number of features in a model, its quality and reliability decline.
+This trend is confirmed from the result in Table \ref{tab:table_500D10}.
 
+
+\subsection{Conclusion} 
 Avere 50\% di successo -> 10 volte meglio di sparare a caso $1/20 = 5\%$
+ZeroR stupido score sempre lo stesso come ci si aspettava
+strano che j48 dove max error 17, con 10 misure scende a 8
+
 
 \printbibliography 
 
