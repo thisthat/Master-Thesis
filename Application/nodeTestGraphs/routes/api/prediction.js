@@ -87,5 +87,47 @@ router.get('/timeout', function(req, res, next) {
     })
 });
 
+router.post('/timeout', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    var time = req.body.time;
+    var post = {
+        "time" : time
+    };
+    request({
+        method: 'POST',
+        url: controller_url + 'wm/controller/topology/timeout', 
+        timeout: 2000, 
+        form: JSON.stringify(post)
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+router.post('/:dpid/dataset', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    var _dpid = req.params.dpid;
+    var post = req.body.obj;
+    console.log(post);
+    request({
+        method: 'POST',
+        url: controller_url + '/wm/controller/prediction/' + _dpid + '/dataset', 
+        timeout: 2000, 
+        form: post
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+
 module.exports = router;
 

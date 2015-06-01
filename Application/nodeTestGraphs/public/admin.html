@@ -69,7 +69,7 @@
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary ">Save changes</a>
+			<a href="#" id="admin-save" class="btn btn-primary ">Save changes</a>
 		</div>
 	</div>
 
@@ -77,29 +77,50 @@
 <script>
 $(function(){
 	var __time = 300;
-	var __ipMongo = "127.0.0.1";
-	var __portMongo = "27017";
-	init();
 
-
-	function init(){
+	$(".admin-modal").on('click', function(e){
+		e.preventDefault();
 		$('#myModal').modal('show');
-		//Trigger to change tab
-		$(".tab").on('click', function(){
-			$(".tabsAdmin").find("li").each(function( index ) {
-			 	$(this).removeClass("active");
-			 	var active = ".admin-" + $(this).attr('data-show');
-			 	$(active).hide();
-			});
+		init();
+	});
 
-			$(this).addClass("active");
-			var active = ".admin-" + $(this).attr('data-show');
-			$(active).show();
+	//Bind action to save button
+	$("#admin-save").on('click', function(){
+		save();
+		$('#myModal').modal('hide');
+		//Notification
+		var id = $.gritter.add({
+			// (string | mandatory) the heading of the notification
+			title: 'Data Saved',
+			// (string | mandatory) the text inside the notification
+			text: 'Data saved correctly',
+			sticky: false, 
+			time: 2000,
+			after_close: function(){
+				$.gritter.removeAll();
+			}
+		});
+		console.log("Quante volte premo?", id);
+	});
+
+	//Trigger to change tab
+	$(".tab").on('click', function(){
+		$(".tabsAdmin").find("li").each(function( index ) {
+		 	$(this).removeClass("active");
+		 	var active = ".admin-" + $(this).attr('data-show');
+		 	$(active).hide();
 		});
 
+		$(this).addClass("active");
+		var active = ".admin-" + $(this).attr('data-show');
+		$(active).show();
+	});
 
-		//Start with General Tab
-		$(".tab1").trigger("click");
+
+	//Start with General Tab
+	$(".tab1").trigger("click");
+
+	function init(){
 
 		//Load the slide for set the TimeOut
 		loadTimeOut();
@@ -125,20 +146,19 @@ $(function(){
 
 	function sendTime(){
 		var s = $( "#secondTopologyBuild" ).slider( "value" );
-		__time = s;
+		__time = s*1000;
 		var $spanTime = $("#secondTopologyBuild").parent().parent().find(".time");
 		$spanTime.html( s + " [s]");
 	}
 
 	function loadTimeOut(){
 		$.getJSON( "api/prediction/timeout", function( time ) {
-			__time = time.timeout / 1000;
+			__time = parseInt(time.timeout) / 1000;
 			$( "#secondTopologyBuild" ).slider({
 		      orientation: "horizontal",
 		      range: "min",
 		      max: 600,
 		      min: 1,
-		      value: __time,
 		      slide: sendTime,
 		      change: sendTime
 		    });
@@ -173,10 +193,8 @@ $(function(){
 	}
 	function loadMongo(){
 		$.getJSON( "api/controller/mongoDB", function( mongo ) {
-			__ipMongo = mongo.ip;
-			__portMongo = mongo.port;
-			$("#mongoIP").val(__ipMongo);
-			$("#mongoPort").val(__portMongo);
+			$("#mongoIP").val(mongo.ip);
+			$("#mongoPort").val(mongo.port);
 		});
 	}
 
@@ -201,15 +219,15 @@ $(function(){
 				html += '<p class="list-group-item-text">';
 
 				html += "Class size: <select class='classSize' data-dpid='" + dpid + "'>";
-					html += "<option " + (size == "200" ? "SELECTED" : "") + "> 200KB </option>"; 
-					html += "<option " + (size == "500" ? "SELECTED" : "") + "> 500KB </option>"; 
-					html += "<option " + (size == "1000" ? "SELECTED" : "") + "> 1000KB </option>";  
+					html += "<option value='200' " + (size == "200" ? "SELECTED" : "") + "> 200KB </option>"; 
+					html += "<option value='500' " + (size == "500" ? "SELECTED" : "") + "> 500KB </option>"; 
+					html += "<option value='1000' " + (size == "1000" ? "SELECTED" : "") + "> 1000KB </option>";  
 				html += "</select>";
 				html += "<br />";
 				html += "Lags: <select class='lags' data-dpid='" + dpid + "'>";
-					html += "<option " + (lags == "5" ? "SELECTED" : "") + "> 5 </option>"; 
-					html += "<option " + (lags == "8" ? "SELECTED" : "") + "> 8 </option>"; 
-					html += "<option " + (lags == "10" ? "SELECTED" : "") + "> 10 </option>";  
+					html += "<option value='5' " + (lags == "5" ? "SELECTED" : "") + "> 5 </option>"; 
+					html += "<option value='8' " + (lags == "8" ? "SELECTED" : "") + "> 8 </option>"; 
+					html += "<option value='10' " + (lags == "10" ? "SELECTED" : "") + "> 10 </option>";  
 				html += "</select>";
 				html += "<br />";
 				html += "Derivative: <input type='checkbox' class='derivative'"+ (deri == "true" ? "CHECKED" : "") + " data-dpid='" + dpid + "'>";
@@ -233,15 +251,52 @@ $(function(){
 	}
 
 	function saveTime(){
-		$.post( "ajax/test.html", function( data ) {
-		  	$( ".result" ).html( data );
+		$.ajax({
+			method: "POST",
+			url: "api/prediction/timeout",
+			data: { time: __time }
+		}).done(function(res) {
+			console.log(res);
 		});
 	};
 
 
 
-	function saveMongo(){};
-	function saveDataset(){};
+	function saveMongo(){
+		var _ip 	= $("#mongoIP").val();
+		var _port 	= $("#mongoPort").val();
+		$.ajax({
+			method: "POST",
+			url: "api/controller/mongoDB",
+			data: { ip: _ip, port: _port }
+		}).done(function(res) {
+			console.log(res);
+		});
+	};
+	function saveDataset(){
+		var jsonObj = [];
+		$(".tab3-data").find(".list-group-item-text").each(function(index){
+			var sel = $(this).find('select.classSize');
+			var dpid = sel.attr('data-dpid');
+			var size = sel.val();
+			var lags = $(this).find('select.lags').val();
+			var deri = $(this).find('.derivative').is(':checked');
+			jsonObj.push({
+				"dpid" : dpid, 
+				"lags" : lags, 
+				"derivative" : String(deri), 
+				"classSize" : size
+			});
+		});
+		$.ajax({
+			method: "POST",
+			url: "api/prediction/all/dataset",
+			data: { obj : JSON.stringify(jsonObj) }
+		}).done(function(res) {
+			console.log(res);
+		});
+
+	};
 
 })
 

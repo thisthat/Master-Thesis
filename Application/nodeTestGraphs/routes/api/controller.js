@@ -119,4 +119,28 @@ router.get('/mongoDB', function(req, res, next) {
     })
 });
 
+//Mongo DB Controller Info Store
+router.post('/mongoDB', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    var ip = req.body.ip;
+    var port = req.body.port;
+    var post = {
+        "ip" : ip, 
+        "port" : port
+    };
+    request({
+        method: 'POST',
+        url: controller_url + 'wm/controller/info/mongoDB', 
+        timeout: 2000, 
+        form: JSON.stringify(post)
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
 module.exports = router;
