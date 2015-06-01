@@ -29,8 +29,6 @@ $(function() {
 		});
 	});
 
-
-    
     $('#datepicker').on('change', function(){
     	var val = $(this).val();
     	var regexp = /(\d{4})-(\d{2})-(\d{2})/;
