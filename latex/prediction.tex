@@ -105,7 +105,7 @@ The ARFF files are read by the weka package and used to produce the model that i
 
 \textbf{Plan}. It is demanded to the Administrator.
 He or she can write rules to specify what to do when a particular event occurs.
-In the cloud application the administrator has the possibility to create the rules that are stored inside the FloodLight controller.
+In the cloud application the administrator has the possibility to create such rules that are stored inside the FloodLight controller.
 
 
 \textbf{Execute}. It is implemented by the controller. 
@@ -161,7 +161,7 @@ The candidates were the following:
 
 
 To found the most promising classifier, we have created a network of 4 nodes shows in Figure \ref{fig:netScenatioTopo}.
-In this network we have generate traffic from the node $H1$ directed to $H4$ for a day respecting to the scenario predefined. The graph bandwidth generated is shown in Figure \ref{fig:netScenarioConf}.
+In this network we have generate traffic from the node $H1$ directed to $H4$ for a day respecting to the scenario predefined. The graph of bandwidth generated is shown in Figure \ref{fig:netScenarioConf}.
 
 The creation of the network relies on the virtualization of the hardware components.
 Therefore, we have simulated it using Mininet \cite{mininet} with OpenFlow \cite{openflow} switches that have links of $10MB$ capacity.
@@ -171,7 +171,7 @@ The chosen controller is FloodLight \cite{floodlight}, an open source controller
 \subsection{DataSet}
 In addiction to the decision of which classifier performs better, we have to find which information is most useful as a feature to the model to increase its prediction accuracy.
 Our aim is to estimate the future load of the network in terms of bandwidth required. 
-To be able to classify it correctly, we have stored the raw information taken from the controller inside intervals. 
+To be able to classify it correctly, we have stored the raw information taken from the controller inside predefined size intervals. 
 Moreover, we have tested if the introduction of the derivative of the bandwidth helps or not the overall quality of the models.
 The last variable investigated is the number of precedent measurements passed to the prediction module.
 The results of our tests product five different datasets:
@@ -344,12 +344,12 @@ Instead, it misses in average the correct class only by $1.12$ and that determin
 In the first three datasets the number of previous measurements is $5$ elements. 
 We have tested it increasing this number to $8$ and to $10$. 
 The results are presented in Table \ref{tab:table_500D8} and Table \ref{tab:table_500D10} respectively.
-The most promising algorithms for the previous tests were $J48$ and $MPL$ and so we focus over these two.
+The most promising algorithms for the previous tests were $BayesNet$, $J48$ and $MPL$ and so we focus over these three.
 With $8$ previous values both of them increase their accuracy, but the maximal error augments as well to $17$ classes. 
 In other terms, the maximal error is $8.5MB$ and it is unacceptable since the maximal load of a link is $10MB$.
 The $BayesNet$ algorithm in the last two tests lifts itself with $8,21\%$ and $5,23\%$ more of accuracy respectively to the experiments.
 It maintains the same maximal error and the average error is pretty close with the other tests.
-Also the $MSO$ classifier makes it notices in the test with $8$ samples with an accuracy of $55.22\%$ and $\sigma$ of $1.03$.
+Also the $MSO$ classifier makes it notices in the test with $8$ samples with an accuracy of $55.22\%$ and average error of $515KB$.
 As pointed out by Zhani et al. \cite{zha}, if we increase to much the number of features in a model, its quality and reliability decline due to the difficulties to control high number of variables.
 This trend is confirmed by the result in Table \ref{tab:table_500D10}.
 \newpage
@@ -359,10 +359,10 @@ Instead it is the lowest score in all the $5$ tests.
 
 
 \subsection{Conclusion} 
-The decision of which classifier performs better for our purpose, conducts us to create five different test in which we have change how the dataset are constituted.
-This helps us to have understand what are the features that help a classifier to work at its best possibilities.
-The results of our tests show that $ZeroR$ is really dumb and it does not change its behavior according to the different features of the dataset used to train it.
-Instead, we have seen that $MPL$ and $BayesNet$ work pretty well with an accuracy of $49.25\%$ and $51.49\%$ in their best performance with $\sigma$ of $1.19$ and $1.18$ respectively and maximal error for both of $7$.
+The decision of which classifier performs better for our purpose, conducts us to create five different tests in which we have change how the dataset are constituted.
+This helps us to understand what are the features that help a classifier to work at its best possibilities.
+The results of our tests show that $ZeroR$ is really dumb and it does not change its behavior according to the different features of the dataset used to train it, as we expected.
+Instead, we have seen that $MPL$ and $BayesNet$ work pretty well with an accuracy of $49.25\%$ and $51.49\%$ in their best performance with $\sigma$ of $1.19$ and $1.18$ respectively and maximal error of $7$ for both.
 However, the best result that we have obtained is with $SMO$. 
 It scores better in the fourth test where we use $8$ samples and their derivative to train the model. 
 The only drawback is that it requires a lot of time to be trained.
