@@ -143,4 +143,22 @@ router.post('/mongoDB', function(req, res, next) {
     })
 });
 
+router.post('/rebuild', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    request({
+        url: controller_url + '/wm/controller/topology/create', 
+        timeout: 2000
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+
+
+
 module.exports = router;

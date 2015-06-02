@@ -17,7 +17,6 @@ max_bandwidthClass = 10000
 
 #Vars
 switch = "00:00:00:00:00:00:00:02"
-test = "_1"
 timing = 30 # How many seconds for each bandwidth class in the TrafficTester
 skip = 1 # How many measurement to skip
 skipend = 1
@@ -28,8 +27,6 @@ derivate = False
 for i in sys.argv:
 	if (i.startswith('-switch:')) :
 		switch = i[8:]
-	if (i.startswith('-test:')) :
-		test = i[6:]
 	if (i.startswith('-timing:')) :
 		timing = i[8:]
 	if (i.startswith('-skip:')) :
@@ -76,14 +73,11 @@ prevByte = 0
 bandwidth = []
 tmp = []
 #collect data from DB
-for post in db.DataTime.find({ 'test' : test },{'_id':0}).sort("_time"):
+for post in db.DataTime.find({ },{'_id':0}).sort("_time"):
 	time = post['_time']
 	byte = 0;
 
-	if test == "" :
-		obj = {"DPID" : switch, "_time" : time}
-	else :
-		obj = {"DPID" : switch, "_time" : time, "test" : test}
+	obj = {"DPID" : switch, "_time" : time}
 
 	for data in db.SwitchFlowData.find( obj , {'_id' : 0}):
 		b = int(data["byteCount"])
@@ -148,7 +142,7 @@ start = tmp[skip]['sec'] -  5
 old_value = 0
 der = 0
 for i in range(win_size-1,len(bandwidth) + win_size - 1):
-	out = "'time_{0}'" . format( timeClass(bandwidth[i-win_size+1]['sec'],start) )
+	out = "'time_{0}'" . format( timeClass(bandwidth[i-win_size+1]['sec'], start) )
 	for j in range(win_size):
 		index = (i - win_size + j) % len(bandwidth)
 		value = 0

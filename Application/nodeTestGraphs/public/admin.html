@@ -25,7 +25,7 @@
 	 <div class="zero-clipboard"></div>
 	<div class="highlight">
 		<div id="secondTopologyBuild"></div>
-		<button type="button" class="btn btn-default btn-lg rebuidTopo">
+		<button type="button" id="admin-rebuild" class="btn btn-default btn-lg rebuidTopo">
 		  <span class="halflings-icon refresh" aria-hidden="true"></span> Rebuild Now!
 		</button>
 	</div>
@@ -101,6 +101,23 @@ $(function(){
 			}
 		});
 		console.log("Quante volte premo?", id);
+	});
+
+	//Bind the rebuild now
+	$("#admin-rebuild").on('click', function() {
+		$.ajax({
+			method: "POST",
+			url: "api/controller/rebuild",
+			data: { time: __time }
+		}).done(function(res) {
+			var html = "<div class='alert alert-success' role='alert'>Implement The Check of errors</div>";
+			$(".tabsAdmin").after(html);
+			setTimeout(function(){
+				$(".alert").hide(500, function(){
+					$(this).remove();
+				});
+			}, 2000);
+		});
 	});
 
 	//Trigger to change tab
