@@ -138,7 +138,7 @@ router.post('/mongoDB', function(req, res, next) {
             res.send(body)
         }
         else {
-            res.send("[]");
+            res.send("{}");
         }
     })
 });
@@ -153,7 +153,7 @@ router.post('/rebuild', function(req, res, next) {
             res.send(body)
         }
         else {
-            res.send("[]");
+            res.send("{}");
         }
     })
 });

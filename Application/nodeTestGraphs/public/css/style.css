@@ -2693,6 +2693,11 @@ ul.messagesList li span.date {
 /* NEW ADD */
 #secondTopologyBuild .ui-slider-range { background: #729fcf; }
 #secondTopologyBuild .ui-slider-handle { border-color: #729fcf; }
+#secondQueryController .ui-slider-range { background: #729fcf; }
+#secondQueryController .ui-slider-handle { border-color: #729fcf; }
+#secondQueryController {
+	margin-bottom: 10px;
+}
 .rebuidTopo {
 	margin-top: 10px;
 }
@@ -3498,4 +3503,8 @@ Pseudo ::after element
 .clear-fix {
 	padding-top: 1px;
 	padding-bottom: 1px;
+}
+
+.nav-no-bottom {
+	margin-bottom: 0px;
 }

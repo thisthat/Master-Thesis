@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig  = require('swig');
 
+var isDaemonRunning = false;
+var daemonTimer = 5; //In seconds
+
 //DB
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://127.0.0.1:27017/FloodLight", {native_parser:true});
@@ -44,6 +47,26 @@ app.use('/', routes);
 app.use('/api', api);
 app.use('/graph', graph);
 
+app.get('/daemon', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var out = "{ \"timer\" : \"" + daemonTimer + "\", \"isRunning\" : \"" + isDaemonRunning + "\"}";
+  res.send(out);
+});
+app.post('/daemon', function (req, res) {
+  var active = String(req.body.active);
+  var timer = parseInt(req.body.timer);
+  var isAlreadyRunning = isDaemonRunning;
+  isDaemonRunning = active == "true";
+  daemonTimer = timer;
+  res.setHeader('Content-Type', 'application/json');
+  var out = "{ \"status\" : \"ok\", \"msg\" : \"\"}";
+  res.send(out);
+  //Let's start the daemon
+  if(isDaemonRunning && !isAlreadyRunning){
+    callDaemon();
+  }
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -80,17 +103,18 @@ module.exports = app;
 app.listen(8000);
 console.log("Server start @ 127.0.0.1:8000");
 
-/*
-callDaemon();
-function callDaemon(){
-  var python = require('child_process').spawn(
-     'python',
-     // second argument is array of parameters, e.g.:
-     ["../echo.py"]
-     );
-  var output = "";
-  python.stdout.on('data', function(data){ output += data });
-  console.log(output);
-  setTimeout(callDaemon, 500);
+if(isDaemonRunning){
+  callDaemon();
 }
-*/
+
+function callDaemon(){
+  if(isDaemonRunning){
+    var python = require('child_process').spawn(
+      'python',
+      // second argument is array of parameters, with the file of course
+      ["../daemon/grab_network_data.py"]
+    );
+    python.stdout.on('data', function(data){ console.log("[DAEMON] Data acquired"); });
+    setTimeout(callDaemon, daemonTimer * 1000);
+  }
+}

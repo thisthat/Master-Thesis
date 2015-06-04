@@ -77,7 +77,11 @@ $(function() {
 			console.log(minDate);
 			$.getJSON( "/api/network/load/" + minT + "/" + maxT, function( _data ) {
 				data = _data;
-				$(".row-fluid .sortable").find('.btn-minimize').trigger('click');
+
+				var btnOpenClose = $(".row-fluid .sortable").find('.btn-minimize');
+				if(btnOpenClose.find('.halflings-icon').hasClass('chevron-down')){
+					btnOpenClose.trigger('click');
+				}
 				graphBandwidth();
 				graphPacket();
 				graphFlow();
@@ -101,8 +105,9 @@ $(function() {
 
 			var send = Math.max(0, data[k].byteCount - prevSendByte);
 			send = send / (k - prevTime);
-			s1.push([k, send]);
+			s1.push([k, send / 1000 / 1000 ]);
 			prevSendByte = data[k].byteCount;
+			prevTime = k;
 		}
 		var options = {
 			series: {
@@ -127,7 +132,7 @@ $(function() {
 		var plot = $.plot(
 			$("#switchBandwidth"),
 			[
-				{data:s1,label:"Bandwidth [B/s]"},
+				{data:s1,label:"Bandwidth [KB/s]"},
 			],
 			options
 		);

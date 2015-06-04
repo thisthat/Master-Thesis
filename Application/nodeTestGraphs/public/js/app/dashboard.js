@@ -337,7 +337,7 @@ function realTimeGraph(){
 		//New values
 		$.getJSON( "/api/controller/load", function( data ) {
 			//console.log(data);
-			var b = (Math.abs(lastRealData.byte - data.bytes) / 1000000) / updateInterval;
+			var b = (Math.abs(lastRealData.byte - data.bytes) / 1024) / updateInterval;
 			var p = Math.abs(lastRealData.pack - data.packets);
 			lastData.byte = b;
 			lastData.pack = p;

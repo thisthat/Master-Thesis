@@ -96,6 +96,7 @@
 						<li><a href="#" id="dashboard"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>	
 						<li><a href="#" id="network"><i class="icon-tasks"></i><span class="hidden-tablet"> Network</span></a></li>	
 						<li><a href="#" id="topology"><i class="icon-eye-open"></i><span class="hidden-tablet"> Topology</span></a></li>	
+						<li><a href="#" id="prediction"><i class="icon-dashboard"></i><span class="hidden-tablet"> Prediction</span></a></li>	
 						<li><a href="#" id="other"><i class="icon-envelope"></i><span class="hidden-tablet"> Other</span></a></li>
 					</ul>
 				</div>
@@ -134,6 +135,96 @@
 		</p>
 
 	</footer>
+
+<!-- Modal Admin Settings-->
+<div class="modal hide fade" id="myModal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Admin Settings</h3>
+		<ul class="nav nav-tabs tabsAdmin nav-no-bottom">
+			<li role="presentation" class="active tab1 tab" data-show="general"><a href="#">General</a></li>
+			<li role="presentation" class="tab2 tab" data-show="switch"><a href="#">Switch Information</a></li>
+			<li role="presentation" class="tab3 tab" data-show="dataset"><a href="#">Dataset</a></li>
+		</ul>
+	</div>
+	<div class="modal-body">
+		<!-- First Tab -->
+		<div class="admin-general">
+			<div class="bs-example" data-example-id="panel-with-footer">
+			    <div class="panel panel-default">
+			      <div class="panel-body">
+			        Time in seconds to wait before rebuild the topology:
+			        <span class="time">300 [s]</span>
+			      </div>
+			    </div>
+			  </div>
+			 <div class="zero-clipboard"></div>
+			<div class="highlight">
+				<div id="secondTopologyBuild"></div>
+				<button type="button" id="admin-rebuild" class="btn btn-default btn-lg rebuidTopo">
+				  <span class="halflings-icon refresh" aria-hidden="true"></span> Rebuild Now!
+				</button>
+			</div>
+			<div class="bs-example" data-example-id="panel-with-footer">
+			    <div class="panel panel-default">
+			      <div class="panel-body">
+			        MongoDB information
+			      </div>
+			    </div>
+			  </div>
+			 <div class="zero-clipboard"></div>
+			<div class="highlight">
+				<div class="input-group">
+				  <span class="input-group-addon" id="basic-addon1">IP&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				  <input type="text" id="mongoIP" class="form-control" placeholder="IP" aria-describedby="basic-addon1">
+				</div>
+				<div class="clear-fix"></div>
+				<div class="input-group">
+				  <span class="input-group-addon" id="basic-addon1">Port</span>
+				  <input type="text" id="mongoPort" class="form-control" placeholder="Port" aria-describedby="basic-addon1">
+				</div>
+			</div>
+			<div class="bs-example" data-example-id="panel-with-footer">
+			    <div class="panel panel-default">
+			      <div class="panel-body">
+			        Time in seconds to wait before store information of the network:
+			        <span class="timeQuery">10 [s]</span>
+			      </div>
+			    </div>
+			  </div>
+			 <div class="zero-clipboard"></div>
+			<div class="highlight">
+				<div id="secondQueryController"></div>
+				<div class="col-lg-6">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<input type="checkbox" id="isRunningDaemon" aria-label="Active">
+						</span>
+						<span class="input-group-addon">
+							Active
+						</span>
+					</div><!-- /input-group -->
+			    </div>
+			</div>
+		</div>
+		<!-- Second Tab -->
+		<div class="admin-switch">
+			<div class="bs-example tab2-data" data-example-id="list-group-custom-content">
+				
+			</div>
+		</div>
+		<!-- Third Tab -->
+		<div class="admin-dataset">
+			<div class="bs-example tab3-data" data-example-id="list-group-custom-content">
+				bla bla
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" id="admin-save" class="btn btn-primary ">Save changes</a>
+	</div>
+</div>
 	
 	<!-- start: JavaScript-->
 		<script src="js/jquery-1.9.1.min.js"></script>
@@ -214,6 +305,9 @@
 		});
 		$("#topology").on('click', function(){
 			loadPage("/topology");
+		});
+		$("#prediction").on('click', function(){
+			loadPage("/prediction");
 		});
 		$("#other").on('click', function(){
 			loadPage("/other");

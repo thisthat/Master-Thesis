@@ -41,13 +41,15 @@ function graphBandwidth(){
 
 		var recv = Math.max(0, data[k].recvByte - prevRecvByte);
 		recv = recv/ (k - prevTime);
-		s1.push([k, recv]);
+		s1.push([k, recv / 1024 ]);
 		prevRecvByte = data[k].recvByte;
 
 		var send = Math.max(0, data[k].sendByte - prevSendByte);
 		send = send / (k - prevTime);
-		s2.push([k, send]);
+		s2.push([k, send / 1024 ]);
 		prevSendByte = data[k].sendByte;
+
+		prevTime = k;
 	}
 	var options = {
 		series: {

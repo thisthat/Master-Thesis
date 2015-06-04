@@ -129,5 +129,36 @@ router.post('/:dpid/dataset', function(req, res, next) {
 });
 
 
+router.get('/:dpid/execute', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    var _dpid = req.params.dpid;
+    request({
+        url: controller_url + '/wm/controller/prediction/' + _dpid + '/class/execute', 
+        timeout: 10000
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+router.get('/:dpid/execute/index', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    var _dpid = req.params.dpid;
+    request({
+        url: controller_url + '/wm/controller/prediction/' + _dpid + '/index/execute', 
+        timeout: 10000
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
 module.exports = router;
 

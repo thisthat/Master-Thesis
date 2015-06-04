@@ -24,6 +24,9 @@ router.get('/network/:dpid/:time', function(req, res, next) {
 router.get('/topology', function(req, res, next) {
   res.render('topology', { title: 'Overview usage' });
 });
+router.get('/prediction', function(req, res, next) {
+  res.render('prediction', { title: 'Overview usage' });
+});
 
 router.get('/other', function(req, res, next) {
   res.render('themeItems', { title: 'Overview usage' });

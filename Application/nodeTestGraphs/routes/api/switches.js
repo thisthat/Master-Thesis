@@ -72,19 +72,10 @@ router.get('/:dpid/:min/:max', function(req, res, next) {
 	var _dpid = req.params.dpid;
 	res.setHeader('Content-Type', 'application/json');
 	var out = {};
-	if(debug){
-		var findObj = {
-			DPID: _dpid,
-			test: __test,
-			_time: { $gte: _min, $lte: _max }
-		};
-	}
-	else {
-		var findObj = {
-			DPID: _dpid,
-			_time: { $gte: _min, $lte: _max }
-		};
-	}
+	var findObj = {
+		DPID: _dpid,
+		_time: { $gte: _min, $lte: _max }
+	};
 	db.collection('SwitchPortData')
 	.find(
 		findObj
