@@ -146,7 +146,6 @@ $(function(){
 				var time = sw.loadedAt;
 				var html = '<div class="bs-example" data-example-id="list-group-custom-content">';
 				html += '<div class="list-group">';
-				html += '<a href="#" class="list-group-item active">';
 				html += '<h4 class="list-group-item-heading" id="list-group-item-heading">' + sw.dpid;
 				html += '<a class="anchorjs-link" href="#"><span class="anchorjs-icon"></span></a></h4>'
 				html += '<p class="list-group-item-text">';
@@ -185,7 +184,6 @@ $(function(){
 
 				html  = '<div class="bs-example" data-example-id="list-group-custom-content">';
 				html += '<div class="list-group">';
-				html += '<a href="#" class="list-group-item active">';
 				html += '<h4 class="list-group-item-heading" id="list-group-item-heading">' + dpid;
 				html += '<a class="anchorjs-link" href="#"><span class="anchorjs-icon"></span></a></h4>'
 				html += '<p class="list-group-item-text">';

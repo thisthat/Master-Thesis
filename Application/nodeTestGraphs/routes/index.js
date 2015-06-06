@@ -28,6 +28,18 @@ router.get('/prediction', function(req, res, next) {
   res.render('prediction', { title: 'Overview usage' });
 });
 
+router.get('/rule', function(req, res, next) {
+  res.render('ruleList', { title: 'Overview usage' });
+});
+
+router.get('/rule/add', function(req, res, next) {
+  res.render('rule', { title: 'Overview usage' });
+});
+
+router.get('/behaviour', function(req, res, next) {
+  res.render('behaviour', { title: 'Overview usage' });
+});
+
 router.get('/other', function(req, res, next) {
   res.render('themeItems', { title: 'Overview usage' });
 });

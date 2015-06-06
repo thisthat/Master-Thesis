@@ -1,0 +1,102 @@
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home"></i>
+		<a href="/">Home</a> 
+		<i class="icon-angle-right"></i>
+	</li>
+	<li>
+		<a id="breadcrumb_1" href="#">Add Rule</a>
+		<i class="icon-angle-right"></i>
+	</li>
+</ul>
+
+<div class="box">
+	<div class="box-header" data-original-title="">
+		<h2><i class="halflings-icon list"></i><span class="break"></span>Add a new Rule</h2>
+	</div>
+	<div class="box-content">
+		<div class="alert alert-danger errList" role="alert">...</div>
+		<div class="bs-example table-responsive" data-example-id="simple-table">
+			<form class="form-horizontal">
+		    	<div class="form-group" id="ruleNameDiv">
+					<label for="ruleName" class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="ruleName" placeholder="Rule Name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="switchList" class="col-sm-2 control-label">Switch</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="switchList">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="priority" class="col-sm-2 control-label">Priority</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control" id="priority" placeholder="Priority">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inport" class="col-sm-2 control-label">In Port</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="inport">
+						</select>
+					</div>
+				</div>
+				<div id="actionRows"></div>
+				<div class="space"></div>
+				<div class="col-xs-12" style="text-align: center">
+					<button type="button" class="btn btn-info" id="cancBtn" aria-label="Abort Insert Action">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+					</button>
+					<button type="button" class="btn btn-success" id="saveBtn" aria-label="Add new Action">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+					</button>
+				</div>
+				</div>
+		    </form>
+  		</div>
+	</div>
+</div>
+
+<div id="templateRow" class="hide">
+	<div class="form-group addAction">
+		<label for="action" class="col-xs-12 col-sm-2 control-label">Action</label>
+		<div class="col-xs-12 col-sm-4">
+			<select class="form-control actionType">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<input type="text" class="actionValue form-control" />
+		</div>
+		<div class="col-xs-12 col-sm-12 col-lg-2" style="text-align: center">
+			<button type="button" class="btn btn-danger removeThis" aria-label="Remove Action">
+				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-success addRow" aria-label="Add new Action">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+$(function() {
+	$('.btn-minimize').on('click', function(e){
+		console.log("min");
+		e.preventDefault();
+		var $target = $(this).parent().parent().next('.box-content');
+		if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
+		else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+		$target.slideToggle();
+	});
+})
+</script>
+
+<script src="js/app/rule.js"></script>

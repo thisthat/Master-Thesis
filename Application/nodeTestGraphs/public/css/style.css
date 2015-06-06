@@ -27,7 +27,8 @@
 @import url("font-awesome-ie7.min.css");								/* Font Awesome Styles */
 @import url("glyphicons.css");											/* Glyphicons Font */
 @import url("halflings.css");											/* Glyphicons Halflings Font */
-@import url("style-forms.css");											/* Forms */
+/*@import url("style-forms.css");											/* Forms */
+@import url("bootstrap_3.css");											/* Forms */
 
 /* Main Colors
 =================================================================== */
@@ -1530,27 +1531,27 @@ ul.chat.metro li.right .message .arrow {
 }
 
 .alert.alert-success {
-	background-color: #edf6e5 !important;
-	color: #7a9659 !important;
-	border: 1px solid #9fc76f !important;
+	background-color: #edf6e5 ;
+	color: #7a9659 ;
+	border: 1px solid #9fc76f ;
 }
 
 .alert.alert-error {
-	background-color: #fdeaea !important;
-	color: #ca6f74 !important;
-	border: 1px solid #f27b81 !important;
+	background-color: #fdeaea ;
+	color: #ca6f74 ;
+	border: 1px solid #f27b81 ;
 }
 
 .alert {
-	background-color: #fffee1 !important;
-	color: #daac50 !important;
-	border: 1px solid #f5c056 !important;
+	background-color: #fffee1 ;
+	color: #daac50 ;
+	border: 1px solid #f5c056 ;
 }
 
 .alert.alert-info {
-	background-color: #e9f8ff !important;
-	color: #5d9fa9 !important;
-	border: 1px solid #75c7d3 !important;
+	background-color: #e9f8ff ;
+	color: #5d9fa9 ;
+	border: 1px solid #75c7d3 ;
 }
 
 /* Tables
@@ -2187,7 +2188,7 @@ div.uploader{
 =================================================================== */
 
 footer {
-	min-height: 24px;
+	min-height: 35px;
 	background: #3A3A3A;
 	color: #fff !important;
 	-webkit-border-radius: 0px;
@@ -3507,4 +3508,26 @@ Pseudo ::after element
 
 .nav-no-bottom {
 	margin-bottom: 0px;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input 
+{
+	height: 34px;
+}
+
+.btn-mini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }

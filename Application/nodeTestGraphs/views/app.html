@@ -96,7 +96,9 @@
 						<li><a href="#" id="dashboard"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>	
 						<li><a href="#" id="network"><i class="icon-tasks"></i><span class="hidden-tablet"> Network</span></a></li>	
 						<li><a href="#" id="topology"><i class="icon-eye-open"></i><span class="hidden-tablet"> Topology</span></a></li>	
-						<li><a href="#" id="prediction"><i class="icon-dashboard"></i><span class="hidden-tablet"> Prediction</span></a></li>	
+						<li><a href="#" id="prediction"><i class="icon-dashboard"></i><span class="hidden-tablet"> Prediction</span></a></li>
+						<li><a href="#" id="rule"><i class="icon-edit"></i><span class="hidden-tablet"> Rules</span></a></li>	
+						<li><a href="#" id="behaviour"><i class="icon-list-alt"></i><span class="hidden-tablet"> Behaviours</span></a></li>	
 						<li><a href="#" id="other"><i class="icon-envelope"></i><span class="hidden-tablet"> Other</span></a></li>
 					</ul>
 				</div>
@@ -137,7 +139,7 @@
 	</footer>
 
 <!-- Modal Admin Settings-->
-<div class="modal hide fade" id="myModal">
+<div class="modal fade" id="myModal">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h3>Admin Settings</h3>
@@ -161,7 +163,7 @@
 			 <div class="zero-clipboard"></div>
 			<div class="highlight">
 				<div id="secondTopologyBuild"></div>
-				<button type="button" id="admin-rebuild" class="btn btn-default btn-lg rebuidTopo">
+				<button type="button" id="admin-rebuild" class="btn btn-default rebuidTopo">
 				  <span class="halflings-icon refresh" aria-hidden="true"></span> Rebuild Now!
 				</button>
 			</div>
@@ -195,7 +197,7 @@
 			 <div class="zero-clipboard"></div>
 			<div class="highlight">
 				<div id="secondQueryController"></div>
-				<div class="col-lg-6">
+				<div class="">
 					<div class="input-group">
 						<span class="input-group-addon">
 							<input type="checkbox" id="isRunningDaemon" aria-label="Active">
@@ -309,12 +311,18 @@
 		$("#prediction").on('click', function(){
 			loadPage("/prediction");
 		});
+		$("#rule").on('click', function(){
+			loadPage("/rule");
+		});
+		$("#behaviour").on('click', function(){
+			loadPage("/behaviour");
+		});
 		$("#other").on('click', function(){
 			loadPage("/other");
 		});
 
 		//Start w/ network
-		$("#network").trigger("click");
+		$("#rule").trigger("click");
 
 
 		//Just to don't recompile everytime

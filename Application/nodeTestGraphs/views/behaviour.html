@@ -1,0 +1,77 @@
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home"></i>
+		<a href="/">Home</a> 
+		<i class="icon-angle-right"></i>
+	</li>
+	<li>
+		<a id="breadcrumb_1" href="#">Add Behaviour</a>
+		<i class="icon-angle-right"></i>
+	</li>
+</ul>
+
+<div class="box">
+	<div class="box-header" data-original-title="">
+		<h2><i class="halflings-icon list"></i><span class="break"></span>Add a new Behaviour</h2>
+	</div>
+	<div class="box-content">
+		<div class="bs-example table-responsive" data-example-id="simple-table">
+			<form class="">
+		    	<div class="form-group">
+					<label for="switchList" class="">When</label>
+					<select class="form-control" id="switchList">
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="simbol" class="">Load</label>
+					<select class="form-control" id="simbol">
+						<option>&le;</option>
+						<option>&ge;</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="loadNetwork" class="">Than</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">KB</span>
+						<input type="number" id="loadNetwork" class="form-control" placeholder="0" aria-describedby="basic-addon1">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="ruleSwitch" class="">Do</label>
+					<select class="form-control" id="ruleSwitch">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+					</select>
+				</div>
+				<div class="space"></div>
+				<div class="col-xs-12" style="text-align: center">
+					<button type="button" class="btn btn-info cancel" aria-label="Remove Action">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+					</button>
+					<button type="button" class="btn btn-success save" aria-label="Add new Action">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+					</button>
+				</div>
+				</div>
+		    </form>
+  		</div>
+	</div>
+</div>
+
+<script>
+$(function() {
+	$('.btn-minimize').on('click', function(e){
+		console.log("min");
+		e.preventDefault();
+		var $target = $(this).parent().parent().next('.box-content');
+		if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
+		else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+		$target.slideToggle();
+	});
+})
+</script>
+
+<script src="js/app/behaviour.js"></script>

@@ -1,0 +1,70 @@
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home"></i>
+		<a href="/">Home</a> 
+		<i class="icon-angle-right"></i>
+	</li>
+	<li><a id="breadcrumb_1" href="#">List of rules</a></li>
+</ul>
+
+<style>
+
+tr:hover {
+	cursor: pointer;
+}
+.addRule{
+	text-align: center;
+  	padding-bottom: 20px;
+}
+
+</style>
+
+<div class="addRule">
+	<button type="button" class="btn btn-success addRow" aria-label="Add new Action">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Rule
+	</button>
+</div>
+<div class="box">
+	<div class="box-header" data-original-title="">
+		<h2><i class="halflings-icon list"></i><span class="break"></span>Switch List</h2>
+		<div class="box-icon">
+			<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+		</div>
+	</div>
+	<div class="box-content">
+		<div class="alert alert-danger" role="alert">There were some problems tring to remove the rule. Please, try again later!</div>
+		<div class="alert alert-success" role="alert">Rule deleted corectly!</div>
+		<div class="bs-example table-responsive" data-example-id="simple-table">
+		    <table class="table table-striped table-hover table-bordered" id="ruleList">
+		      <thead>
+		        <tr>
+		          <th>#</th>
+		          <th>Name</th>
+		          <th>Create At</th>
+		          <th>Delete</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        
+		      </tbody>
+		    </table>
+  		</div>
+	</div>
+</div>
+
+
+
+
+
+<script src="js/app/ruleList.js"></script>
+<script>
+$(function() {
+	$('.btn-minimize').on('click', function(e){
+			e.preventDefault();
+			var $target = $(this).parent().parent().next('.box-content');
+			if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
+			else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+			$target.slideToggle();
+		});
+})
+</script>

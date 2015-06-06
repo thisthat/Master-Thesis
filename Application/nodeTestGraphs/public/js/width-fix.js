@@ -15,10 +15,11 @@ function widthFunctions(e) {
 	var contentHeight = $("#content").height();
 
 	if (winHeight) {
-		var hh = $(".navbar").height();
-		var fh = $("footer").height();
+		var hh = $(".navbar").outerHeight(true);
+		var fh = $("footer").outerHeight(true);
+		console.log(fh);
 		var dh = $(window).height();
-		var h = dh - fh - hh - fh;
+		var h = dh - fh - hh;
 		
 		$("#content").css("min-height", h );
 		

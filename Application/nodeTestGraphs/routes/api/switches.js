@@ -34,7 +34,6 @@ router.get('/list/:min/:max/:group', function(req, res, next) {
         res.json(out);
     })
 	;
-	
 });
 //Group by MAC address
 router.get('/list/:min/:max', function(req, res, next) {
@@ -158,6 +157,22 @@ router.get('/:dpid/info', function(req, res, next){
 	res.setHeader('Content-Type', 'application/json'); 
     request.get({
         url: controller_url + '/wm/core/switch/' + _dpid + '/desc/json', 
+        timeout: 1000,
+    },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+router.get('/:dpid/port', function(req, res, next){
+	var _dpid = req.params.dpid;
+	res.setHeader('Content-Type', 'application/json'); 
+    request.get({
+        url: controller_url + '/wm/core/switch/' + _dpid + '/port/json', 
         timeout: 1000,
     },
     function (error, response, body) {
