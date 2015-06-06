@@ -299,6 +299,8 @@
 	}
 
 	$(function(){
+		$("#myModal").hide();
+		
 		$("#dashboard").on('click', function(){
 			loadPage("/dashboard");
 		});
@@ -322,7 +324,7 @@
 		});
 
 		//Start w/ network
-		$("#rule").trigger("click");
+		$("#behaviour").trigger("click");
 
 
 		//Just to don't recompile everytime

@@ -37,6 +37,11 @@ router.get('/rule/add', function(req, res, next) {
 });
 
 router.get('/behaviour', function(req, res, next) {
+  res.render('behaviourList', { title: 'Overview usage' });
+});
+
+
+router.get('/behaviour/add', function(req, res, next) {
   res.render('behaviour', { title: 'Overview usage' });
 });
 

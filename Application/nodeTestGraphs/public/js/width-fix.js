@@ -17,7 +17,6 @@ function widthFunctions(e) {
 	if (winHeight) {
 		var hh = $(".navbar").outerHeight(true);
 		var fh = $("footer").outerHeight(true);
-		console.log(fh);
 		var dh = $(window).height();
 		var h = dh - fh - hh;
 		

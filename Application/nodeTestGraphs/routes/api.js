@@ -14,12 +14,13 @@ var controller = require('./api/controller');
 var switches = require('./api/switches')
 var prediction = require('./api/prediction')
 var rule = require('./api/rule')
+var behaviour = require('./api/behaviour')
 
 router.use("/controller", controller);
 router.use("/switch", switches);
 router.use("/prediction", prediction);
 router.use("/rule", rule);
-
+router.use("/behaviour", behaviour);
 
 router.get('/', function(req, res, next) {
   res.send('API Working');

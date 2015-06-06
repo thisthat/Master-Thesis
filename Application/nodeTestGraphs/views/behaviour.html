@@ -15,6 +15,7 @@
 		<h2><i class="halflings-icon list"></i><span class="break"></span>Add a new Behaviour</h2>
 	</div>
 	<div class="box-content">
+		<div class="alert alert-danger errList" role="alert"></div>
 		<div class="bs-example table-responsive" data-example-id="simple-table">
 			<form class="">
 		    	<div class="form-group">
@@ -25,8 +26,8 @@
 				<div class="form-group">
 					<label for="simbol" class="">Load</label>
 					<select class="form-control" id="simbol">
-						<option>&le;</option>
-						<option>&ge;</option>
+						<option value="lesser">&le;</option>
+						<option value="greater">&ge;</option>
 					</select>
 				</div>
 				<div class="form-group">
@@ -39,11 +40,6 @@
 				<div class="form-group">
 					<label for="ruleSwitch" class="">Do</label>
 					<select class="form-control" id="ruleSwitch">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
 					</select>
 				</div>
 				<div class="space"></div>
@@ -54,7 +50,6 @@
 					<button type="button" class="btn btn-success save" aria-label="Add new Action">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
 					</button>
-				</div>
 				</div>
 		    </form>
   		</div>

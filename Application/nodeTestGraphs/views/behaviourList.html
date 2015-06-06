@@ -4,7 +4,7 @@
 		<a href="/">Home</a> 
 		<i class="icon-angle-right"></i>
 	</li>
-	<li><a id="breadcrumb_1" href="#">List of rules</a></li>
+	<li><a id="breadcrumb_1" href="#">List of behaviours</a></li>
 </ul>
 
 <style>
@@ -20,27 +20,30 @@ tr:hover {
 </style>
 
 <div class="addRule">
-	<button type="button" class="btn btn-success addRow" aria-label="Add new Action">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Rule
+	<button type="button" class="btn btn-success addBehaviour" aria-label="Add new Action">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Behaviour
 	</button>
 </div>
 <div class="box">
 	<div class="box-header" data-original-title="">
-		<h2><i class="halflings-icon list"></i><span class="break"></span>Rule List</h2>
+		<h2><i class="halflings-icon list"></i><span class="break"></span>Beaviour List</h2>
 		<div class="box-icon">
 			<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 		</div>
 	</div>
 	<div class="box-content">
-		<div class="alert alert-danger" role="alert">There were some problems tring to remove the rule. Please, try again later!</div>
-		<div class="alert alert-success" role="alert">Rule deleted corectly!</div>
+		<div class="alert alert-danger" role="alert">There were some problems tring to remove the behaviour. Please, try again later!</div>
+		<div class="alert alert-success" role="alert">Behaviour deleted corectly!</div>
 		<div class="bs-example table-responsive" data-example-id="simple-table">
-		    <table class="table table-striped table-hover table-bordered" id="ruleList">
+		    <table class="table table-striped table-hover table-bordered" id="behaviourList">
 		      <thead>
 		        <tr>
 		          <th>#</th>
-		          <th>Name</th>
+		          <th>Rule Applied</th>
 		          <th>Create At</th>
+		          <th>Switch</th>
+		          <th>&le; | &ge;</th>
+		          <th>Value</th>
 		          <th>Delete</th>
 		        </tr>
 		      </thead>
@@ -56,7 +59,7 @@ tr:hover {
 
 
 
-<script src="js/app/ruleList.js"></script>
+<script src="js/app/behaviourList.js"></script>
 <script>
 $(function() {
 	$('.btn-minimize').on('click', function(e){
