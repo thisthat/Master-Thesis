@@ -65,11 +65,43 @@
 		<label for="action" class="col-xs-12 col-sm-2 control-label">Action</label>
 		<div class="col-xs-12 col-sm-4">
 			<select class="form-control actionType">
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-				<option>5</option>
+			<!-- 
+			Generated from console with 
+			$("#tblAction").find("td:nth-child(1) > p").each(function(){ htmlOut += "<option value='" + $(this).html() + "'>" + $(this).html() + "</option>\n"; })
+			from
+			https://floodlight.atlassian.net/wiki/pages/viewpage.action?pageId=1343518
+			-->
+				<option value='output'>output</option>
+				<option value='table'>table</option>
+				<option value='group'>group</option>
+				<option value='enqueue'>enqueue</option>
+				<option value='set_queue'>set_queue</option>
+				<option value='strip_vlan'>strip_vlan</option>
+				<option value='set_vlan_vid'>set_vlan_vid</option>
+				<option value='set_vlan_pcp'>set_vlan_pcp</option>
+				<option value='push_vlan'>push_vlan</option>
+				<option value='pop_vlan'>pop_vlan</option>
+				<option value='set_eth_src'>set_eth_src</option>
+				<option value='set_eth_dst'>set_eth_dst</option>
+				<option value='set_ip_tos'>set_ip_tos</option>
+				<option value='set_ip_ecn'>set_ip_ecn</option>
+				<option value='set_ipv4_src'>set_ipv4_src</option>
+				<option value='set_ipv4_dst'>set_ipv4_dst</option>
+				<option value='set_ip_ttl'>set_ip_ttl</option>
+				<option value='dec_ip_ttl'>dec_ip_ttl</option>
+				<option value='copy_ip_ttl_in'>copy_ip_ttl_in</option>
+				<option value='copy_ip_ttl_out'>copy_ip_ttl_out</option>
+				<option value='set_mpls_label'>set_mpls_label</option>
+				<option value='set_mpls_tc'>set_mpls_tc</option>
+				<option value='set_mpls_ttl'>set_mpls_ttl</option>
+				<option value='dec_mpls_ttl'>dec_mpls_ttl</option>
+				<option value='push_mpls'>push_mpls</option>
+				<option value='pop_mpls'>pop_mpls</option>
+				<option value='push_pbb'>push_pbb</option>
+				<option value='pop_pbb'>pop_pbb</option>
+				<option value='set_tp_src'>set_tp_src</option>
+				<option value='set_tp_dst'>set_tp_dst</option>
+				<option value='set_field'>set_field</option>
 			</select>
 		</div>
 		<div class="col-xs-12 col-sm-4">

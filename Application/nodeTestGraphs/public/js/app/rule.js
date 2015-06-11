@@ -56,7 +56,9 @@ $(function() {
 				var val = $(this).find('.actionValue').val();
 				strAction += key + "=" + val + ",";
 			});
-
+			//Remove last comma
+			strAction = strAction.substring(0, strAction.length - 1);
+			
 			//Checks
 			//name unique
 			//Not empy fields
