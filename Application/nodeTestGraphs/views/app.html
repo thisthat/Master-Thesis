@@ -324,7 +324,7 @@
 		});
 
 		//Start w/ network
-		$("#behaviour").trigger("click");
+		$("#rule").trigger("click");
 
 
 		//Just to don't recompile everytime
@@ -337,6 +337,22 @@
 		});
 		
 	});
+
+	function formatTime(unix){
+		var date = new Date(unix*1000);
+
+		var hours = date.getHours();
+		var minutes = "0" + date.getMinutes();
+		var seconds = "0" + date.getSeconds();
+		var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+		var year = date.getFullYear();
+		var month = "0" + date.getMonth();
+		var days = "0" + date.getDay();
+		var formattedDay = year + '/' + month.substr(-2) + '/' + days.substr(-2);
+
+		return formattedTime + " " + formattedDay;
+	}
 	</script>
 </body>
 </html>

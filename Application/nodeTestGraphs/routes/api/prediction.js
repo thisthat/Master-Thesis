@@ -56,10 +56,33 @@ router.get('/:dpid/dataset', function(req, res, next){
 });
 
 router.get('/:dpid/reload', function(req, res, next) {
-	res.setHeader('Content-Type', 'application/json');
-  	var _dpid = req.params.dpid;
+    res.setHeader('Content-Type', 'application/json');
+    var _dpid = req.params.dpid;
     request({
         url: controller_url + 'wm/controller/prediction/' + _dpid + '/reload', 
+        timeout: 2000, //after 12s the controller stop to wait the switches and answer
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+        else {
+            res.send("[]");
+        }
+    })
+});
+
+router.get('/:dpid/:model/reload', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    var _dpid = req.params.dpid;
+    var _model = req.params.model;
+    var post = {
+        index : _model
+    };
+    console.log("Send " + _model);
+    request({
+        method: 'POST',
+        url: controller_url + 'wm/controller/prediction/' + _dpid + '/reload', 
+        form: JSON.stringify(post),
         timeout: 2000, //after 12s the controller stop to wait the switches and answer
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {

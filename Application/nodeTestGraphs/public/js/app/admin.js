@@ -86,8 +86,9 @@ $(function(){
 		//Handle the reload of a model
 		$(".tab2-data").on('click', 'button',function(){
 			var dpid = $(this).attr('data-sw');
-			$.getJSON( "api/prediction/" + dpid + "/reload", function( res ) { 
-				console.log(res);
+			var model = $(this).parent().find('.classifierChosen').val();
+			$.getJSON( "api/prediction/" + dpid + "/" + model + "/reload", function( res ) { 
+				
 				loadSwitch();
 			});
 		});
@@ -138,19 +139,34 @@ $(function(){
 		});
 	}
 	function loadSwitch(){
-		console.log("Load Switch");
 		$(".tab2-data").html("");
 		$.getJSON( "api/prediction/all/info", function( prediction ) {
 			for(var i in prediction){
 				var sw = prediction[i];
 				var time = sw.loadedAt;
+				var _class = sw.index;
+				console.log(sw, _class);
 				var html = '<div class="bs-example" data-example-id="list-group-custom-content">';
 				html += '<div class="list-group">';
 				html += '<h4 class="list-group-item-heading" id="list-group-item-heading">' + sw.dpid;
 				html += '<a class="anchorjs-link" href="#"><span class="anchorjs-icon"></span></a></h4>'
 				html += '<p class="list-group-item-text">';
 				html += 'Classifier: ' + sw.classifier + ' <br />';
-				html += 'Model loaded @:' + time;
+				html += 'Model loaded @' + formatTime(time);
+				html += '<select class="classifierChosen">';
+					for(var idx in sw.avaiableClassifiers){
+						var item = sw.avaiableClassifiers[idx];
+						var keys = Object.keys(item);
+						var elm  = item[keys[0]];
+						elm = elm.substring(elm.lastIndexOf('/')+1);
+						if(keys[0] == _class){
+							html += '<option SELECTED value="' + keys[0] + '">' +  elm + '</option>';
+						}
+						else {
+							html += '<option value="' + keys[0] + '">' +  elm + '</option>';
+						}
+					}
+				html += '</select>';
 				html += '<button type="button" style="margin-left: 20px;" class="btn btn-info reload" data-sw="' + sw.dpid + '">';
 				html += '<span class="halflings-icon refresh" aria-hidden="true"></span>';
 				html += '</button></p>';
