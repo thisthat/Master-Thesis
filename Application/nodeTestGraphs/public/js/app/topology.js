@@ -75,6 +75,7 @@ d3.json("/api/topology/graph/json", function(error, graph) {
       d3.select(this).attr('r', 7)
       .style("fill","green");
       //Run the call of legend
+      legend.style("opacity",0);
       generateLegend(d);
   });
 
@@ -100,10 +101,16 @@ d3.json("/api/topology/graph/json", function(error, graph) {
 				.attr("x", width - 300)
 				.attr("y", 85)
 				.text("OpenFlow Protocol: " + data.version);
+
+			legend.transition()
+  				.style("opacity",1)
+  				.duration(1000) // this is 1s
+  				.delay(100);     // this is 0.1s
+
 			d3.select("rect.legendBorder")
-           		.style('stroke-width', n+1)
-				.style("stroke", colors[n])
-				.style("stroke-width", colors[n]);
+           		.style('stroke-width', 1)
+				.style("stroke", colors[1])
+				.style("stroke-width", colors[1]);
 
 		});
 	}

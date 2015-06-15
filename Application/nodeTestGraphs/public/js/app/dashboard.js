@@ -199,26 +199,30 @@ function loadChart(){
 
 function generalStatus(){
 	$.getJSON( "/api/controller/summary", function( data ) {
-		keys = Object.keys(data);
-		var d1 = [];
-		for(i = 0; i < 4; i++){
-			d1.push([ keys[i] , data[keys[i]] ]);
-		}
-		$.plot($("#stackchart"), [ d1 ], {
-			series: {
-				bars: {
-					show: true,
-					barWidth: 0.6,
-					align: "center"
-				}
-			},
-			xaxis: {
-				mode: "categories",
-				tickLength: 0
-			},
-			colors: ["#2FABE9", "#FABB3D"]
+		$.getJSON( "/api/controller/hosts", function( devices ) {
+			keys = Object.keys(data);
+			var d1 = [];
+			for(i = 0; i < 3; i++){
+				d1.push([ keys[i] , data[keys[i]] ]);
+			}
+			d1.push([ "# Hosts" , devices.length ]);
+			$.plot($("#stackchart"), [ d1 ], {
+				series: {
+					bars: {
+						show: true,
+						barWidth: 0.6,
+						align: "center"
+					}
+				},
+				xaxis: {
+					mode: "categories",
+					tickLength: 0
+				},
+				colors: ["#2FABE9", "#FABB3D"]
+			});
 		});
 	});
+	
 }
 
 function realTimeGraph(){

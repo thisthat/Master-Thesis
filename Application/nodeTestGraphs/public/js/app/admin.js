@@ -23,7 +23,6 @@ $(function(){
 				$.gritter.removeAll();
 			}
 		});
-		console.log("Quante volte premo?", id);
 	});
 
 	//Bind the rebuild now
@@ -88,7 +87,6 @@ $(function(){
 			var dpid = $(this).attr('data-sw');
 			var model = $(this).parent().find('.classifierChosen').val();
 			$.getJSON( "api/prediction/" + dpid + "/" + model + "/reload", function( res ) { 
-				
 				loadSwitch();
 			});
 		});
@@ -204,13 +202,13 @@ $(function(){
 				html += '<a class="anchorjs-link" href="#"><span class="anchorjs-icon"></span></a></h4>'
 				html += '<p class="list-group-item-text">';
 
-				html += "Class size: <select class='classSize' data-dpid='" + dpid + "'>";
+				html += "Interval size: <select class='classSize' data-dpid='" + dpid + "'>";
 					html += "<option value='200' " + (size == "200" ? "SELECTED" : "") + "> 200KB </option>"; 
 					html += "<option value='500' " + (size == "500" ? "SELECTED" : "") + "> 500KB </option>"; 
 					html += "<option value='1000' " + (size == "1000" ? "SELECTED" : "") + "> 1000KB </option>";  
 				html += "</select>";
 				html += "<br />";
-				html += "Lags: <select class='lags' data-dpid='" + dpid + "'>";
+				html += "N&ordm; Past Observation: <select class='lags' data-dpid='" + dpid + "'>";
 					html += "<option value='5' " + (lags == "5" ? "SELECTED" : "") + "> 5 </option>"; 
 					html += "<option value='8' " + (lags == "8" ? "SELECTED" : "") + "> 8 </option>"; 
 					html += "<option value='10' " + (lags == "10" ? "SELECTED" : "") + "> 10 </option>";  
@@ -243,7 +241,6 @@ $(function(){
 			url: "api/prediction/timeout",
 			data: { time: __time }
 		}).done(function(res) {
-			console.log(res);
 		});
 	};
 
@@ -255,7 +252,6 @@ $(function(){
 			url: "api/controller/mongoDB",
 			data: { ip: _ip, port: _port }
 		}).done(function(res) {
-			console.log(res);
 		});
 	};
 
@@ -268,7 +264,6 @@ $(function(){
 			url: "/daemon",
 			data: { timer: _timer, active: _active }
 		}).done(function(res) {
-			console.log(res);
 		});
 	};
 
@@ -292,7 +287,6 @@ $(function(){
 			url: "api/prediction/all/dataset",
 			data: { obj : JSON.stringify(jsonObj) }
 		}).done(function(res) {
-			console.log(res);
 		});
 
 	};
