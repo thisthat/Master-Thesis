@@ -2696,6 +2696,12 @@ ul.messagesList li span.date {
 #secondTopologyBuild .ui-slider-handle { border-color: #729fcf; }
 #secondQueryController .ui-slider-range { background: #729fcf; }
 #secondQueryController .ui-slider-handle { border-color: #729fcf; }
+
+#minuteBehaviours .ui-slider-range { background: #729fcf; }
+#minuteBehaviours .ui-slider-handle { border-color: #729fcf; }
+#minuteBehaviours .ui-slider-range { background: #729fcf; }
+#minuteBehaviours .ui-slider-handle { border-color: #729fcf; }
+
 #secondQueryController {
 	margin-bottom: 10px;
 }
