@@ -103,11 +103,6 @@ $(function(){
 		var $spanTime = $("#secondQueryController").parent().parent().find(".timeQuery");
 		$spanTime.html( s + " [s]");
 	}
-	function sendTimeBehaviour(){
-		var s = $( "#minuteBehaviours" ).slider( "value" );
-		var $spanTime = $("#minuteBehaviours").parent().parent().find(".timeBehaviour");
-		$spanTime.html( s + " [m]");
-	}
 	
 
 	function loadTimeOut(){
@@ -122,18 +117,6 @@ $(function(){
 		      change: sendTime
 		    });
 			$( "#secondTopologyBuild" ).slider( "value", __time );
-		});
-		$.getJSON( "api/behaviour/timeout", function( time ) {
-			var t = parseInt(time.timeout) / 1000;
-			$( "#minuteBehaviours" ).slider({
-		      orientation: "horizontal",
-		      range: "min",
-		      max: 30,
-		      min: 1,
-		      slide: sendTimeBehaviour,
-		      change: sendTimeBehaviour
-		    });
-			$( "#minuteBehaviours" ).slider( "value", t );
 		});
 	}
 	function loadDaemon(){
@@ -259,14 +242,6 @@ $(function(){
 			data: { time: __time }
 		}).done(function(res) {
 		});
-		var t = $( "#minuteBehaviours" ).slider( "value") * 60 * 1000;
-		$.ajax({
-			method: "POST",
-			url: "api/behaviour/timeout",
-			data: { time: t }
-		}).done(function(res) {
-		});
-
 	};
 
 	function saveMongo(){
