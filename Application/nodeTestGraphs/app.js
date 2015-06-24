@@ -9,6 +9,8 @@ var swig  = require('swig');
 var isDaemonRunning = false;
 var daemonTimer = 5; //In seconds
 
+var controller_url = "http://192.168.56.1:8080/";
+
 //DB
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://127.0.0.1:27017/FloodLight", {native_parser:true});
@@ -40,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.db = db;
+    req.controller_url = controller_url;
     next();
 });
 
@@ -47,11 +50,14 @@ app.use('/', routes);
 app.use('/api', api);
 app.use('/graph', graph);
 
+
+//Getter and setter of the Daemon Timeout
 app.get('/daemon', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   var out = "{ \"timer\" : \"" + daemonTimer + "\", \"isRunning\" : \"" + isDaemonRunning + "\"}";
   res.send(out);
 });
+
 app.post('/daemon', function (req, res) {
   var active = String(req.body.active);
   var timer = parseInt(req.body.timer);

@@ -3,7 +3,8 @@ var router = express.Router();
 var request = require('request');
 var MJ = require("mongo-fast-join"),
     mongoJoin = new MJ();
-var controller_url = "http://192.168.56.1:8080/";
+
+//var controller_url = "http://192.168.56.1:8080/";
 
 var debug = false;
 var __test = "full_00";

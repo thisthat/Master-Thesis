@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+
 var controller_url = "http://192.168.56.1:8080/";
 
 //Get the lists of rules
@@ -40,6 +41,7 @@ router.post('/create', function(req, res, next){
 router.get('/timeout', function(req, res){
 	res.setHeader('Content-Type', 'application/json');
   	var _dpid = req.params.dpid;
+    var controller_url = req.controller_url;
     request({
         url: controller_url + 'wm/controller/behaviour/time', 
         timeout: 2000, //after 12s the controller stop to wait the switches and answer
