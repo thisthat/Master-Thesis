@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var controller_url = "http://192.168.56.1:8080/";
-
 //Get the lists of rules
 router.get('/', function(req, res){
 	res.setHeader('Content-Type', 'application/json');

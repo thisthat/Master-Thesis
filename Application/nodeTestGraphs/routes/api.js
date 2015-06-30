@@ -4,7 +4,6 @@ var request = require('request');
 var MJ = require("mongo-fast-join"),
     mongoJoin = new MJ();
 
-var controller_url = "http://192.168.56.1:8080/";
 
 var debug = false;
 var __test = "full_00";
@@ -33,6 +32,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/network/load/:min/:max', function(req, res, next) {
 	var db = req.db;
+	var controller_url = req.controller_url;
 	var _min = parseInt(req.params.min);
 	var _max = parseInt(req.params.max);
 	res.setHeader('Content-Type', 'application/json');
@@ -128,7 +128,7 @@ Topology Section
 
 router.get('/topology/graph/json', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');
-  
+  	var controller_url = req.controller_url;
     request({
         url: controller_url + 'wm/controller/topology', 
         timeout: 13000, //after 12s the controller stop to wait the switches and answer

@@ -21,7 +21,6 @@ var db = mongo.db("mongodb://127.0.0.1:27017/FloodLight", {native_parser:true});
 // Graph -> render the Graphs 
 var routes = require('./routes/index');
 var api = require('./routes/api');
-var graph = require('./routes/graph');
 
 var app = express();
 
@@ -48,7 +47,6 @@ app.use(function(req,res,next){
 
 app.use('/', routes);
 app.use('/api', api);
-app.use('/graph', graph);
 
 
 //Getter and setter of the Daemon Timeout

@@ -95,16 +95,64 @@ d3.json("/api/topology/graph/json", function(error, graph) {
 		.attr("cy", function(d) { return d.y; });
 	});
 
+	
 	d3.selectAll("circle.node").on("click", function(d){
-      //On Click, reset the style
-      /*d3.selectAll("circle.node").attr('r', 5)
-      .style("fill", function(d) { return color(1); });
-      d3.select(this).attr('r', 7)
-      .style("fill","green");*/
       //Run the call of legend
-      legend.style("opacity",0);
-      generateLegend(d);
+      //legend.style("opacity",0);
+      //generateLegend(d);
+      console.log(d);
+      generatePopUp(d);
   });
+
+	function generatePopUp(node){
+		$.getJSON( "/api/prediction/" + node.name + "/execute/all", function( _data ) {
+			console.log(_data);
+			var serie = [];
+			var val = _data[0].ValueList;
+			var pre = _data[0].PredictionList;
+			var size= _data[0].ClassSize;
+			var j = 0;
+			for(var i = 0; i < val.length; i++){
+				serie.push([ j++ , parseInt(val[i]) ] );
+			}
+			for(var i = 0; i < pre.length; i++){
+				serie.push([ j++ , parseInt(pre[i]) * size ] );
+			}
+			console.log(serie);
+			$('#inline').modal('show');
+			var plot = $.plot($("#graphPrediction"), [ serie ], {
+				legend: {
+					show: true
+					//container: $("#legend")
+				},
+				series: { shadowSize: 1 },
+				lines: { fill: true, fillColor: { colors: [ { opacity: 0.3 }, { opacity: 0.1 } ] }},
+				xaxis: { show: false },
+				colors: ["#2FABE9", "#EB3C00"],
+				grid: {	
+						tickColor: "#dddddd",
+						borderWidth: 0,
+						hoverable: true
+				},
+				crosshair: {
+					mode: "x"
+				}
+			});
+			//Line NOW
+			var o = plot.pointOffset({ x: val.length - 1, y: -20});
+			var ctx = plot.getCanvas().getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(o.left, o.top + 20);
+			ctx.lineTo(o.left, o.top - 300);
+			ctx.lineTo(o.left + 2, o.top - 300);
+			ctx.lineTo(o.left + 2, o.top + 20);
+			ctx.fillStyle = "#F4A506";
+			ctx.fill();
+			ctx.font="10px Arial";
+			ctx.fillText("Now", o.left + 5 ,o.top + 5);
+			$("#graphPrediction").css("margin","20px auto");
+		});
+	}
 
 	function generateLegend(node){
 

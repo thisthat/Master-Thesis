@@ -2,10 +2,6 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var controller_url = "http://192.168.56.1:8080/";
-
-var debug = false;
-var __test = "full_00";
 
 //Group by par
 router.get('/list/:min/:max/:group', function(req, res, next) {
@@ -155,6 +151,7 @@ router.get('/flow/:dpid/:min/:max', function(req, res, next) {
 
 router.get('/:dpid/info', function(req, res, next){
 	var _dpid = req.params.dpid;
+	var controller_url = req.controller_url;
 	res.setHeader('Content-Type', 'application/json'); 
     request.get({
         url: controller_url + '/wm/core/switch/' + _dpid + '/desc/json', 
@@ -172,6 +169,7 @@ router.get('/:dpid/info', function(req, res, next){
 router.get('/:dpid/port', function(req, res, next){
 	var _dpid = req.params.dpid;
 	res.setHeader('Content-Type', 'application/json'); 
+	var controller_url = req.controller_url;
     request.get({
         url: controller_url + '/wm/core/switch/' + _dpid + '/port/json', 
         timeout: 1000,
