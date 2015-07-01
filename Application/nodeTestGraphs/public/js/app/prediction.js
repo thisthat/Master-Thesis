@@ -1,6 +1,9 @@
 var width = $("#topologyGraph").width(),
 height = 500;
 
+
+var sigma = [1,2,3,4,5,6,7,8,9];
+
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
@@ -42,7 +45,6 @@ d3.json("/api/topology/graph/json", function(error, graph) {
 				.attr("y", 25)
 				.text("There are no switches in the network!");
 	}
-	console.log(graph);
 	force
 	.nodes(graph.nodes)
 	.links(graph.links)
@@ -67,7 +69,6 @@ d3.json("/api/topology/graph/json", function(error, graph) {
 		var c = 0;
 		$.getJSON( url, function( pred ) {
 			var index = parseInt(pred.prediction);
-			console.log(pred.DPID, pred.prediction);
 			if(index >= 5 && index < 8){
 				c = 1;
 			}
@@ -100,14 +101,13 @@ d3.json("/api/topology/graph/json", function(error, graph) {
       //Run the call of legend
       //legend.style("opacity",0);
       //generateLegend(d);
-      console.log(d);
       generatePopUp(d);
   });
 
 	function generatePopUp(node){
 		$.getJSON( "/api/prediction/" + node.name + "/execute/all", function( _data ) {
-			console.log(_data);
 			var serie = [];
+			var error = [];
 			var val = _data[0].ValueList;
 			var pre = _data[0].PredictionList;
 			var size= _data[0].ClassSize;
@@ -115,20 +115,34 @@ d3.json("/api/topology/graph/json", function(error, graph) {
 			for(var i = 0; i < val.length; i++){
 				serie.push([ j++ , parseInt(val[i]) ] );
 			}
+			//Start to the same point
+			error.push([ j-1, parseInt(val[val.length - 1]) ]);
 			for(var i = 0; i < pre.length; i++){
-				serie.push([ j++ , parseInt(pre[i]) * size ] );
+				var v = parseInt(pre[i]) * size;
+				var sLow = Math.max(v - sigma[i]*size, 0);
+				var sHigh = v + sigma[i]*size;
+				serie.push([ j , v, sLow  ]);
+				error.push([ j , v, sHigh ]);
+				j++;
 			}
-			console.log(serie);
 			$('#inline').modal('show');
-			var plot = $.plot($("#graphPrediction"), [ serie ], {
+			var plot = $.plot($("#graphPrediction"), [ serie, error ], {
 				legend: {
 					show: true
 					//container: $("#legend")
 				},
 				series: { shadowSize: 1 },
-				lines: { fill: true, fillColor: { colors: [ { opacity: 0.3 }, { opacity: 0.1 } ] }},
+				lines: { 
+					fill: 1, 
+					fillColor: { 
+						colors: [ 
+							{ opacity: 0.3 }, 
+							{ opacity: 0.1 } 
+						] 
+					}
+				},
 				xaxis: { show: false },
-				colors: ["#2FABE9", "#EB3C00"],
+				colors: ["#2FABE9","#2FABE9"],
 				grid: {	
 						tickColor: "#dddddd",
 						borderWidth: 0,
@@ -148,9 +162,10 @@ d3.json("/api/topology/graph/json", function(error, graph) {
 			ctx.lineTo(o.left + 2, o.top + 20);
 			ctx.fillStyle = "#F4A506";
 			ctx.fill();
-			ctx.font="10px Arial";
-			ctx.fillText("Now", o.left + 5 ,o.top + 5);
+			ctx.font="14px Arial";
+			ctx.fillText("Now", o.left + 5 ,o.top - 280);
 			$("#graphPrediction").css("margin","20px auto");
+			$(".nodeInfo").html(node.name);
 		});
 	}
 
