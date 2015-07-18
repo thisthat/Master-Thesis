@@ -6,7 +6,8 @@ import json
 import math
 import sys
 from pymongo import MongoClient
-
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 #Params
 ip_vm = "192.168.56.1"
@@ -16,13 +17,14 @@ max_bandwidthClass = 10000
 
 
 #Vars
-switch = "00:00:00:00:00:00:00:02"
-timing = 30 # How many seconds for each bandwidth class in the TrafficTester
+switch = "00:00:00:00:00:00:03:01"
+timing = 60 # How many seconds for each bandwidth class in the TrafficTester
 skip = 1 # How many measurement to skip
 skipend = 1
 win_size = 6
-filename = "dataset_test_1"
 derivate = False
+day = "day_4"
+filename = "dataset_"
 
 for i in sys.argv:
 	if (i.startswith('-switch:')) :
@@ -41,6 +43,12 @@ for i in sys.argv:
 		size_class = int(i[12:])
 	if (i.startswith('-derivate')) :
 		derivate = True
+	if (i.startswith('-day:')) :
+		day = i[5:]
+		filename = "{0}{1}" . format(filename, day)
+
+if derivate:
+	filename = "{0}_der" . format(filename)
 
 #Connection
 client = MongoClient('mongodb://localhost:27017/')
@@ -73,19 +81,22 @@ prevByte = 0
 bandwidth = []
 tmp = []
 #collect data from DB
-for post in db.DataTime.find({ },{'_id':0}).sort("_time"):
+for post in db.DataTime.find({ "test" : day },{'_id':0}).sort("_time"):
 	time = post['_time']
 	byte = 0;
 
-	obj = {"DPID" : switch, "_time" : time}
+	obj = {"DPID" : switch, "_time" : time, "test" : day}
 
 	for data in db.SwitchFlowData.find( obj , {'_id' : 0}):
 		b = int(data["byteCount"])
 		byte = byte + b
 
-	currentTime = (time-prevTime) / 8
+	#print("Bandwidth: {0}" . format(byte) )
+	currentTime = (time-prevTime)
 	currentByte = (byte-prevByte) / currentTime
-	tmp.append({"bandwidth": currentByte/1024, "sec": time})
+	if (byte-prevByte) < 0:
+		currentByte = byte / currentTime
+	tmp.append({"bandwidth": currentByte, "sec": time})
 
 	prevByte = byte
 	prevTime = time
@@ -138,7 +149,8 @@ f.write(out)
 
 # Data creation
 f.write("@data\n")
-start = tmp[skip]['sec'] -  5
+#pp.pprint(tmp)
+start = tmp[skip]['sec']
 old_value = 0
 der = 0
 for i in range(win_size-1,len(bandwidth) + win_size - 1):
